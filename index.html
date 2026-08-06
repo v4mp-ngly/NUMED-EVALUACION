@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123d63">
+  <meta name="description" content="Evaluación funcional integral NUMED de edad biológica, salud y plan de acción personalizado.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%232c5282' width='100' height='100'/><circle cx='50' cy='50' r='35' fill='%2352781c'/><path d='M35,50 L45,60 L65,35' stroke='white' stroke-width='4' fill='none' stroke-linecap='round'/></svg>"type="image/svg+xml">
+  <title>Evaluación Funcional Integral - Edad Biológica | NUMED</title>
+  <style>
+    :root {
+      --navy-950:#08273f; --navy-900:#0d3555; --navy-800:#123d63; --navy-700:#1c587f;
+      --green-600:#7fb529; --green-500:#9ac63b; --green-100:#edf6da;
+      --ink:#142b3c; --muted:#607282; --line:#dbe5ea; --paper:#fff; --mist:#f3f7f8;
+      --sky:#ddecf3; --amber:#cf7c18; --red:#c94b4b; --shadow:0 20px 55px rgba(8,39,63,.12);
+      --radius:24px; --radius-sm:14px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:linear-gradient(180deg,#f8fbfc 0,#eef4f6 100%);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+    button,input,select{font:inherit}
+    button,a{touch-action:manipulation}
+    button{cursor:pointer}
+    a{color:inherit}
+    .shell{width:min(1180px,calc(100% - 32px));margin:auto}
+    .topbar{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(18,61,99,.09)}
+    .nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+    .brand img{width:112px;height:54px;object-fit:contain}
+    .brand-copy{padding-left:14px;border-left:1px solid var(--line);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);line-height:1.35}
+    .nav-actions{display:flex;align-items:center;gap:10px}
+    .privacy{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:12px;font-weight:700}
+    .privacy i{width:8px;height:8px;border-radius:50%;background:var(--green-500);box-shadow:0 0 0 4px var(--green-100)}
+    .btn{border:0;border-radius:999px;padding:12px 18px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;transition:.2s ease}
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:var(--navy-800);color:#fff;box-shadow:0 10px 26px rgba(18,61,99,.2)}
+    .btn-primary:hover{background:var(--navy-950)}
+    .btn-green{background:var(--green-500);color:var(--navy-950)}
+    .btn-ghost{background:#fff;color:var(--navy-800);border:1px solid var(--line)}
+    .btn-danger{background:#fff;color:var(--red);border:1px solid #efcaca}
+    .hero{position:relative;overflow:hidden;background:var(--navy-950);color:#fff;padding:74px 0 62px}
+    .hero:before,.hero:after{content:"";position:absolute;border-radius:50%;filter:blur(1px);pointer-events:none}
+    .hero:before{width:540px;height:540px;right:-180px;top:-300px;border:84px solid rgba(154,198,59,.12)}
+    .hero:after{width:220px;height:220px;left:48%;bottom:-160px;background:rgba(61,139,174,.22)}
+    .hero-grid{position:relative;z-index:1;display:block}
+    .eyebrow{display:flex;align-items:center;gap:10px;color:#cce49b;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+    .eyebrow:before{content:"";width:32px;height:3px;background:var(--green-500);border-radius:99px}
+    h1{font-size:clamp(40px,6vw,72px);line-height:.98;letter-spacing:-.055em;margin:24px 0 22px;max-width:780px}
+    .hero p{max-width:760px;font-size:18px;color:#c8d6df;margin:0}
+    main{padding:38px 0 80px}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:22px}
+    .step{width:100%;border:0;background:#e6edf0;color:#6b7c88;padding:10px 14px;border-radius:12px;font-size:12px;font-weight:850;display:flex;align-items:center;gap:10px;text-align:left;cursor:pointer;transition:transform .18s ease,background .18s ease,color .18s ease,box-shadow .18s ease}
+    .step:hover{transform:translateY(-2px);background:#dce6ea;color:var(--navy-800);box-shadow:0 8px 20px rgba(8,39,63,.08)}
+    .step:focus-visible{outline:3px solid rgba(154,198,59,.45);outline-offset:3px}
+    .step span{display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#fff;color:var(--navy-800)}
+    .step.active{background:var(--navy-800);color:#fff}.step.active span{background:var(--green-500)}
+    .workspace{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:24px;align-items:start}
+    .panel{background:var(--paper);border:1px solid rgba(18,61,99,.08);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .form-panel{padding:34px}
+    .section{padding:0;margin:0;border:0}
+    .main-section{padding-bottom:30px;margin-bottom:30px;border-bottom:1px solid var(--line);scroll-margin-top:100px}
+    .main-section:last-of-type{border-bottom:0}
+    .questionnaire-modal{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(5,29,46,.78);backdrop-filter:blur(6px)}
+    .questionnaire-modal.open{display:flex}
+    .questionnaire-box{width:min(920px,100%);max-height:calc(100vh - 40px);overflow:auto;background:#fff;border-radius:24px;box-shadow:0 32px 100px rgba(0,0,0,.35);padding:28px}
+    .questionnaire-head{position:sticky;top:-28px;z-index:2;margin:-28px -28px 24px;padding:19px 24px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .questionnaire-head strong{display:block;color:var(--navy-900);font-size:18px}.questionnaire-head span{display:block;color:var(--muted);font-size:11px}
+    .questionnaire-step{display:none;animation:stepIn .28s ease}
+    .questionnaire-step.active{display:block}
+    .questionnaire-close{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--navy-900);font-size:20px}
+    .questionnaire-complete{display:none;align-items:center;justify-content:space-between;gap:16px;padding:18px;border-radius:14px;background:var(--green-100);border:1px solid #d5e8ae;margin-top:8px}.questionnaire-complete.visible{display:flex}.questionnaire-complete strong{color:var(--navy-900);font-size:13px}.questionnaire-complete span{display:block;color:#638026;font-size:11px;margin-top:3px}
+    @keyframes stepIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .section-head{display:flex;justify-content:space-between;gap:24px;align-items:start;margin-bottom:22px}
+    .section-index{font-size:11px;font-weight:900;letter-spacing:.12em;color:var(--green-600);text-transform:uppercase;margin-bottom:6px}
+    h2{margin:0;color:var(--navy-900);font-size:24px;line-height:1.15;letter-spacing:-.025em}
+    .section-head p{margin:4px 0 0;color:var(--muted);font-size:13px;max-width:370px}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .field{display:flex;flex-direction:column;gap:7px}
+    .field.wide{grid-column:1/-1}
+    label{font-size:12px;color:#405564;font-weight:800}
+    .optional{color:#8a99a3;font-weight:600}
+    input,select{width:100%;height:48px;border:1.5px solid #d7e2e7;border-radius:12px;padding:0 13px;color:var(--ink);background:#fbfdfd;outline:none;transition:.18s}
+    input:focus,select:focus{border-color:var(--green-600);box-shadow:0 0 0 4px rgba(154,198,59,.14);background:#fff}
+    input::placeholder{color:#9aa8b1}
+    .input-unit{position:relative}.input-unit input{padding-right:52px}.input-unit span{position:absolute;right:14px;bottom:14px;color:#7a8a95;font-size:12px;font-weight:800}
+    .hint{font-size:11px;color:#83919a}
+    .question-progress{display:flex;align-items:center;gap:8px;margin-bottom:20px}
+    .question-progress span{height:5px;flex:1;border-radius:99px;background:#e3eaed}.question-progress span.on{background:var(--green-500)}
+    .question-list{display:grid;gap:14px}
+    .question{background:var(--mist);border:1px solid #e1eaed;border-radius:16px;padding:18px}
+    .question-top{display:flex;gap:13px;align-items:flex-start;margin-bottom:13px}
+    .q-number{display:grid;place-items:center;flex:0 0 31px;height:31px;border-radius:50%;background:var(--navy-800);color:#fff;font-size:10px;font-weight:900}
+    .q-copy{font-size:13px;color:var(--navy-900);font-weight:800;line-height:1.4;padding-top:5px}.q-copy small{display:block;margin-top:5px;color:var(--muted);font-size:10px;font-weight:550;line-height:1.45}
+    .radio-options{display:flex;flex-wrap:wrap;gap:8px;padding-left:44px}
+    .radio-card{position:relative;min-width:130px;flex:1}
+    .radio-card input{position:absolute;opacity:0;pointer-events:none}
+    .radio-card span{display:flex;align-items:center;justify-content:center;text-align:center;min-height:40px;padding:9px 12px;background:#fff;border:1.5px solid #d4e0e5;border-radius:11px;color:#5d707c;font-size:11px;font-weight:750;transition:.18s}
+    .radio-card input:checked+span{border-color:var(--green-600);background:var(--green-100);color:var(--navy-900);box-shadow:0 0 0 3px rgba(154,198,59,.12)}
+    .radio-card input:focus-visible+span{outline:3px solid rgba(18,61,99,.22)}
+    .sleep-times{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:end;padding-left:44px;margin-bottom:18px}
+    .sleep-times .field{margin:0}.sleep-times input[type="time"]{min-height:49px}
+    .sleep-duration{min-width:150px;min-height:49px;padding:9px 16px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--muted);display:flex;flex-direction:column;justify-content:center;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+    .sleep-duration strong{display:block;color:var(--navy-900);font-size:17px;line-height:1.1;letter-spacing:0;text-transform:none;margin-top:3px}
+    .sleep-followup{padding-left:44px}.sleep-followup .q-copy{padding:0 0 10px}
+    .section-note{background:#eef6fa;border-left:4px solid var(--navy-700);padding:13px 15px;border-radius:10px;color:var(--muted);font-size:11px;margin-bottom:18px}
+    .form-actions{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding-top:8px}
+    .form-actions .btn{min-height:50px;padding-inline:24px}
+    .side{position:sticky;top:102px;display:grid;gap:16px}
+    .readiness{padding:24px;background:var(--navy-900);color:#fff}
+    .readiness h3{margin:0 0 5px;font-size:18px}.readiness p{font-size:12px;color:#b9cbd5;margin:0 0 20px}
+    .ring{width:130px;height:130px;margin:8px auto 22px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--green-500) var(--progress,0%),rgba(255,255,255,.12) 0);position:relative}
+    .ring:after{content:"";position:absolute;width:104px;height:104px;border-radius:50%;background:var(--navy-900)}
+    .ring strong{position:relative;z-index:1;font-size:31px;line-height:1}.ring small{display:block;font-size:10px;color:#b9cbd5;text-transform:uppercase;letter-spacing:.1em}
+    .checklist{display:grid;gap:10px}.check{display:flex;align-items:center;gap:9px;font-size:12px;color:#b8c9d3}.check:before{content:"";width:9px;height:9px;border-radius:50%;background:#587185}.check.ok{color:#fff}.check.ok:before{background:var(--green-500)}
+    .pdf-card{padding:22px;overflow:hidden}.pdf-card .tag{display:inline-block;background:var(--green-100);color:#567b19;border-radius:999px;padding:5px 9px;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+    .pdf-card h3{font-size:17px;color:var(--navy-900);margin:13px 0 6px}.pdf-card p{font-size:12px;color:var(--muted);margin:0 0 16px}.pdf-card .btn{width:100%;font-size:12px}
+    .report-wrap{display:none;margin-top:28px;scroll-margin-top:96px}.report-wrap.visible{display:block}
+    .report-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin-bottom:14px;box-shadow:0 10px 26px rgba(8,39,63,.07)}
+    .report-toolbar strong{color:var(--navy-900)}.report-toolbar span{display:block;color:var(--muted);font-size:12px}
+    .report-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .report-page{background:#fff;border-radius:28px;box-shadow:var(--shadow);overflow:hidden}
+    .report-cover{background:linear-gradient(135deg,var(--navy-950),#0d3a58);color:#fff;padding:46px 48px 40px;position:relative;overflow:hidden}
+    .report-cover:after{content:"";position:absolute;width:210px;height:210px;border:38px solid rgba(154,198,59,.17);border-radius:50%;right:-48px;top:-78px}.report-cover:before{content:"";position:absolute;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.035);left:-160px;bottom:-210px}
+    .report-brand{display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;z-index:1}.report-brand img{width:155px;filter:brightness(0) invert(1)}
+    .report-kicker{text-transform:uppercase;letter-spacing:.14em;font-size:11px;color:#cce49b;font-weight:900}
+    .report-cover h2{color:#fff;font-size:35px;margin:34px 0 3px;max-width:650px}.report-cover h2 span{display:block;color:var(--green-400);font-size:24px;margin-top:4px}.report-cover>p{color:#c5d8e2;margin:12px 0 0;max-width:650px;line-height:1.55}.cover-purpose{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.cover-purpose span{padding:7px 10px;border:1px solid rgba(255,255,255,.16);border-radius:999px;color:#dbe8ee;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;background:rgba(255,255,255,.05)}
+    .patient-strip{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:16px;margin-top:32px;padding-top:22px;border-top:1px solid rgba(255,255,255,.15)}
+    .patient-strip small{display:block;color:#8fa9b8;text-transform:uppercase;letter-spacing:.09em;font-size:9px;margin-bottom:4px}.patient-strip strong{font-size:14px}
+    .report-body{padding:38px 48px 46px}
+    .report-section{margin-bottom:34px}.report-section:last-child{margin-bottom:0}
+    .report-title{display:flex;align-items:center;gap:12px;margin-bottom:17px;color:var(--navy-900);font-size:19px}.report-title:after{content:"";height:1px;background:var(--line);flex:1}
+    .explanation-intro{margin:-5px 0 17px;color:var(--muted);font-size:12px;line-height:1.65}.explanation-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.explanation-card{padding:15px;border:1px solid var(--line);border-radius:14px;background:#fbfdfd}.explanation-card b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--green-100);color:var(--green-700);font-size:15px;margin-bottom:9px}.explanation-card:nth-child(2) b{background:#edf1f3;color:var(--muted)}.explanation-card:nth-child(3) b{background:#fff0d8;color:#98601c}.explanation-card strong{display:block;color:var(--navy-900);font-size:12px;margin-bottom:4px}.explanation-card p{margin:0;color:var(--muted);font-size:10px;line-height:1.45}.result-explanation{margin-top:13px;padding:13px 15px;border-left:4px solid var(--green-500);background:var(--green-100);border-radius:10px;color:var(--navy-800);font-size:11px;font-weight:750;line-height:1.55}
+    .summary-banner{display:grid;grid-template-columns:auto 1fr;gap:15px;align-items:start;padding:18px;border-radius:17px;background:linear-gradient(135deg,var(--navy-900),var(--navy-700));color:#fff;margin-bottom:14px}.summary-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--green-500);color:var(--navy-950);font-weight:950;font-size:17px}.summary-banner small{display:block;color:#bdd0da;font-size:9px;text-transform:uppercase;letter-spacing:.1em;font-weight:900}.summary-banner strong{display:block;font-size:16px;margin:3px 0 5px}.summary-banner p{margin:0;color:#d9e6eb;font-size:11px;line-height:1.55}.summary-domains{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.summary-domain{display:grid;grid-template-columns:30px 1fr;gap:10px;padding:14px;border:1px solid var(--line);border-radius:14px;background:#fbfdfd}.summary-domain b{display:grid;place-items:center;width:28px;height:28px;border-radius:9px;background:var(--green-100);color:var(--green-700);font-size:10px}.summary-domain strong{display:block;color:var(--navy-900);font-size:11px;margin-bottom:4px}.summary-domain p{margin:0;color:var(--muted);font-size:9.5px;line-height:1.5}.summary-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}.summary-list{padding:14px 16px;border-radius:14px;border:1px solid var(--line);background:#fff}.summary-list.attention{background:#fffaf2;border-color:#f1dfc2}.summary-list h4{margin:0 0 8px;color:var(--navy-900);font-size:11px}.summary-list ul{margin:0;padding-left:17px;color:var(--muted);font-size:9.5px;line-height:1.5}.summary-list li+li{margin-top:4px}
+    .domain-method{margin:-5px 0 14px;padding:11px 14px;border-radius:12px;background:#f1f6f8;color:var(--muted);font-size:10px;line-height:1.5}.domain-method strong{color:var(--navy-900)}.domain-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.domain-card{padding:15px;border:1px solid var(--line);border-top:4px solid #9aacb6;border-radius:15px;background:#fff}.domain-card.good{border-top-color:var(--green-500);background:#fbfdf7}.domain-card.watch{border-top-color:#e1a33c;background:#fffaf2}.domain-card.alert{border-top-color:#c95959;background:#fff8f8}.domain-head{display:flex;justify-content:space-between;gap:8px;align-items:start}.domain-head strong{color:var(--navy-900);font-size:11px}.domain-impact{white-space:nowrap;font-size:10px;font-weight:900;color:var(--navy-900)}.domain-status{display:inline-block;margin:8px 0 6px;border-radius:999px;padding:4px 7px;background:#edf1f3;color:#61727d;font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}.domain-card.good .domain-status{background:var(--green-100);color:var(--green-700)}.domain-card.watch .domain-status{background:#fff0d8;color:#98601c}.domain-card.alert .domain-status{background:#fde3e3;color:#a33c3c}.domain-card p{margin:0;color:var(--muted);font-size:9px;line-height:1.45}.factor-method-note{margin:0 0 12px;color:var(--muted);font-size:9.5px;line-height:1.5}.factor-summary em{display:inline-block;margin-top:5px;color:#6b7b85;font-size:8px;font-style:normal;text-transform:uppercase;letter-spacing:.05em}.follow-meta{grid-template-columns:repeat(3,1fr)}.service-card{display:grid;grid-template-columns:1fr auto;gap:24px;padding:24px;border-radius:20px;background:linear-gradient(135deg,var(--navy-950),var(--navy-700));color:#fff;overflow:hidden;position:relative}.service-card:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;border:30px solid rgba(154,198,59,.12);right:-85px;top:-95px}.service-content{position:relative;z-index:1}.service-eyebrow{display:block;color:var(--green-400);font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.1em}.service-content h4{margin:5px 0 7px;color:#fff;font-size:20px}.service-content p{margin:0;color:#cfdee6;font-size:11px;line-height:1.55;max-width:590px}.service-reason{margin-top:10px!important;padding-left:12px;border-left:3px solid var(--green-500)}.service-actions{display:flex;align-items:center;gap:12px;margin-top:15px}.service-actions a{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:999px;background:var(--green-500);color:var(--navy-950);font-size:10px;font-weight:900;text-decoration:none}.service-qr{position:relative;z-index:1;align-self:center;padding:9px;border-radius:14px;background:#fff;text-align:center}.service-qr img{display:block;width:100px;height:100px}.service-qr span{display:block;color:var(--navy-900);font-size:7px;font-weight:850;margin-top:5px}.report-credentials{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.credential{padding:12px;border:1px solid var(--line);border-radius:12px;background:#fbfdfd}.credential small{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.07em;font-weight:900}.credential strong{display:block;color:var(--navy-900);font-size:10px;margin-top:4px}.signature-block{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:22px}.signature-line{padding-top:18px;border-bottom:1px solid #8da0aa}.signature-line span{display:block;transform:translateY(16px);color:var(--muted);font-size:8px;text-align:center}
+    .food-result{display:grid;grid-template-columns:170px 1fr;gap:14px}.food-score-card{display:grid;place-items:center;text-align:center;padding:20px;border-radius:17px;background:linear-gradient(145deg,var(--navy-900),var(--navy-700));color:#fff}.food-score-card strong{font-size:34px;line-height:1}.food-score-card span{font-size:9px;color:#c8dae3;margin-top:5px}.food-score-card b{margin-top:10px;color:var(--green-400);font-size:10px}.food-detail{padding:16px;border:1px solid var(--line);border-radius:16px;background:#fbfdfd}.food-detail>strong{display:block;color:var(--navy-900);font-size:12px}.food-detail>p{margin:6px 0 0;color:var(--muted);font-size:10px;line-height:1.5}.food-result-lists{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.food-result-lists article{padding:13px;border:1px solid var(--line);border-radius:13px}.food-result-lists h4{margin:0 0 7px;color:var(--navy-900);font-size:10px}.food-result-lists ul{margin:0;padding-left:16px;color:var(--muted);font-size:9px;line-height:1.5}.follow-meta{grid-template-columns:repeat(2,1fr)}
+    .age-hero{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:22px;padding:26px;border-radius:20px;background:linear-gradient(135deg,#edf3f6,#f7fafb);border:1px solid #dce8ed}
+    .age-block{text-align:center}.age-block small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:800}.age-block strong{display:block;color:var(--navy-900);font-size:48px;line-height:1.05;margin-top:5px}.age-block.highlight strong{color:var(--green-600)}
+    .age-arrow{font-size:25px;color:#91a2ac}.age-status{margin-top:13px;text-align:center;color:var(--navy-700);font-weight:800;font-size:13px}
+    .age-equation{margin:13px auto 0;width:max-content;max-width:100%;padding:9px 15px;border-radius:999px;background:var(--navy-900);color:#fff;font-size:11px;font-weight:850;text-align:center;letter-spacing:.01em}.age-equation span{color:var(--green-400)}
+    .metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.metric{padding:15px 12px;border:1px solid var(--line);border-radius:14px;background:#fbfdfd}.metric small{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.06em;min-height:27px}.metric strong{display:block;color:var(--navy-900);font-size:16px;margin:5px 0 2px}.metric span{font-size:10px;color:var(--green-600);font-weight:800}
+    .risk-table{width:100%;border-collapse:collapse;font-size:12px}.risk-table th{text-align:left;color:#71818c;text-transform:uppercase;letter-spacing:.08em;font-size:9px;padding:0 12px 9px}.risk-table td{padding:13px 12px;border-top:1px solid var(--line)}.risk-table td:nth-child(2){font-weight:800;color:var(--navy-900)}
+    .factor-table-wrap{overflow-x:auto}.factor-table{min-width:720px}.factor-table th:first-child{width:28%}.factor-table th:last-child{width:105px}.factor-summary strong{display:block;color:var(--navy-900);font-size:12px}.factor-summary span{display:block;color:var(--muted);font-size:10px;font-weight:650;margin-top:4px}.factor-table td:nth-child(2){font-weight:500;line-height:1.5;color:#536773}.factor-table td:last-child{font-weight:900;color:var(--navy-900);white-space:nowrap}
+    .plan-lead{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:-5px 0 15px;padding:13px 16px;border-radius:14px;background:linear-gradient(110deg,var(--navy-900),var(--navy-700));color:#fff}.plan-lead strong{font-size:12px}.plan-lead span{font-size:10px;color:#d1e2ea}.follow-plan{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.follow-step{display:grid;grid-template-columns:38px minmax(0,1fr);gap:12px;align-items:start;padding:16px;border:1px solid var(--line);border-top:4px solid var(--green-500);border-radius:15px;background:var(--mist);break-inside:avoid}.follow-step:last-child{grid-column:1/-1;background:linear-gradient(135deg,#edf5df,#f7fbef)}.follow-number{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--navy-800);color:#fff;font-size:10px;font-weight:900}.follow-copy strong{display:block;color:var(--navy-900);font-size:13px;margin-bottom:5px}.follow-copy p{margin:0;color:var(--muted);font-size:10.5px;line-height:1.5}.follow-meta{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:8px}.follow-meta div{padding:9px 10px;border-radius:10px;background:#fff;border:1px solid #dde7eb}.follow-meta small{display:block;color:#7a8992;font-size:8px;text-transform:uppercase;letter-spacing:.07em;font-weight:900}.follow-meta strong{display:block;color:var(--navy-900);font-size:10px;margin-top:3px;line-height:1.35}
+    .pill{display:inline-block;border-radius:999px;padding:5px 9px;font-size:10px;font-weight:900;background:var(--green-100);color:#52781c}.pill.watch{background:#fff0d8;color:#98601c}.pill.alert{background:#fde3e3;color:#a33c3c}
+    .plan-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.plan-item{padding:17px;border-radius:15px;background:var(--mist);border-left:4px solid var(--green-500)}.plan-item strong{display:block;color:var(--navy-900);font-size:13px;margin-bottom:5px}.plan-item p{margin:0;color:var(--muted);font-size:11px}
+    .notice{padding:16px 18px;border-radius:14px;background:#f6f8f9;color:#61717c;font-size:10px;border:1px solid var(--line)}
+    .report-footer{display:flex;justify-content:space-between;gap:16px;color:#82919b;font-size:10px;padding-top:18px;margin-top:24px;border-top:1px solid var(--line)}
+    dialog{width:min(1050px,calc(100% - 28px));height:min(820px,calc(100vh - 36px));padding:0;border:0;border-radius:24px;box-shadow:0 30px 100px rgba(0,0,0,.35);overflow:hidden}
+    dialog::backdrop{background:rgba(5,25,39,.78);backdrop-filter:blur(5px)}
+    .dialog-head{height:68px;padding:0 18px 0 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line)}.dialog-head strong{color:var(--navy-900)}.dialog-head span{display:block;font-size:11px;color:var(--muted)}.dialog-body{height:calc(100% - 68px);background:#eef2f4}.dialog-body iframe{width:100%;height:100%;border:0}.close{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:20px;color:var(--navy-900)}
+    .toast{position:fixed;left:50%;bottom:24px;z-index:60;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--navy-950);color:#fff;border-radius:999px;padding:12px 18px;font-size:12px;font-weight:750;box-shadow:0 14px 40px rgba(0,0,0,.25);transition:.25s}.toast.show{transform:translate(-50%,0);opacity:1}
+    .error{color:var(--red);font-size:12px;font-weight:750;display:none}.error.show{display:block}
+    @media(max-width:900px){.workspace{grid-template-columns:1fr}.side{position:static;grid-template-columns:1fr 1fr}.metrics{grid-template-columns:repeat(3,1fr)}.patient-strip{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:640px){.shell{width:min(100% - 20px,1180px)}.brand-copy,.privacy{display:none}.nav{height:66px}.brand img{width:94px}.nav-actions .btn{padding:10px 13px;font-size:11px}.hero{padding:50px 0 42px}.steps{grid-template-columns:1fr}.workspace{gap:16px}.form-panel{padding:22px 17px}.grid,.grid.three,.side,.plan-grid{grid-template-columns:1fr}.section-head{display:block}.section-head p{margin-top:8px}.questionnaire-modal{padding:8px}.questionnaire-box{max-height:calc(100vh - 16px);padding:20px;border-radius:18px}.questionnaire-head{top:-20px;margin:-20px -20px 20px;padding:15px 18px}.radio-options{padding-left:0}.radio-card{min-width:calc(50% - 5px)}.questionnaire-complete{align-items:flex-start;flex-direction:column}.report-toolbar{align-items:flex-start;flex-direction:column}.report-cover,.report-body{padding:28px 20px}.report-brand{align-items:flex-start}.report-cover h2{font-size:28px}.patient-strip{grid-template-columns:1fr 1fr}.age-hero{grid-template-columns:1fr;padding:20px}.age-arrow{transform:rotate(90deg);text-align:center}.metrics{grid-template-columns:1fr 1fr}.report-footer{flex-direction:column}}
+    @media(max-width:640px){.sleep-times,.sleep-followup{padding-left:0}.sleep-times{grid-template-columns:1fr 1fr}.sleep-duration{grid-column:1/-1}}
+    @media(max-width:640px){.summary-domains,.summary-columns,.domain-grid,.report-credentials,.food-result,.food-result-lists{grid-template-columns:1fr}.service-card{grid-template-columns:1fr}.service-qr{justify-self:start}.signature-block{grid-template-columns:1fr;gap:18px}}
+    @media(max-width:760px){.explanation-grid,.follow-plan{grid-template-columns:1fr}.follow-step:last-child{grid-column:auto}.plan-lead{align-items:flex-start;flex-direction:column}}
+    @media print{
+      @page{size:A4;margin:0 0 11mm 0;@bottom-left{content:"NUMED · Documento confidencial";font-size:7pt;color:#71818c;margin-left:10mm}@bottom-right{content:"Página " counter(page) " de " counter(pages);font-size:7pt;color:#71818c;margin-right:10mm}}
+      body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .topbar,.hero,main>.shell>.steps,.workspace,.report-toolbar,.toast,dialog{display:none!important}
+      main{padding:0}.shell{width:100%;margin:0}.report-wrap{display:block!important;margin:0}.report-page{box-shadow:none;border-radius:0}
+      .report-cover{min-height:0;padding:30px 36px 27px}.report-brand img{width:135px}.report-cover h2{font-size:28px;margin-top:24px}.report-cover h2 span{font-size:20px}.report-cover>p{font-size:11px;max-width:570px}.cover-purpose{margin-top:13px}.cover-purpose span{padding:5px 8px;font-size:7.5px}.patient-strip{margin-top:19px;padding-top:16px}.patient-strip strong{font-size:12px}.report-body{padding:24px 36px 28px}.report-section{margin-bottom:20px;break-inside:avoid}.report-title{font-size:15px;margin-bottom:11px}.report-explanation{margin-bottom:0}.explanation-intro{font-size:10px;margin-bottom:11px}.explanation-card{padding:11px}.explanation-card b{width:24px;height:24px;margin-bottom:6px}.explanation-card strong{font-size:10px}.explanation-card p{font-size:8px}.result-explanation{font-size:9px;padding:10px 12px;margin-top:10px}.factor-section,.plan-section{break-before:page;padding-top:28px}.factor-table{min-width:0;font-size:9px}.factor-table th{font-size:7px;padding:0 9px 7px}.factor-table td{padding:8px 9px}.factor-summary strong{font-size:9px}.factor-summary span{font-size:7.5px;margin-top:2px}.factor-table td:nth-child(2){line-height:1.35}.factor-table th:last-child{width:88px}.plan-lead{padding:9px 12px;margin-bottom:10px}.plan-lead strong{font-size:9px}.plan-lead span{font-size:7.5px}.follow-plan{grid-template-columns:1fr 1fr;gap:8px}.follow-step{padding:10px;gap:8px;border-top-width:3px}.follow-step:last-child{grid-column:1/-1}.follow-number{width:26px;height:26px;font-size:8px}.follow-copy strong{font-size:9.5px;margin-bottom:3px}.follow-copy p{font-size:7.6px;line-height:1.35}.follow-meta{gap:5px}.follow-meta div{padding:6px 7px}.follow-meta small{font-size:6px}.follow-meta strong{font-size:7.3px;margin-top:2px}.age-section{margin-top:16px}.age-hero{padding:12px}.age-block small{font-size:8px}.age-block strong{font-size:32px}.age-equation{font-size:8px;padding:6px 10px;margin-top:8px}.age-status{font-size:9px;margin-top:8px}.notice-section{margin-top:12px;margin-bottom:0}.notice{font-size:7px;padding:9px 11px}.report-footer{font-size:7px;padding-top:10px;margin-top:12px}
+      .patient-summary-section,.domain-section,.service-section{break-before:page;padding-top:28px}.summary-banner{padding:13px;margin-bottom:10px}.summary-mark{width:34px;height:34px;font-size:14px}.summary-banner strong{font-size:12px}.summary-banner p{font-size:8px}.summary-domains,.summary-columns{gap:7px}.summary-domain,.summary-list{padding:10px}.summary-domain p,.summary-list ul{font-size:7.5px}.summary-domain strong,.summary-list h4{font-size:9px}.domain-card{padding:10px}.domain-card p{font-size:7px}.domain-head strong{font-size:8.5px}.domain-status{font-size:6px}.service-card{padding:20px}.service-content h4{font-size:17px}.service-content p{font-size:8px}.service-qr img{width:82px;height:82px}.report-credentials{gap:7px}.credential{padding:9px}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="shell nav" aria-label="Navegación principal">
+      <a class="brand" href="#inicio"><img src="logo-numed.png" alt="NUMED"><span class="brand-copy">Nutrición<br>& Medicina Preventiva</span></a>
+      <div class="nav-actions"><span class="privacy"><i></i> Datos locales y privados</span><button class="btn btn-ghost" type="button" data-open-pdf>Ver reporte PDF</button><a class="btn btn-primary" href="#evaluacion">Comenzar</a></div>
+    </nav>
+  </header>
+
+  <section class="hero" id="inicio">
+    <div class="shell hero-grid"><div><div class="eyebrow">Evaluación funcional Integral - Edad Biológica</div><h1>Tu salud, convertida en un plan claro.</h1><p>Integra composición corporal, fuerza, presión arterial y hábitos para obtener una lectura orientativa de tu perfil y un plan práctico de 30 días.</p></div></div>
+  </section>
+
+  <main id="evaluacion">
+    <div class="shell">
+      <div class="steps" aria-label="Navegación de la evaluación"><button class="step active" type="button" data-section-nav="profile"><span>1</span> Perfil</button><button class="step" type="button" data-section-nav="indicators"><span>2</span> Indicadores</button><button class="step" type="button" data-section-nav="questionnaire"><span>3</span> Cuestionario y reporte</button></div>
+      <div class="workspace">
+        <form class="panel form-panel" id="health-form" novalidate>
+          <section class="section main-section" id="profile-section">
+            <div class="section-head"><div><div class="section-index">Información del paciente</div><h2>Datos personales</h2></div><p>Usamos estos datos únicamente para personalizar el reporte en este dispositivo.</p></div>
+            <div class="grid">
+              <div class="field"><label for="firstName">Nombre</label><input id="firstName" name="firstName" autocomplete="given-name" placeholder="Ej. Ana"></div>
+              <div class="field"><label for="lastName">Apellido</label><input id="lastName" name="lastName" autocomplete="family-name" placeholder="Ej. Pérez"></div>
+              <div class="field"><label for="dob">Fecha de nacimiento</label><input id="dob" name="dob" type="date"></div>
+              <div class="field"><label for="gender">Sexo de referencia</label><select id="gender" name="gender"><option value="">Seleccionar</option><option value="female">Femenino</option><option value="male">Masculino</option></select></div>
+              <div class="field"><label for="idNumber">Cédula <span class="optional">(opcional)</span></label><input id="idNumber" name="idNumber" inputmode="numeric" placeholder="000-0000000-0"></div>
+              <div class="field"><label for="phone">Teléfono <span class="optional">(opcional)</span></label><input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(809) 000-0000"></div>
+            </div>
+            <div class="form-actions"><button class="btn btn-ghost" type="button" id="sample-data">Cargar ejemplo</button></div>
+          </section>
+
+          <section class="section main-section" id="indicators-section">
+            <div class="section-head"><div><div class="section-index">Evaluación funcional</div><h2>Indicadores clínicos</h2></div><p>Ingresa medidas recientes y tomadas con equipos confiables.</p></div>
+            <div class="grid three">
+              <div class="field"><label for="weight">Peso</label><div class="input-unit"><input id="weight" name="weight" type="number" min="25" max="350" step="0.1" placeholder="70.0"><span>kg</span></div></div>
+              <div class="field"><label for="height">Estatura</label><div class="input-unit"><input id="height" name="height" type="number" min="100" max="240" step="0.1" placeholder="170"><span>cm</span></div></div>
+              <div class="field"><label for="waist">Perímetro abdominal</label><div class="input-unit"><input id="waist" name="waist" type="number" min="45" max="220" step="0.1" placeholder="84"><span>cm</span></div></div>
+              <div class="field"><label for="strength">Fuerza de agarre</label><div class="input-unit"><input id="strength" name="strength" type="number" min="1" max="100" step="0.1" placeholder="32"><span>kg</span></div><span class="hint">Mejor valor de 2-3 intentos.</span></div>
+              <div class="field"><label for="systolic">Presión sistólica</label><div class="input-unit"><input id="systolic" name="systolic" type="number" min="60" max="260" step="1" placeholder="120"><span>mmHg</span></div></div>
+              <div class="field"><label for="diastolic">Presión diastólica</label><div class="input-unit"><input id="diastolic" name="diastolic" type="number" min="35" max="160" step="1" placeholder="80"><span>mmHg</span></div></div>
+            </div>
+            <div class="form-actions"><span class="hint">Al continuar se abrirá el cuestionario de estilo de vida.</span><button class="btn btn-green" type="button" id="open-questionnaire">Completar cuestionario <span aria-hidden="true">→</span></button></div>
+          </section>
+
+          <div class="questionnaire-modal" id="questionnaire-modal" aria-hidden="true">
+            <div class="questionnaire-box" role="dialog" aria-modal="true" aria-labelledby="questionnaire-title">
+              <div class="questionnaire-head"><div><strong id="questionnaire-title">Cuestionario Integral NUMED</strong><span>Hábitos, TAB-NUMED, antecedentes y Escala de Estrés Percibido PSS-14</span></div><button class="questionnaire-close" type="button" id="close-questionnaire" aria-label="Cerrar cuestionario">×</button></div>
+          <section class="section questionnaire-step active" data-question-step="0">
+            <div class="question-progress" aria-hidden="true"><span class="on"></span><span></span><span></span><span></span></div>
+            <div class="section-head"><div><div class="section-index">Cuestionario · 01 de 04</div><h2>Hábitos cotidianos</h2></div><p>Responde según tu situación habitual. No hay respuestas perfectas.</p></div>
+            <div class="question-list">
+              <div class="question"><div class="question-top"><span class="q-number">01</span><div class="q-copy">¿Fuma actualmente?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="fuma_actual" value="2"><span>Sí, fumo</span></label><label class="radio-card"><input type="radio" name="fuma_actual" value="0" checked><span>No fumo</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">02</span><div class="q-copy">¿Ha fumado en los últimos 5 años?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="ex_fumador" value="1"><span>Sí</span></label><label class="radio-card"><input type="radio" name="ex_fumador" value="0" checked><span>No</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">03</span><div class="q-copy">¿Cuál es su consumo de alcohol?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="alcohol_q" value="0" checked><span>Ningún día</span></label><label class="radio-card"><input type="radio" name="alcohol_q" value="0"><span>1 día por semana</span></label><label class="radio-card"><input type="radio" name="alcohol_q" value="1"><span>2 días por semana</span></label><label class="radio-card"><input type="radio" name="alcohol_q" value="2"><span>3 días por semana</span></label><label class="radio-card"><input type="radio" name="alcohol_q" value="3"><span>4 o más días</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">04</span><div class="q-copy">¿Realiza actividad física aeróbica de al menos 150 minutos por semana?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="actividad_q" value="-2"><span>Sí, regularmente</span></label><label class="radio-card"><input type="radio" name="actividad_q" value="0" checked><span>No</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">05</span><div class="q-copy">¿Realiza entrenamiento de fuerza 2 o más veces por semana?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="fuerza_q" value="-1"><span>Sí</span></label><label class="radio-card"><input type="radio" name="fuerza_q" value="0" checked><span>No</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">06</span><div class="q-copy">¿Cuál es su horario habitual de sueño?</div></div><div class="sleep-times"><label class="field"><span>Hora de acostarse</span><input id="sleep_start" name="sleep_start" type="time"></label><label class="field"><span>Hora de levantarse</span><input id="sleep_end" name="sleep_end" type="time"></label><div class="sleep-duration" aria-live="polite">Tiempo de sueño<strong id="sleep-duration">—</strong></div></div><div class="sleep-followup"><div class="q-copy">Al levantarse, ¿siente que ese sueño le sirvió de descanso?</div><div class="radio-options"><label class="radio-card"><input type="radio" name="sueno_reparador" value="-1"><span>Sí, me siento descansado(a)</span></label><label class="radio-card"><input type="radio" name="sueno_reparador" value="1"><span>No, sigo cansado(a)</span></label></div></div></div>
+            </div>
+            <div class="form-actions"><button class="btn btn-ghost" type="button" id="cancel-questionnaire">Cancelar</button><button class="btn btn-green" type="button" data-q-next>Siguiente sección <span aria-hidden="true">→</span></button></div>
+          </section>
+
+          <section class="section questionnaire-step" data-question-step="1">
+            <div class="question-progress" aria-hidden="true"><span class="on"></span><span class="on"></span><span></span><span></span></div>
+            <div class="section-head"><div><div class="section-index">Cuestionario · 02 de 04</div><h2>Tamizaje Alimentario Breve NUMED 2.0</h2></div><p>TAB-NUMED · 8 preguntas · Últimas 4 semanas</p></div>
+            <div class="section-note"><strong>Orientación inicial.</strong> Piensa en las últimas cuatro semanas e indica cuántos días de una semana habitual ocurrió cada práctica. Este tamizaje ofrece orientación inicial y no sustituye una evaluación nutricional personalizada.</div>
+            <div class="question-list">
+              <div class="question"><div class="question-top"><span class="q-number">P1</span><div class="q-copy">En una semana habitual, ¿cuántos días consumió vegetales o ensalada en al menos dos comidas del día?<small>Ejemplos: tomate, zanahoria, repollo, lechuga, pepino, auyama, tayota, berenjena, brócoli, vegetales de hojas verdes. No contar yuca, plátano, papa, batata ni yautía.</small></div></div><div class="radio-options food-slider"><label class="radio-card"><input type="radio" name="tab_vegetales" value="0" <span>0</span></label><label class="radio-card"><input type="radio" name="tab_vegetales" value="1"><span>1</span></label><label class="radio-card"><input type="radio" name="tab_vegetales" value="2"><span>2</span></label><label class="radio-card"><input type="radio" name="tab_vegetales" value="3"><span>3</span></label><label class="radio-card"><input type="radio" name="tab_vegetales" value="4"><span>4</span></label><label class="radio-card"><input type="radio" name="tab_vegetales" value="5"><span>5</span></label><label class="radio-card"><input type="radio" name="tab_vegetales" value="6"><span>6</span></label><label class="radio-card"><input type="radio" name="tab_vegetales" value="7"><span>7</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P2</span><div class="q-copy">En una semana habitual, ¿cuántos días consumió al menos una porción de fruta entera?<small>Ejemplos: guineo, lechosa, piña, mango, manzana, naranja, sandía, melón. No contar jugos, néctares ni bebidas con sabor a frutas.</small></div></div><div class="radio-options food-slider"><label class="radio-card"><input type="radio" name="tab_frutas" value="0"><span>0</span></label><label class="radio-card"><input type="radio" name="tab_frutas" value="1"><span>1</span></label><label class="radio-card"><input type="radio" name="tab_frutas" value="2"><span>2</span></label><label class="radio-card"><input type="radio" name="tab_frutas" value="3"><span>3</span></label><label class="radio-card"><input type="radio" name="tab_frutas" value="4"><span>4</span></label><label class="radio-card"><input type="radio" name="tab_frutas" value="5"><span>5</span></label><label class="radio-card"><input type="radio" name="tab_frutas" value="6"><span>6</span></label><label class="radio-card"><input type="radio" name="tab_frutas" value="7"><span>7</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P3</span><div class="q-copy">En una semana habitual, ¿cuántos días consumió algún tipo de leguminosa o grano?<small>Ejemplos: habichuelas, guandules, lentejas, garbanzos, arvejas secas, otras leguminosas.</small></div></div><div class="radio-options food-slider"><label class="radio-card"><input type="radio" name="tab_leguminosas" value="0"><span>0</span></label><label class="radio-card"><input type="radio" name="tab_leguminosas" value="1"><span>1</span></label><label class="radio-card"><input type="radio" name="tab_leguminosas" value="2"><span>2</span></label><label class="radio-card"><input type="radio" name="tab_leguminosas" value="3"><span>3</span></label><label class="radio-card"><input type="radio" name="tab_leguminosas" value="4"><span>4</span></label><label class="radio-card"><input type="radio" name="tab_leguminosas" value="5"><span>5</span></label><label class="radio-card"><input type="radio" name="tab_leguminosas" value="6"><span>6</span></label><label class="radio-card"><input type="radio" name="tab_leguminosas" value="7"><span>7</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P4</span><div class="q-copy">En una semana habitual, ¿cuántos días consumió al menos una fuente de proteína poco procesada en una comida principal?<small>Ejemplos: huevo, pescado, pollo, carne sin exceso de grasa, leche o yogur natural, queso en cantidades moderadas, tofu, frutos secos o semillas. No contar salami, salchichas, jamoneta, nuggets ni otros embutidos.</small></div></div><div class="radio-options food-slider"><label class="radio-card"><input type="radio" name="tab_proteinas" value="0"><span>0</span></label><label class="radio-card"><input type="radio" name="tab_proteinas" value="1"><span>1</span></label><label class="radio-card"><input type="radio" name="tab_proteinas" value="2"><span>2</span></label><label class="radio-card"><input type="radio" name="tab_proteinas" value="3"><span>3</span></label><label class="radio-card"><input type="radio" name="tab_proteinas" value="4"><span>4</span></label><label class="radio-card"><input type="radio" name="tab_proteinas" value="5"><span>5</span></label><label class="radio-card"><input type="radio" name="tab_proteinas" value="6"><span>6</span></label><label class="radio-card"><input type="radio" name="tab_proteinas" value="7"><span>7</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P5</span><div class="q-copy">En una semana habitual, ¿cuántos días consumió al menos una opción de cereal integral o un vívere preparado sin freír?<small>Ejemplos: avena, maíz, pan integral, arroz integral, batata, yuca, yautía, plátano o guineíto hervido, asado o al horno.</small></div></div><div class="radio-options food-slider"><label class="radio-card"><input type="radio" name="tab_basicos" value="0"><span>0</span></label><label class="radio-card"><input type="radio" name="tab_basicos" value="1"><span>1</span></label><label class="radio-card"><input type="radio" name="tab_basicos" value="2"><span>2</span></label><label class="radio-card"><input type="radio" name="tab_basicos" value="3"><span>3</span></label><label class="radio-card"><input type="radio" name="tab_basicos" value="4"><span>4</span></label><label class="radio-card"><input type="radio" name="tab_basicos" value="5"><span>5</span></label><label class="radio-card"><input type="radio" name="tab_basicos" value="6"><span>6</span></label><label class="radio-card"><input type="radio" name="tab_basicos" value="7"><span>7</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P6</span><div class="q-copy">En una semana habitual, ¿cuántos días consumió una o más bebidas azucaradas?<small>Ejemplos: refrescos, jugos o néctares industrializados, jugos caseros con azúcar añadida, bebidas energéticas, bebidas deportivas azucaradas, té frío u otras bebidas endulzadas.</small></div></div><div class="radio-options food-slider"><label class="radio-card"><input type="radio" name="tab_azucaradas" value="0"><span>0</span></label><label class="radio-card"><input type="radio" name="tab_azucaradas" value="1"><span>1</span></label><label class="radio-card"><input type="radio" name="tab_azucaradas" value="2"><span>2</span></label><label class="radio-card"><input type="radio" name="tab_azucaradas" value="3"><span>3</span></label><label class="radio-card"><input type="radio" name="tab_azucaradas" value="4"><span>4</span></label><label class="radio-card"><input type="radio" name="tab_azucaradas" value="5"><span>5</span></label><label class="radio-card"><input type="radio" name="tab_azucaradas" value="6"><span>6</span></label><label class="radio-card"><input type="radio" name="tab_azucaradas" value="7"><span>7</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P7</span><div class="q-copy">En una semana habitual, ¿cuántos días consumió dulces, postres o productos empacados de menor calidad nutricional?<small>Ejemplos: dulces, bizcochos, galletas dulces o saladas, cereales azucarados, helados, snacks de paquete, sopas instantáneas, productos similares.</small></div></div><div class="radio-options food-slider"><label class="radio-card"><input type="radio" name="tab_dulces" value="0"><span>0</span></label><label class="radio-card"><input type="radio" name="tab_dulces" value="1"><span>1</span></label><label class="radio-card"><input type="radio" name="tab_dulces" value="2"><span>2</span></label><label class="radio-card"><input type="radio" name="tab_dulces" value="3"><span>3</span></label><label class="radio-card"><input type="radio" name="tab_dulces" value="4"><span>4</span></label><label class="radio-card"><input type="radio" name="tab_dulces" value="5"><span>5</span></label><label class="radio-card"><input type="radio" name="tab_dulces" value="6"><span>6</span></label><label class="radio-card"><input type="radio" name="tab_dulces" value="7"><span>7</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P8</span><div class="q-copy">En una semana habitual, ¿cuántos días consumió frituras, comida rápida o carnes procesadas?<small>Ejemplos: empanadas y otras frituras, pollo frito, papas fritas, hamburguesas, pizza de comida rápida, salami, salchichas, jamoneta, nuggets, otros embutidos.</small></div></div><div class="radio-options food-slider"><label class="radio-card"><input type="radio" name="tab_frituras" value="0"><span>0</span></label><label class="radio-card"><input type="radio" name="tab_frituras" value="1"><span>1</span></label><label class="radio-card"><input type="radio" name="tab_frituras" value="2"><span>2</span></label><label class="radio-card"><input type="radio" name="tab_frituras" value="3"><span>3</span></label><label class="radio-card"><input type="radio" name="tab_frituras" value="4"><span>4</span></label><label class="radio-card"><input type="radio" name="tab_frituras" value="5"><span>5</span></label><label class="radio-card"><input type="radio" name="tab_frituras" value="6"><span>6</span></label><label class="radio-card"><input type="radio" name="tab_frituras" value="7"><span>7</span></label></div></div>
+            </div>
+            <div class="form-actions"><button class="btn btn-ghost" type="button" data-q-prev>← Anterior</button><button class="btn btn-green" type="button" data-q-next>Continuar a antecedentes <span aria-hidden="true">→</span></button></div>
+          </section>
+
+
+          <section class="section questionnaire-step" data-question-step="2">
+            <div class="question-progress" aria-hidden="true">
+              <span class="on">
+                </span>
+                <span class="on">
+                  </span>
+                  <span class="on">
+                    </span><span></span>
+            </div>
+              <div class="section-head"><div>
+                <div class="section-index">Cuestionario · 03 de 04</div>
+                <h2>Antecedentes y prevención</h2></div><p>Estos factores ayudan a contextualizar la evaluación funcional.</p></div>
+            <div class="question-list">
+              <div class="question"><div class="question-top"><span class="q-number">B1</span><div class="q-copy">¿Ha sido diagnosticado con alguna enfermedad crónica no transmisible (hipertensión, diabetes tipo 2, etc.)?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="cronicas_q" value="2"><span>Sí</span></label><label class="radio-card"><input type="radio" name="cronicas_q" value="0" checked><span>No</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">B2</span><div class="q-copy">¿Tiene familiares de primer grado con diabetes, hipertensión o enfermedad cardíaca?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="familia_q" value="1"><span>Sí</span></label><label class="radio-card"><input type="radio" name="familia_q" value="0" checked><span>No</span></label></div></div>
+            </div>
+            <div class="form-actions"><button class="btn btn-ghost" type="button" data-q-prev>← Anterior</button><button class="btn btn-green" type="button" data-q-next>Continuar a PSS-14 <span aria-hidden="true">→</span></button></div>
+          </section>
+
+          <section class="section questionnaire-step" data-question-step="3">
+            <div class="question-progress" aria-hidden="true"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div>
+            <div class="section-head"><div><div class="section-index">Cuestionario · 04 de 04</div><h2>Escala de Estrés Percibido</h2></div><p>Indica con qué frecuencia te has sentido o has enfrentado cada situación durante el último mes.</p></div>
+            <div class="section-note"><strong>PSS-14 · 14 preguntas.</strong> Responde todas las situaciones. Las preguntas positivas se puntúan de forma inversa y el resultado total va de 0 a 56.</div>
+            <div class="question-list">
+              <div class="question"><div class="question-top"><span class="q-number">P1</span><div class="q-copy">En el último mes, ¿con qué frecuencia te has sentido afectado por algo que ocurrió inesperadamente?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="pss_1" value="<input type="radio" name="pss_1" value="0">"><span>Nunca</span></label><label class="radio-card"><input type="radio" name="pss_1" value="1"><span>Casi nunca</span></label><label class="radio-card"><input type="radio" name="pss_1" value="2"><span>De vez en cuando</span></label><label class="radio-card"><input type="radio" name="pss_1" value="3"><span>A menudo</span></label><label class="radio-card"><input type="radio" name="pss_1" value="4"><span>Muy a menudo</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P2</span><div class="q-copy">En el último mes, ¿con qué frecuencia te has sentido incapaz de controlar las cosas importantes en tu vida?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="pss_2" value="<input type="radio" name="pss_2" value="0">"><span>Nunca</span></label><label class="radio-card"><input type="radio" name="pss_2" value="1"><span>Casi nunca</span></label><label class="radio-card"><input type="radio" name="pss_2" value="2"><span>De vez en cuando</span></label><label class="radio-card"><input type="radio" name="pss_2" value="3"><span>A menudo</span></label><label class="radio-card"><input type="radio" name="pss_2" value="4"><span>Muy a menudo</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P3</span><div class="q-copy">En el último mes, ¿con qué frecuencia te has sentido nervioso o estresado?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="pss_3" value="<input type="radio" name="pss_3" value="0">"><span>Nunca</span></label><label class="radio-card"><input type="radio" name="pss_3" value="1"><span>Casi nunca</span></label><label class="radio-card"><input type="radio" name="pss_3" value="2"><span>De vez en cuando</span></label><label class="radio-card"><input type="radio" name="pss_3" value="3"><span>A menudo</span></label><label class="radio-card"><input type="radio" name="pss_3" value="4"><span>Muy a menudo</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P4</span><div class="q-copy">En el último mes, ¿con qué frecuencia has manejado con éxito los pequeños problemas irritantes de la vida?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="pss_4" value="<input type="radio" name="pss_4" value="4">"><span>Nunca</span></label><label class="radio-card"><input type="radio" name="pss_4" value="3"><span>Casi nunca</span></label><label class="radio-card"><input type="radio" name="pss_4" value="2"><span>De vez en cuando</span></label><label class="radio-card"><input type="radio" name="pss_4" value="1"><span>A menudo</span></label><label class="radio-card"><input type="radio" name="pss_4" value="0"><span>Muy a menudo</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P5</span><div class="q-copy">En el último mes, ¿con qué frecuencia has sentido que has afrontado efectivamente los cambios importantes que han estado ocurriendo en tu vida?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="pss_5" value="<input type="radio" name="pss_5" value="4">"><span>Nunca</span></label><label class="radio-card"><input type="radio" name="pss_5" value="3"><span>Casi nunca</span></label><label class="radio-card"><input type="radio" name="pss_5" value="2"><span>De vez en cuando</span></label><label class="radio-card"><input type="radio" name="pss_5" value="1"><span>A menudo</span></label><label class="radio-card"><input type="radio" name="pss_5" value="0"><span>Muy a menudo</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P6</span><div class="q-copy">En el último mes, ¿con qué frecuencia has estado seguro sobre tu capacidad para manejar tus problemas personales?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="pss_6" value="<input type="radio" name="pss_6" value="4">"><span>Nunca</span></label><label class="radio-card"><input type="radio" name="pss_6" value="3"><span>Casi nunca</span></label><label class="radio-card"><input type="radio" name="pss_6" value="2"><span>De vez en cuando</span></label><label class="radio-card"><input type="radio" name="pss_6" value="1"><span>A menudo</span></label><label class="radio-card"><input type="radio" name="pss_6" value="0"><span>Muy a menudo</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P7</span><div class="q-copy">En el último mes, ¿con qué frecuencia has sentido que las cosas van bien?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="pss_7" value="<input type="radio" name="pss_7" value="4">"><span>Nunca</span></label><label class="radio-card"><input type="radio" name="pss_7" value="3"><span>Casi nunca</span></label><label class="radio-card"><input type="radio" name="pss_7" value="2"><span>De vez en cuando</span></label><label class="radio-card"><input type="radio" name="pss_7" value="1"><span>A menudo</span></label><label class="radio-card"><input type="radio" name="pss_7" value="0"><span>Muy a menudo</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P8</span><div class="q-copy">En el último mes, ¿con qué frecuencia has sentido que no podías afrontar todas las cosas que tenías que hacer?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="pss_8" value="<input type="radio" name="pss_8" value="0">"><span>Nunca</span></label><label class="radio-card"><input type="radio" name="pss_8" value="1"><span>Casi nunca</span></label><label class="radio-card"><input type="radio" name="pss_8" value="2"><span>De vez en cuando</span></label><label class="radio-card"><input type="radio" name="pss_8" value="3"><span>A menudo</span></label><label class="radio-card"><input type="radio" name="pss_8" value="4"><span>Muy a menudo</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P9</span><div class="q-copy">En el último mes, ¿con qué frecuencia has podido controlar las dificultades de tu vida?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="pss_9" value="<input type="radio" name="pss_9" value="4">"><span>Nunca</span></label><label class="radio-card"><input type="radio" name="pss_9" value="3"><span>Casi nunca</span></label><label class="radio-card"><input type="radio" name="pss_9" value="2"><span>De vez en cuando</span></label><label class="radio-card"><input type="radio" name="pss_9" value="1"><span>A menudo</span></label><label class="radio-card"><input type="radio" name="pss_9" value="0"><span>Muy a menudo</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P10</span><div class="q-copy">En el último mes, ¿con qué frecuencia has sentido que tenías todo bajo control?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="pss_10" value="<input type="radio" name="pss_10" value="4">"><span>Nunca</span></label><label class="radio-card"><input type="radio" name="pss_10" value="3"><span>Casi nunca</span></label><label class="radio-card"><input type="radio" name="pss_10" value="2"><span>De vez en cuando</span></label><label class="radio-card"><input type="radio" name="pss_10" value="1"><span>A menudo</span></label><label class="radio-card"><input type="radio" name="pss_10" value="0"><span>Muy a menudo</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P11</span><div class="q-copy">En el último mes, ¿con qué frecuencia has estado enfadado porque las cosas que te han ocurrido estaban fuera de tu control?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="pss_11" value="<input type="radio" name="pss_11" value="0">"><span>Nunca</span></label><label class="radio-card"><input type="radio" name="pss_11" value="1"><span>Casi nunca</span></label><label class="radio-card"><input type="radio" name="pss_11" value="2"><span>De vez en cuando</span></label><label class="radio-card"><input type="radio" name="pss_11" value="3"><span>A menudo</span></label><label class="radio-card"><input type="radio" name="pss_11" value="4"><span>Muy a menudo</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P12</span><div class="q-copy">En el último mes, ¿con qué frecuencia has pensado sobre las cosas que te faltan por hacer?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="pss_12" value="<input type="radio" name="pss_12" value="0">"><span>Nunca</span></label><label class="radio-card"><input type="radio" name="pss_12" value="1"><span>Casi nunca</span></label><label class="radio-card"><input type="radio" name="pss_12" value="2"><span>De vez en cuando</span></label><label class="radio-card"><input type="radio" name="pss_12" value="3"><span>A menudo</span></label><label class="radio-card"><input type="radio" name="pss_12" value="4"><span>Muy a menudo</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P13</span><div class="q-copy">En el último mes, ¿con qué frecuencia has podido controlar la forma de pasar el tiempo?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="pss_13" value="<input type="radio" name="pss_13" value="4">"><span>Nunca</span></label><label class="radio-card"><input type="radio" name="pss_13" value="3"><span>Casi nunca</span></label><label class="radio-card"><input type="radio" name="pss_13" value="2"><span>De vez en cuando</span></label><label class="radio-card"><input type="radio" name="pss_13" value="1"><span>A menudo</span></label><label class="radio-card"><input type="radio" name="pss_13" value="0"><span>Muy a menudo</span></label></div></div>
+              <div class="question"><div class="question-top"><span class="q-number">P14</span><div class="q-copy">En el último mes, ¿con qué frecuencia has sentido que las dificultades se acumulan tanto que no puedes superarlas?</div></div><div class="radio-options"><label class="radio-card"><input type="radio" name="pss_14" value="<input type="radio" name="pss_14" value="0">"><span>Nunca</span></label><label class="radio-card"><input type="radio" name="pss_14" value="1"><span>Casi nunca</span></label><label class="radio-card"><input type="radio" name="pss_14" value="2"><span>De vez en cuando</span></label><label class="radio-card"><input type="radio" name="pss_14" value="3"><span>A menudo</span></label><label class="radio-card"><input type="radio" name="pss_14" value="4"><span>Muy a menudo</span></label></div></div>
+            </div>
+            <div class="form-actions"><button class="btn btn-ghost" type="button" data-q-prev>← Anterior</button><button class="btn btn-green" type="button" id="save-questionnaire">Guardar respuestas</button></div>
+          </section>
+            </div>
+          </div>
+          <div class="error" id="form-error" role="alert">Completa los campos marcados y revisa que los valores estén dentro de un rango válido.</div>
+          <div class="questionnaire-complete" id="questionnaire-complete"><div><strong>Cuestionario completado</strong><span>Las respuestas están listas para incluirse en la evaluación.</span></div><button class="btn btn-ghost" type="button" id="edit-questionnaire">Editar respuestas</button></div>
+          <div class="form-actions" id="evaluate-actions" style="display:none"><span class="hint">Ya puedes generar el análisis integrado.</span><button class="btn btn-green" type="submit">Generar evaluación <span aria-hidden="true">→</span></button></div>
+        </form>
+
+        <aside class="side" aria-label="Resumen de la evaluación">
+          <section class="panel readiness"><h3>Preparación del reporte</h3><p>Completa las tres áreas para activar tu análisis.</p><div class="ring" id="ring"><div><strong id="progress-number">0%</strong><small>completado</small></div></div><div class="checklist"><div class="check" data-check="profile">Perfil del paciente</div><div class="check" data-check="metrics">Indicadores clínicos</div><div class="check" data-check="habits">Hábitos y bienestar</div></div></section>
+          <section class="panel pdf-card"><span class="tag">Reporte NUMED</span><h3>Evaluación del paciente</h3><p>Consulta el reporte profesional de tres páginas o genera una versión personalizada al completar la evaluación.</p><button class="btn btn-ghost" type="button" data-open-pdf>Vista previa del PDF</button></section>
+        </aside>
+      </div>
+
+      <section class="report-wrap" id="report" aria-live="polite">
+        <div class="report-toolbar"><div><strong>Tu reporte está listo</strong><span>Puedes imprimirlo o guardarlo como PDF sin caracteres rotos.</span></div><div class="report-actions"><button class="btn btn-ghost" type="button" id="edit-report">Editar datos</button><button class="btn btn-primary" type="button" id="print-report">Imprimir / Guardar PDF</button></div></div>
+        <article class="report-page" id="report-page">
+          <header class="report-cover">
+            <div class="report-brand"><img src="logo-numed.png" alt="NUMED"><div class="report-kicker">Nutrición & Medicina Preventiva</div></div>
+            <h2>Evaluación Funcional Integral<span>Edad Biológica</span></h2><p>Un reporte personalizado para comprender tus factores de salud, visualizar su impacto y convertir los resultados en acciones concretas.</p>
+            <div class="cover-purpose"><span>Evaluación funcional</span><span>Prevención</span><span>Plan personalizado</span></div>
+            <div class="patient-strip"><div><small>Paciente</small><strong id="r-name">—</strong></div><div><small>Edad</small><strong id="r-age">—</strong></div><div><small>Cédula</small><strong id="r-id">—</strong></div><div><small>Evaluación</small><strong id="r-date">—</strong></div></div>
+          </header>
+          <div class="report-body">
+            <section class="report-section report-explanation"><h3 class="report-title">Cómo interpretar este reporte</h3><p class="explanation-intro">La edad biológica estimada parte de tu edad cronológica y se ajusta con los resultados funcionales, clínicos y de estilo de vida registrados en esta evaluación.</p><div class="explanation-grid"><article class="explanation-card"><b>−</b><strong>Factor protector</strong><p>Resta años cuando el resultado se encuentra en un rango favorable.</p></article><article class="explanation-card"><b>0</b><strong>Impacto neutral</strong><p>No modifica la estimación actual, aunque debe mantenerse bajo seguimiento.</p></article><article class="explanation-card"><b>+</b><strong>Área de mejora</strong><p>Suma años y señala una prioridad para el plan personalizado.</p></article></div><div class="result-explanation" id="r-explanation">—</div></section>
+            <section class="report-section patient-summary-section"><h3 class="report-title">Resumen detallado de tu estado actual</h3><div class="summary-banner"><span class="summary-mark">N</span><div><small>Lectura integral NUMED</small><strong id="r-summary-status">—</strong><p id="r-summary-overview">—</p></div></div><div class="summary-domains"><article class="summary-domain"><b>01</b><div><strong>Función física</strong><p id="r-summary-function">—</p></div></article><article class="summary-domain"><b>02</b><div><strong>Composición y salud cardiovascular</strong><p id="r-summary-cardio">—</p></div></article><article class="summary-domain"><b>03</b><div><strong>Hábitos y recuperación</strong><p id="r-summary-habits">—</p></div></article><article class="summary-domain"><b>04</b><div><strong>Antecedentes y prevención</strong><p id="r-summary-history">—</p></div></article></div><div class="summary-columns"><article class="summary-list"><h4>Fortalezas que conviene mantener</h4><ul id="r-summary-strengths"><li>—</li></ul></article><article class="summary-list attention"><h4>Aspectos que requieren atención</h4><ul id="r-summary-priorities"><li>—</li></ul></article></div></section>
+            <section class="report-section domain-section"><h3 class="report-title">Perfil de salud por áreas</h3><div class="domain-method"><strong>Cómo se calcula:</strong> cada respuesta aporta a un área relacionada. El impacto de cada área tiene un límite para impedir que varias preguntas similares se contabilicen repetidamente. La edad biológica se obtiene sumando una sola vez los resultados de las seis áreas.</div><div class="domain-grid" id="r-domain-cards"></div></section>
+            <section class="report-section food-report-section"><h3 class="report-title">Resultado del tamizaje alimentario</h3><p class="factor-method-note">TAB-NUMED es un instrumento institucional de orientación. Su resultado describe el patrón reportado y no determina por sí solo el estado nutricional ni sustituye la consulta.</p><div class="food-result"><div class="food-score-card"><strong id="r-food-score">—</strong><span>PUNTOS DE 24</span><b id="r-food-class">—</b></div><div class="food-detail"><strong>Lectura del patrón alimentario reportado</strong><p id="r-food-message">—</p><p><b>Impacto del área:</b> <span id="r-food-impact">—</span></p><p><b>Acompañamiento sugerido:</b> <span id="r-food-professional">—</span></p></div></div><div class="food-result-lists"><article><h4>Fortalezas alimentarias</h4><ul id="r-food-strengths"><li>—</li></ul></article><article><h4>Prioridades y recomendaciones</h4><ul id="r-food-priorities"><li>—</li></ul></article></div></section>
+            <section class="report-section factor-section"><h3 class="report-title">Factores e impacto en la edad biológica</h3><p class="factor-method-note">Los valores siguientes muestran cómo contribuye cada factor a su área. El ajuste final de la edad utiliza el resultado limitado de cada área, presentado en la sección anterior.</p><div class="factor-table-wrap"><table class="risk-table factor-table"><thead><tr><th>Factor y resultado</th><th>Recomendación</th><th>Aporte al área</th></tr></thead><tbody id="r-factor-rows"></tbody></table></div></section>
+            <section class="report-section plan-section"><h3 class="report-title">Plan a seguir</h3><p class="factor-method-note">Ruta personalizada de prevención con acciones priorizadas según los resultados de esta evaluación.</p><div class="follow-plan" id="r-follow-plan"></div></section>
+            <section class="report-section service-section"><h3 class="report-title">Acompañamiento recomendado</h3><div class="service-card"><div class="service-content"><span class="service-eyebrow">Siguiente paso NUMED</span><h4 id="r-service-title">—</h4><p id="r-service-copy">—</p><p class="service-reason" id="r-service-reason">—</p><div class="service-actions"><a href="https://www.numedrd.com/services-1" target="_blank" rel="noopener">Conocer los servicios NUMED</a></div></div><div class="service-qr"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJQAAACUAQAAAABdRz15AAABC0lEQVR42u2Wu3EDQQxDHzXKwQ7Uf1nXAVgBHJycyONoGYrRDgPMggA/FT5jHvyNb+7fXFV1M1NNVfUxnhKYlq77eYT3BEqMxLQoLdWgGdlrNTX0vJY0imkcLogP8SoU6Lc1QJ5DPQJQpsk5XxKCImLLRvEpHorit/kO8R4Q0VfLA1bO+cqxI2yCF/gaYouQOAv1syVZQizoEVl+U0fnejAYO+4m14L/jBxs4436Sdz+U9jQN7ptEiXSAp5tRTJRTv/3hDIvyo2LWuiPJEGypCgb8wAFMFrxnxIKp+E29sJ+IxXTxXhlH6VdL3DUSzeDbKyphfmXSLkFPu6PB0wVzDUwl/Dxvvzekwe5H6mt1WGaXa3yAAAAAElFTkSuQmCC" alt="Código QR para contactar a NUMED"><span>Escanea para contactar</span></div></div></section>
+            <section class="report-section age-section"><h3 class="report-title">Edad biológica</h3><div class="age-hero"><div class="age-block"><small>Edad cronológica</small><strong id="r-chrono">—</strong></div><div class="age-arrow">→</div><div class="age-block highlight"><small>Edad biológica</small><strong id="r-bio">—</strong></div></div><div class="age-equation" id="r-equation">—</div><div class="age-status" id="r-status">—</div></section>
+            <section class="report-section notice-section"><div class="notice"><strong>Importante:</strong> esta evaluación ofrece una orientación educativa basada en los datos introducidos. No constituye diagnóstico médico ni sustituye una consulta clínica. Si registras presión arterial muy elevada, dolor de pecho, falta de aire u otros síntomas de alarma, busca atención médica. Consulta a un profesional antes de iniciar cambios de ejercicio, alimentación o medicación.</div><div class="report-credentials"><div class="credential"><small>Código de evaluación</small><strong id="r-report-code">—</strong></div><div class="credential"><small>Próxima revisión sugerida</small><strong id="r-next-review">—</strong></div><div class="credential"><small>Estado del documento</small><strong>Confidencial · Uso del paciente</strong></div></div><div class="signature-block"><div class="signature-line"><span>Nombre y firma del profesional</span></div><div class="signature-line"><span>Fecha de revisión clínica</span></div></div></section>
+            <footer class="report-footer"><span>NUMED · Nutrición & Medicina Preventiva · (809) 893-2009 · www.numedrd.com</span><span>Documento confidencial · Generado localmente</span></footer>
+          </div>
+        </article>
+      </section>
+      <section class="history-section"><div class="shell"><h2 style="color:#52781c;font-size:18px;margin-bottom:18px;margin-top:32px">HISTORIAL DE EVALUACIONES</h2><div style="background:#f6faf7;border-radius:15px;padding:20px;margin-bottom:20px"><h4 style="color:#333;font-size:13px;margin:0 0 16px 0">¿QUÉ SIGNIFICA CADA COLUMNA?</h4><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px"><div style="padding-left:16px;border-left:4px solid #52781c"><strong style="color:#1a1a1a;font-size:12px">Fuerza (kg)</strong><p style="margin:4px 0 0 0;color:#666;font-size:11px">Fuerza de agarre medida con dinamómetro.</p></div><div style="padding-left:16px;border-left:4px solid #52781c"><strong style="color:#1a1a1a;font-size:12px">Perímetro (cm)</strong><p style="margin:4px 0 0 0;color:#666;font-size:11px">Circunferencia abdominal. Indica riesgo metabólico.</p></div><div style="padding-left:16px;border-left:4px solid #52781c"><strong style="color:#1a1a1a;font-size:12px">Peso (kg)</strong><p style="margin:4px 0 0 0;color:#666;font-size:11px">Peso corporal del paciente.</p></div><div style="padding-left:16px;border-left:4px solid #52781c"><strong style="color:#1a1a1a;font-size:12px">Talla (cm)</strong><p style="margin:4px 0 0 0;color:#666;font-size:11px">Altura del paciente.</p></div><div style="padding-left:16px;border-left:4px solid #52781c"><strong style="color:#1a1a1a;font-size:12px">IMC</strong><p style="margin:4px 0 0 0;color:#666;font-size:11px">Índice de Masa Corporal (peso ÷ talla²). Clasifica el estado nutricional.</p></div><div style="padding-left:16px;border-left:4px solid #52781c"><strong style="color:#1a1a1a;font-size:12px">Edad biológica</strong><p style="margin:4px 0 0 0;color:#666;font-size:11px">Edad funcional calculada. El badge ▲▼ muestra cuántos años está por encima o por debajo de la edad real.</p></div><div style="padding-left:16px;border-left:4px solid #52781c"><strong style="color:#1a1a1a;font-size:12px">Puntaje EV</strong><p style="margin:4px 0 0 0;color:#666;font-size:11px">Puntaje del cuestionario de estilo de vida. Valores bajos o negativos indican mejores hábitos.</p></div><div style="padding-left:16px;border-left:4px solid #52781c"><strong style="color:#1a1a1a;font-size:12px">PDF</strong><p style="margin:4px 0 0 0;color:#666;font-size:11px">Descarga el reporte completo de esa evaluación.</p></div></div></div><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px"><thead><tr style="background:#2c5282;color:white"><th style="padding:12px;text-align:center;font-weight:600;min-width:70px">Fuerza (kg)</th><th style="padding:12px;text-align:center;font-weight:600;min-width:100px">Perímetro (cm)</th><th style="padding:12px;text-align:center;font-weight:600;min-width:70px">Peso (kg)</th><th style="padding:12px;text-align:center;font-weight:600;min-width:70px">Talla (cm)</th><th style="padding:12px;text-align:center;font-weight:600;min-width:50px">IMC</th><th style="padding:12px;text-align:center;font-weight:600;min-width:100px">Edad biológica</th><th style="padding:12px;text-align:center;font-weight:600;min-width:80px">Puntaje EV</th><th style="padding:12px;text-align:center;font-weight:600;min-width:60px">PDF</th></tr></thead><tbody id="history-table-body" style="background:white"><tr style="border-top:1px solid #e0e0e0"><td colspan="8" style="padding:24px;text-align:center;color:#999;font-size:11px">Sin evaluaciones registradas aún</td></tr></tbody></table></div><div style="display:flex;gap:12px;justify-content:flex-end;margin-top:16px"><button id="export-csv" style="background:#52781c;color:white;border:none;padding:10px 18px;border-radius:24px;font-weight:600;font-size:12px;cursor:pointer">📊 Exportar CSV</button><button id="clear-history" style="background:#ddd;color:#333;border:none;padding:10px 18px;border-radius:24px;font-weight:600;font-size:12px;cursor:pointer">🗑️ Borrar historial</button></div></div></section>
+    </div>
+  </main>
+
+  <dialog id="pdf-dialog"><div class="dialog-head"><div><strong>Reporte NUMED</strong><span>Evaluación funcional · 3 páginas</span></div><button class="close" type="button" id="close-pdf" aria-label="Cerrar">×</button></div><div class="dialog-body"><iframe src="Evaluacion_NUMED_Paciente.pdf#view=FitH" title="Reporte de evaluación NUMED"></iframe></div></dialog>
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+    const form = $('#health-form');
+    const fields = $$('input[required], select[required]', form);
+    const pdfDialog = $('#pdf-dialog');
+    const today = new Date();
+    $('#dob').max = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate()).toISOString().slice(0,10);
+    $('#dob').min = new Date(today.getFullYear() - 100, today.getMonth(), today.getDate()).toISOString().slice(0,10);
+
+    // Guardar datos automáticamente en localStorage
+    function saveFormData(){
+      try{
+        const data={
+          // Datos personales
+          firstName:value('firstName'),lastName:value('lastName'),dob:value('dob'),gender:value('gender'),idNumber:value('idNumber'),phone:value('phone'),
+          // Indicadores clínicos
+          weight:value('weight'),height:value('height'),waist:value('waist'),strength:value('strength'),systolic:value('systolic'),diastolic:value('diastolic'),
+          // Hábitos cotidianos
+          fuma_actual:radioValue('fuma_actual'),ex_fumador:radioValue('ex_fumador'),alcohol_q:radioValue('alcohol_q'),
+          actividad_q:radioValue('actividad_q'),fuerza_q:radioValue('fuerza_q'),
+          sleep_start:value('sleep_start'),sleep_end:value('sleep_end'),sueno_reparador:radioValue('sueno_reparador'),
+          // TAB-NUMED 2.0
+          tab_vegetales:radioValue('tab_vegetales'),tab_frutas:radioValue('tab_frutas'),tab_leguminosas:radioValue('tab_leguminosas'),
+          tab_proteinas:radioValue('tab_proteinas'),tab_basicos:radioValue('tab_basicos'),tab_azucaradas:radioValue('tab_azucaradas'),
+          tab_dulces:radioValue('tab_dulces'),tab_frituras:radioValue('tab_frituras'),
+          // Antecedentes
+          cronicas_q:radioValue('cronicas_q'),familia_q:radioValue('familia_q'),
+          // PSS-14
+          pss_1:radioValue('pss_1'),pss_2:radioValue('pss_2'),pss_3:radioValue('pss_3'),pss_4:radioValue('pss_4'),pss_5:radioValue('pss_5'),
+          pss_6:radioValue('pss_6'),pss_7:radioValue('pss_7'),pss_8:radioValue('pss_8'),pss_9:radioValue('pss_9'),pss_10:radioValue('pss_10'),
+          pss_11:radioValue('pss_11'),pss_12:radioValue('pss_12'),pss_13:radioValue('pss_13'),pss_14:radioValue('pss_14'),
+          questionnaireReviewed
+        };
+        localStorage.setItem('numed-patient-data',JSON.stringify(data));
+      }catch(e){}
+    }
+
+    // Cargar datos guardados al abrir la página
+    function loadFormData(){
+      try{
+        const saved=localStorage.getItem('numed-patient-data');
+        if(!saved)return;
+        const data=JSON.parse(saved);
+        // Cargar datos personales
+        if(data.firstName)$('#firstName').value=data.firstName;
+        if(data.lastName)$('#lastName').value=data.lastName;
+        if(data.dob)$('#dob').value=data.dob;
+        if(data.gender)$('#gender').value=data.gender;
+        if(data.idNumber)$('#idNumber').value=data.idNumber;
+        if(data.phone)$('#phone').value=data.phone;
+        // Cargar indicadores clínicos
+        if(data.weight)$('#weight').value=data.weight;
+        if(data.height)$('#height').value=data.height;
+        if(data.waist)$('#waist').value=data.waist;
+        if(data.strength)$('#strength').value=data.strength;
+        if(data.systolic)$('#systolic').value=data.systolic;
+        if(data.diastolic)$('#diastolic').value=data.diastolic;
+        // Cargar hábitos
+        if(data.fuma_actual)$(`input[name="fuma_actual"][value="${data.fuma_actual}"]`).checked=true;
+        if(data.ex_fumador)$(`input[name="ex_fumador"][value="${data.ex_fumador}"]`).checked=true;
+        if(data.alcohol_q)$(`input[name="alcohol_q"][value="${data.alcohol_q}"]`).checked=true;
+        if(data.actividad_q)$(`input[name="actividad_q"][value="${data.actividad_q}"]`).checked=true;
+        if(data.fuerza_q)$(`input[name="fuerza_q"][value="${data.fuerza_q}"]`).checked=true;
+        if(data.sleep_start)$('#sleep_start').value=data.sleep_start;
+        if(data.sleep_end)$('#sleep_end').value=data.sleep_end;
+        if(data.sueno_reparador)$(`input[name="sueno_reparador"][value="${data.sueno_reparador}"]`).checked=true;
+        // Cargar TAB-NUMED 2.0
+        if(data.tab_vegetales)$(`input[name="tab_vegetales"][value="${data.tab_vegetales}"]`).checked=true;
+        if(data.tab_frutas)$(`input[name="tab_frutas"][value="${data.tab_frutas}"]`).checked=true;
+        if(data.tab_leguminosas)$(`input[name="tab_leguminosas"][value="${data.tab_leguminosas}"]`).checked=true;
+        if(data.tab_proteinas)$(`input[name="tab_proteinas"][value="${data.tab_proteinas}"]`).checked=true;
+        if(data.tab_basicos)$(`input[name="tab_basicos"][value="${data.tab_basicos}"]`).checked=true;
+        if(data.tab_azucaradas)$(`input[name="tab_azucaradas"][value="${data.tab_azucaradas}"]`).checked=true;
+        if(data.tab_dulces)$(`input[name="tab_dulces"][value="${data.tab_dulces}"]`).checked=true;
+        if(data.tab_frituras)$(`input[name="tab_frituras"][value="${data.tab_frituras}"]`).checked=true;
+        // Cargar antecedentes
+        if(data.cronicas_q)$(`input[name="cronicas_q"][value="${data.cronicas_q}"]`).checked=true;
+        if(data.familia_q)$(`input[name="familia_q"][value="${data.familia_q}"]`).checked=true;
+        // Cargar PSS-14
+        for(let i=1;i<=14;i++){if(data[`pss_${i}`])$(`input[name="pss_${i}"][value="${data[`pss_${i}`]}"]`).checked=true;}
+        // Restaurar estado del cuestionario
+        if(data.questionnaireReviewed){questionnaireReviewed=true;$('#questionnaire-complete').classList.add('visible');$('#evaluate-actions').style.display='';}
+        updateSleepDuration();
+        updateProgress();
+      }catch(e){}
+    }
+
+    function value(id){ return $('#' + id).value.trim(); }
+    function number(id){ return Number($('#' + id).value); }
+    function radioValue(name){ const checked=$(`input[name="${name}"]:checked`,form); return checked?Number(checked.value):0; }
+    function selectedText(name){ const checked=$(`input[name="${name}"]:checked`,form); return checked&&checked.nextElementSibling?checked.nextElementSibling.textContent.trim():'—'; }
+    function set(id, text){ $('#' + id).textContent = text; }
+    function ageFromDob(raw){ const dob = new Date(raw + 'T12:00:00'); let age = today.getFullYear() - dob.getFullYear(); const m = today.getMonth() - dob.getMonth(); if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) age--; return age; }
+    function formatDate(date = today){ return new Intl.DateTimeFormat('es-DO',{day:'2-digit',month:'short',year:'numeric'}).format(date); }
+    function cap(n,min,max){ return Math.min(max,Math.max(min,n)); }
+    function sleepHours(){
+      const start=value('sleep_start'),end=value('sleep_end');
+      if(!start||!end)return null;
+      const [startHour,startMinute]=start.split(':').map(Number),[endHour,endMinute]=end.split(':').map(Number);
+      let minutes=(endHour*60+endMinute)-(startHour*60+startMinute);
+      if(minutes<=0)minutes+=24*60;
+      return minutes/60;
+    }
+    function updateSleepDuration(){
+      const hours=sleepHours(),output=$('#sleep-duration');
+      if(hours===null){output.textContent='—';return}
+      const whole=Math.floor(hours),minutes=Math.round((hours-whole)*60);
+      output.textContent=`${whole} h${minutes?` ${minutes} min`:''}`;
+    }
+    function sleepProfilePenalty(){
+      // Según tabla NUMED
+      const hours=sleepHours();
+      const reparador=radioValue('sueno_reparador');
+      if(hours!==null && hours>=7 && hours<=9 && reparador<0) return -1;  // 7-9h Y descansado
+      if(hours!==null && hours>=6 && hours<=10 && reparador>=0) return 0;   // 6-10h
+      return 1;                                                              // <6 o >10h
+    }
+    function pssScoreAdjustment(total){
+      // Según tabla NUMED: valores únicos por rango de puntaje total
+      if(total<=19)return -0.20;  // 0-19: Bajo
+      if(total<=25)return 0.10;   // 20-25: Moderado
+      return 0.35;                // 26-56: Elevado
+    }
+    function proteinDiversityScore(){const selected=$$('input[name="food_protein"]:checked',form).map(input=>input.value).filter(value=>value!=='none');const count=new Set(selected).size;return count>=5?3:count===4?2:count>=2?1:0}
+    function calcularTABNUMED2(){
+      const dias={
+        vegetales:Number(radioValue('tab_vegetales'))||0,
+        frutas:Number(radioValue('tab_frutas'))||0,
+        leguminosas:Number(radioValue('tab_leguminosas'))||0,
+        proteinas:Number(radioValue('tab_proteinas'))||0,
+        basicos:Number(radioValue('tab_basicos'))||0,
+        azucaradas:Number(radioValue('tab_azucaradas'))||0,
+        dulces:Number(radioValue('tab_dulces'))||0,
+        frituras:Number(radioValue('tab_frituras'))||0
+      };
+      const puntuar=(dias,inversa=false)=>{
+        if(inversa){
+          if(dias===0)return 3;if(dias===1)return 2;if(dias<=4)return 1;return 0;
+        }
+        if(dias===0||dias===1)return 0;if(dias<=3)return 1;if(dias<=5)return 2;return 3;
+      };
+      const puntLeguminosas=(d)=>{if(d===0)return 0;if(d===1)return 1;if(d===2)return 2;return 3;};
+      const puntuaciones={
+        vegetales:puntuar(dias.vegetales),
+        frutas:puntuar(dias.frutas),
+        leguminosas:puntLeguminosas(dias.leguminosas),
+        proteinas:puntuar(dias.proteinas),
+        basicos:puntuar(dias.basicos),
+        azucaradas:puntuar(dias.azucaradas,true),
+        dulces:puntuar(dias.dulces,true),
+        frituras:puntuar(dias.frituras,true)
+      };
+      const total=Object.values(puntuaciones).reduce((a,b)=>a+b,0);
+      const alertas=[];
+      if(puntuaciones.vegetales===0&&puntuaciones.frutas===0)alertas.push('bajo_veg_frut');
+      if(puntuaciones.azucaradas===0)alertas.push('azucaradas');
+      if(puntuaciones.dulces===0)alertas.push('dulces');
+      if(puntuaciones.frituras===0)alertas.push('frituras');
+      let clasificacion='favorable';
+      if(total>=18)clasificacion='favorable';
+      else if(total>=12)clasificacion='parcial';
+      else if(total>=6)clasificacion='mejorable';
+      else clasificacion='prioritaria';
+      if(alertas.length>=3)clasificacion='prioritaria';
+      else if(alertas.length>=2&&(clasificacion==='favorable'||clasificacion==='parcial'))clasificacion='mejorable';
+      else if(alertas.length===1&&clasificacion==='favorable')clasificacion='parcial';
+      const impacto={favorable:-1,parcial:0,mejorable:1,prioritaria:2};
+      const etiquetas={favorable:'Patrón alimentario favorable',parcial:'Patrón parcialmente favorable',mejorable:'Patrón alimentario mejorable',prioritaria:'Patrón que requiere atención priorizada'};
+      const ranking=Object.entries(puntuaciones).sort((a,b)=>a[1]-b[1]).slice(0,2).map(([codigo])=>codigo);
+      const recomendaciones={
+        vegetales:'Incorporar vegetales en el almuerzo o la cena al menos cinco días por semana.',
+        frutas:'Incluir una fruta entera como merienda o acompañamiento al menos cinco días por semana.',
+        leguminosas:'Incluir habichuelas, guandules, lentejas o garbanzos dos o tres días por semana.',
+        proteinas:'Incluir una fuente de proteína poco procesada en una comida principal la mayoría de los días.',
+        basicos:'Elegir con mayor frecuencia cereales integrales o víveres preparados sin freír.',
+        azucaradas:'Reducir las bebidas azucaradas y utilizar agua como bebida principal.',
+        dulces:'Disminuir la frecuencia de dulces, galletas y snacks empacados.',
+        frituras:'Reducir frituras, comida rápida y embutidos.'
+      };
+      const strengths=Object.entries(puntuaciones).filter(([,p])=>p===3).map(([c])=>({codigo:c,puntuacion:3}));
+      const prioridades=ranking.map(codigo=>({codigo,recomendacion:recomendaciones[codigo]}));
+      return{dias,puntuaciones,total,clasificacion,etiqueta:etiquetas[clasificacion],impacto:impacto[clasificacion],alertas,strengths,priorities:prioridades.length?prioridades:[{codigo:'mantenimiento',recomendacion:'Mantener la variedad y frecuencia actual de alimentos protectores.'}]};
+    }
+    function foodProfile(){
+      const tab=calcularTABNUMED2();
+      const labelMap={vegetales:'Vegetales',frutas:'Frutas enteras',leguminosas:'Leguminosas',proteinas:'Proteína poco procesada',basicos:'Alimentos básicos sin freír',azucaradas:'Bebidas azucaradas',dulces:'Dulces y empacados',frituras:'Frituras y procesados'};
+      const items=Object.entries(tab.puntuaciones).map(([codigo,score])=>({code:codigo,label:labelMap[codigo],score,dias:tab.dias[codigo],recommendation:tab.priorities.find(p=>p.codigo===codigo)?.recomendacion||''}));
+      const professional=tab.clasificacion==='favorable'?'Plan de mantenimiento preventivo NUMED':tab.clasificacion==='parcial'?'Orientación nutricional preventiva':tab.clasificacion==='mejorable'?'Consulta nutricional personalizada':'Consulta priorizada de nutrición clínica';
+      const strengths=tab.strengths.map(s=>({label:labelMap[s.codigo],score:s.puntuacion}));
+      return{items,score:tab.total,classification:tab.etiqueta,impact:tab.impacto,professional,strengths,priorities:tab.priorities.map(p=>({recommendation:p.recomendacion}))};
+    }
+    function formatImpact(years){
+      if(years===0)return '0 años · Neutral';
+      const absolute=Math.abs(years),formatted=Number.isInteger(absolute)?absolute:absolute.toFixed(2).replace(/0+$/,'').replace(/\.$/,'');
+      return `${years>0?'+':'−'}${formatted} año${absolute===1?'':'s'}`;
+    }
+    function tone(delta){ return delta <= 0 ? 'good' : delta === 1 ? 'watch' : 'alert'; }
+    function pill(label, delta){ return `<span class="pill ${tone(delta)}">${label}</span>`; }
+    function toast(message){ const el=$('#toast'); el.textContent=message; el.classList.add('show'); clearTimeout(toast.timer); toast.timer=setTimeout(()=>el.classList.remove('show'),2600); }
+
+    let questionnaireReviewed=false;
+    function updateProgress(){
+      const groups = {
+        profile:['firstName','lastName','dob','gender'],
+        metrics:['weight','height','waist','strength','systolic','diastolic'],
+        habits:['fuma_actual','ex_fumador','alcohol_q','actividad_q','fuerza_q','sleep_start','sleep_end','sueno_reparador','tab_vegetales','tab_frutas','tab_leguminosas','tab_proteinas','tab_basicos','tab_azucaradas','tab_dulces','tab_frituras','cronicas_q','familia_q','pss_1','pss_2','pss_3','pss_4','pss_5','pss_6','pss_7','pss_8','pss_9','pss_10','pss_11','pss_12','pss_13','pss_14']
+      };
+      let completedAreas=0;
+      const areaState={};
+      Object.entries(groups).forEach(([name,items])=>{ const isQuestionnaire=name==='habits'; const answered=item=>item==='sleep_start'||item==='sleep_end'?value(item)!=='':isQuestionnaire?!!$(`input[name="${item}"]:checked`,form):value(item)!==''; const ok=items.every(answered)&&(!isQuestionnaire||questionnaireReviewed); areaState[name]=ok;if(ok)completedAreas++; $(`[data-check="${name}"]`).classList.toggle('ok',ok); });
+      const pct=Math.round(completedAreas/3*100); $('#ring').style.setProperty('--progress',pct+'%'); set('progress-number',pct+'%');
+      const activeStage=!areaState.profile?0:!areaState.metrics?1:2;if(!$('#questionnaire-modal').classList.contains('open'))$$('.step').forEach((el,i)=>el.classList.toggle('active',i===activeStage));
+    }
+    fields.forEach(el=>{el.addEventListener('input',updateProgress);el.addEventListener('change',updateProgress)});
+    ['sleep_start','sleep_end'].forEach(id=>$('#'+id).addEventListener('input',updateSleepDuration));
+
+    const questionnaireModal=$('#questionnaire-modal');
+    let questionStep=0;
+    function mainDataIsValid(){
+      const required=$$('input[required],select[required]',form).filter(el=>!el.closest('#questionnaire-modal'));
+      const invalid=required.find(el=>!el.checkValidity());
+      if(invalid){invalid.reportValidity();return false}
+      if(ageFromDob(value('dob'))<18){$('#dob').setCustomValidity('La evaluación está diseñada para personas adultas.');$('#dob').reportValidity();$('#dob').setCustomValidity('');return false}
+      return true;
+    }
+    function showQuestionStep(index){questionStep=cap(index,0,3);$$('.questionnaire-step',questionnaireModal).forEach((el,i)=>el.classList.toggle('active',i===questionStep));$('.questionnaire-box',questionnaireModal).scrollTop=0}
+    function validateQuestionStep(index=questionStep,report=true){
+      const section=$(`.questionnaire-step[data-question-step="${index}"]`,questionnaireModal);
+      const invalid=$$('input[required],select[required]',section).find(el=>!el.checkValidity());
+      if(invalid){if(report)invalid.reportValidity();return false}
+      return true;
+    }
+    function openQuestionnaire(validateMain=true){if(validateMain&&!mainDataIsValid())return;questionnaireModal.classList.add('open');questionnaireModal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';showQuestionStep(0)}
+    function closeQuestionnaire(){questionnaireModal.classList.remove('open');questionnaireModal.setAttribute('aria-hidden','true');document.body.style.overflow=''}
+    $('#open-questionnaire').addEventListener('click',()=>openQuestionnaire(true));
+    $('#edit-questionnaire').addEventListener('click',()=>openQuestionnaire(false));
+    $('#close-questionnaire').addEventListener('click',closeQuestionnaire);
+    $('#cancel-questionnaire').addEventListener('click',closeQuestionnaire);
+    $$('[data-q-next]',questionnaireModal).forEach(btn=>btn.addEventListener('click',()=>{if(validateQuestionStep())showQuestionStep(questionStep+1)}));
+    $$('[data-q-prev]',questionnaireModal).forEach(btn=>btn.addEventListener('click',()=>showQuestionStep(questionStep-1)));
+    $('#save-questionnaire').addEventListener('click',()=>{for(let index=0;index<4;index++){if(!validateQuestionStep(index,false)){showQuestionStep(index);setTimeout(()=>validateQuestionStep(index),0);return}}questionnaireReviewed=true;$('#questionnaire-complete').classList.add('visible');$('#evaluate-actions').style.display='flex';updateProgress();closeQuestionnaire();saveFormData();toast('Cuestionario guardado correctamente')});
+    $$('[data-section-nav]').forEach((button,index)=>button.addEventListener('click',()=>{
+      const destination=button.dataset.sectionNav;
+      $$('.step').forEach((step,i)=>step.classList.toggle('active',i===index));
+      if(destination==='questionnaire'){
+        if(!questionnaireReviewed){openQuestionnaire(false);return}
+        const reportVisible=$('#report').classList.contains('visible');
+        (reportVisible?$('#report'):$('#questionnaire-complete')).scrollIntoView({behavior:'smooth',block:'start'});
+        return;
+      }
+      if(questionnaireModal.classList.contains('open'))closeQuestionnaire();
+      const target=destination==='profile'?$('#profile-section'):$('#indicators-section');
+      target.scrollIntoView({behavior:'smooth',block:'start'});
+    }));
+
+    function classifyBmi(bmi){
+      if(bmi<18.5)return{label:'Bajo peso',delta:1,detail:'Evaluación nutricional, aumentar ingesta calórica supervisada y valorar causas subyacentes.'};
+      if(bmi<25)return{label:'Rango saludable',delta:-1,detail:'Mantener hábitos actuales de alimentación y actividad física, chequeo anual.'};
+      if(bmi<30)return{label:'Sobrepeso',delta:1,detail:'Modificación progresiva de estilo de vida, aumentar actividad física a 150+ minutos/semana.'};
+      if(bmi<35)return{label:'Obesidad Grado I',delta:2,detail:'Programa estructurado de pérdida de peso con profesional, metas graduales de 5-10% en 6 meses.'};
+      return{label:'Obesidad Grado II o mayor',delta:3,detail:'Evaluación médica urgente, programa intensivo con equipo multidisciplinario, considerar opciones terapéuticas.'};
+    }
+    function classifyWaist(gender,waist){
+      const watch=gender==='female'?80:94, high=gender==='female'?88:102;
+      if(waist<watch)return{label:'Riesgo menor',delta:-1,detail:'Perímetro abdominal saludable. Mantener actividad física y patrón alimentario actual.'};
+      if(waist<(gender==='female'?88:102))return{label:'Riesgo aumentado',delta:1,detail:'Vigilancia periódica. Aumentar actividad física, reducir alimentos ultraprocesados y bebidas azucaradas.'};
+      return{label:'Riesgo alto',delta:2,detail:'Riesgo cardiometabólico aumentado. Consultar profesional para programa de reducción de circunferencia abdominal.'};
+    }
+    function classifyBp(sys,dia){
+      // Clasificación NUMED oficial: Crisis > Grado2 > Grado1 > Elevada > Normal
+      // Elevada: AMBAS condiciones (sys >120 Y dia >80)
+      if(sys>180||dia>120)return{label:'Crisis hipertensiva',delta:3,detail:'Urgencia y emergencia. Requiere atención médica inmediata.'};
+      if(sys>=140||dia>=90)return{label:'Hipertensión Grado 2',delta:2,detail:'Cambios en el estilo de vida, 2 antihipertensivos, seguimiento mensual hasta control de la presión.'};
+      if((sys>=130&&sys<140)||(dia>=80&&dia<90))return{label:'Hipertensión Grado 1',delta:1,detail:'Cambios en el estilo de vida, 1 antihipertensivo, seguimiento mensual hasta control de la presión.'};
+      if(sys>120&&dia>80)return{label:'Elevada',delta:1,detail:'Cambios en el estilo de vida, seguimiento en 3-6 meses.'};
+      return{label:'Normal',delta:-1,detail:'Educación del paciente, chequeo anual.'};
+    }
+    function classifyStrength(gender,age,strength){
+      let target=gender==='female'?24:38;
+      if(age>=50)target-=3;if(age>=65)target-=4;
+      const ratio=strength/target;
+      if(ratio>=1.15)return{label:'Superior',delta:-2,detail:'Fuerza funcional óptima. Mantener 2+ sesiones semanales de entrenamiento de fuerza.'};
+      if(ratio>=.9)return{label:'Adecuada',delta:-1,detail:'Dentro del rango esperado. Mantener entrenamiento de fuerza 2 sesiones/semana.'};
+      if(ratio>=.72)return{label:'A mejorar',delta:1,detail:'Trabajar progresivamente fuerza. Iniciar 2 sesiones semanales con técnica supervisada.'};
+      return{label:'Baja',delta:2,detail:'Programa estructurado de fuerza urgente. Valoración profesional y seguimiento mensual.'};
+    }
+    function classifyLife(total,pss){
+      const stressLabel=pss<=19?'estrés bajo':pss<=25?'estrés moderado':'estrés elevado';
+      const stressRec=pss<=19?'Mantener hábitos de relajación actuales.':pss<=25?'Incorporar 10-15 min diarios de técnicas de manejo del estrés.':'Buscar apoyo profesional en psicología, considerar meditación o terapia.';
+      if(total<=-3)return{label:'Muy favorable',delta:total,detail:`Hábitos protectores bien establecidos. ${stressRec}`,pss};
+      if(total<=0)return{label:'Favorable',delta:total,detail:`Base positiva de hábitos. ${stressRec}`,pss};
+      if(total<=4)return{label:'Mejorable',delta:total,detail:`Varias áreas pueden fortalecerse según plan. ${stressRec}`,pss};
+      return{label:'Prioridad alta',delta:total,detail:`Requiere acompañamiento profesional para cambios sostenibles. ${stressRec}`,pss};
+    }
+
+    function buildFollowPlan(results,pssScore){
+      const items=[];
+      const add=(priority,title,action,frequency,review,metric,professional)=>items.push({priority,title,action,frequency,review,metric,professional});
+      if(results.bp.delta>0)add(40+results.bp.delta,'Confirmar la presión arterial','Medir sentado después de 5 minutos de reposo. Tomar dos lecturas separadas por un minuto y anotarlas. Si registra 180/120 mmHg o más, especialmente con síntomas, buscar atención inmediata.','Mañana y noche, 3 días por semana','Revisar el registro en 2 semanas','Promedio de lecturas y síntomas','Medicina / enfermería');
+      if(radioValue('cronicas_q')>0)add(38,'Organizar el control de la condición crónica','Confirmar la próxima consulta, tener disponible la lista de medicamentos y registrar cualquier síntoma o dificultad con el tratamiento.','Revisión breve cada día','En la próxima consulta médica','Adherencia, síntomas y controles','Médico tratante');
+      if(radioValue('fuma_actual')>0)add(36,'Iniciar un plan para dejar de fumar','Definir una fecha de inicio y solicitar apoyo profesional para elegir estrategias seguras de cesación y manejo de recaídas.','Una acción concreta cada día','Primer seguimiento en 2 semanas','Días sin fumar y recaídas','Medicina / psicología');
+      if(pssScore>19)add(32+(pssScore>25?4:0),'Reducir la carga de estrés','Reservar 10 minutos sin pantalla para respiración lenta, relajación o caminata. Si el malestar interfiere con el sueño o la vida diaria, solicitar valoración profesional.','10 minutos todos los días','Repetir PSS-14 en 4 semanas','Minutos realizados y nueva PSS-14','Psicología / medicina');
+      if(sleepProfilePenalty()>0)add(30,'Recuperar un sueño reparador','Mantener una hora fija para acostarse y levantarse, suspender cafeína al final del día y reducir pantallas durante la última hora.','Todas las noches','Evaluar descanso al despertar por 2 semanas','Horas y descanso al despertar','Medicina / bienestar');
+      if(results.bmi.delta>0||results.waist.delta>0||results.food.impact>0)add(26,'Mejorar el patrón de alimentación',results.food.priorities.length?results.food.priorities.map(item=>item.recommendation).join(' '):'Mantener la variedad alimentaria y revisar periódicamente el patrón con nutrición.','Aplicar las 2 prioridades durante 4 semanas','Consulta nutricional o revisión en 4 semanas','Puntaje TAB-NUMED y evolución de medidas','Nutrición clínica');
+      if(radioValue('actividad_q')>=0)add(24,'Aumentar la actividad aeróbica','Comenzar con caminatas a ritmo cómodo y aumentar el tiempo de forma gradual según tolerancia.','30 minutos, 5 días por semana','Revisar tolerancia en 2 semanas','Minutos semanales y esfuerzo percibido','Medicina del ejercicio');
+      if(radioValue('fuerza_q')>=0||results.strength.delta>0)add(22,'Desarrollar fuerza funcional','Realizar ejercicios adaptados para piernas, empuje, tracción y agarre, priorizando técnica y progresión segura.','2 sesiones por semana','Reevaluar fuerza en 4–6 semanas','Sesiones y nueva fuerza de agarre','Medicina del ejercicio');
+      if(radioValue('alcohol_q')>0)add(18,'Reducir la frecuencia de alcohol','Disminuir al menos un día de consumo por semana y evitar utilizar alcohol como estrategia para dormir o manejar estrés.','Objetivo semanal registrado','Revisar avance en 4 semanas','Días de consumo por semana','Medicina / nutrición');
+      if(!items.length)add(10,'Mantener los factores protectores','Conservar las rutinas actuales de actividad, alimentación, sueño y prevención. Registrar cualquier cambio relevante.','Registro breve una vez por semana','Revisión preventiva en 30 días','Continuidad de hábitos y medidas','Equipo NUMED');
+      const selected=items.sort((a,b)=>b.priority-a.priority).slice(0,4);
+      selected.push({title:'Revisión integral NUMED',action:'Llevar los registros realizados y revisar qué acciones funcionaron, cuáles fueron difíciles y qué debe ajustarse con el profesional.',frequency:'Preparar registros antes de la cita',review:'Seguimiento en 30 días',metric:'Porcentaje de acciones cumplidas',professional:'Equipo interdisciplinario NUMED'});
+      return selected;
+    }
+
+    function generateReport(){
+      const age=ageFromDob(value('dob'));
+      const bmi=number('weight')/Math.pow(number('height')/100,2);
+      const food=foodProfile();
+      const pssNames=['pss_1','pss_2','pss_3','pss_4','pss_5','pss_6','pss_7','pss_8','pss_9','pss_10','pss_11','pss_12','pss_13','pss_14'];
+      const pssScore=pssNames.reduce((sum,name)=>sum+radioValue(name),0);
+      const pssAdjustment=pssScoreAdjustment(pssScore);
+      const results={
+        strength:classifyStrength(value('gender'),age,number('strength')),
+        bmi:classifyBmi(bmi), waist:classifyWaist(value('gender'),number('waist')),
+        bp:classifyBp(number('systolic'),number('diastolic')),food
+      };
+      const domainStatus=impact=>impact<=-1?'Favorable':impact===0?'Estable':impact<2?'En observación':'Prioridad';
+      const domains=[
+        {key:'function',title:'Función física',impact:cap(results.strength.delta+radioValue('actividad_q')+radioValue('fuerza_q'),-3,2),detail:'Fuerza de agarre, actividad aeróbica y entrenamiento de fuerza.'},
+        {key:'composition',title:'Composición corporal',impact:cap(results.bmi.delta+results.waist.delta,-2,4),detail:'Índice de masa corporal y perímetro abdominal.'},
+        {key:'cardio',title:'Salud cardiovascular',impact:cap(results.bp.delta+radioValue('fuma_actual')+radioValue('ex_fumador')+radioValue('alcohol_q'),-1,5),detail:'Presión arterial, tabaco y frecuencia de alcohol.'},
+        {key:'nutrition',title:'Alimentación',impact:food.impact,detail:`TAB-NUMED ${food.score}/24 · ${food.classification}.`},
+        {key:'recovery',title:'Sueño y estrés',impact:cap(sleepProfilePenalty()+pssAdjustment,-2,2),detail:'Duración y calidad del sueño junto con PSS-14.'},
+        {key:'prevention',title:'Antecedentes y prevención',impact:cap(radioValue('cronicas_q')+radioValue('familia_q'),0,3),detail:'Diagnósticos crónicos y antecedentes familiares.'}
+      ].map(domain=>({...domain,status:domainStatus(domain.impact)}));
+      const rawDelta=domains.reduce((sum,domain)=>sum+domain.impact,0);
+      const exactImpact=Math.round(rawDelta*100)/100;
+      const delta=Math.round(exactImpact);
+      const exactBio=Math.round((age+exactImpact)*100)/100;
+      const bio=Math.max(1,age+delta);
+      const fullName=`${value('firstName')} ${value('lastName')}`;
+      const compactHash=text=>{let hash=2166136261;for(let i=0;i<text.length;i++){hash^=text.charCodeAt(i);hash=Math.imul(hash,16777619)}return(hash>>>0).toString(36).toUpperCase().padStart(6,'0').slice(-6)};
+      const reportCode=`NUM-${today.toISOString().slice(0,10).replaceAll('-','')}-${compactHash(`${fullName}|${value('dob')}`)}`;
+      const nextReview=new Date(today);nextReview.setDate(nextReview.getDate()+30);
+      set('r-name',fullName);set('r-age',age+' años');set('r-id',value('idNumber')||'No indicada');set('r-date',formatDate());set('r-chrono',age);set('r-bio',bio);
+      set('r-report-code',reportCode);set('r-next-review',formatDate(nextReview));
+      set('r-equation','');
+      const explanation=delta<0?`Tu edad biológica es ${Math.abs(delta)} año${Math.abs(delta)===1?'':'s'} menor que tu edad cronológica. Esto significa que tu cuerpo y tus hábitos funcionan como el de una persona más joven. Los factores protectores en tu evaluación (buena fuerza, presión normal, sueño reparador, alimentación saludable, bajo estrés) han contribuido a mantener tu salud.`:delta>0?`Tu edad biológica es ${delta} año${delta===1?'':'s'} mayor que tu edad cronológica. Esto indica que algunos factores de riesgo (sedentarismo, sobrepeso, presión elevada, estrés) están acelerando el envejecimiento de tu cuerpo. El plan de prevención propuesto te ayudará a mejorar esos factores y reducir esa diferencia.`:`Tu edad biológica coincide con tu edad cronológica. Esto refleja un equilibrio entre factores protectores y áreas de mejora. El objetivo es mantener los aspectos positivos y trabajar progresivamente en las oportunidades identificadas.`;set('r-status',`<strong>¿Qué significa esto?</strong><br>Tu <strong>edad cronológica</strong> es el tiempo en años que has vivido desde tu nacimiento (${age} años). Tu <strong>edad biológica</strong> es una estimación de cómo funciona tu cuerpo según tus hábitos, condiciones de salud, fuerza, sueño y otros factores. <br><br>${explanation}`);set('r-explanation',explanation);
+      const sleep=sleepHours(),sleepLabel=sleep===null?'Horario no indicado':`${Math.floor(sleep)} h${Math.round((sleep%1)*60)?` ${Math.round((sleep%1)*60)} min`:''} · ${selectedText('sueno_reparador')}`;
+      const pssLevel=pssScore<=19?'Bajo':pssScore<=25?'Moderado':'Elevado';
+      const factorRows=[
+        ['Fuerza de agarre',`${number('strength').toFixed(1)} kg · ${results.strength.label}`,results.strength.delta>0?'Realizar 2–3 sesiones semanales de fuerza adaptada, con progresión y técnica supervisada.':'Mantener el entrenamiento de fuerza y reevaluar periódicamente.',results.strength.delta],
+        ['Índice de masa corporal',`${bmi.toFixed(1)} · ${results.bmi.label}`,results.bmi.delta>0?'Solicitar orientación profesional para definir una meta gradual de composición corporal.':'Mantener el patrón actual y vigilar cambios de peso no intencionales.',results.bmi.delta],
+        ['Perímetro abdominal',`${number('waist').toFixed(1)} cm · ${results.waist.label}`,results.waist.delta>0?'Dar seguimiento al perímetro abdominal junto con alimentación, actividad física y evaluación clínica.':'Mantener actividad física y seguimiento periódico.',results.waist.delta],
+        ['Presión arterial',`${number('systolic')}/${number('diastolic')} mmHg · ${results.bp.label}`,results.bp.detail,results.bp.delta],
+        ['Tabaquismo actual',selectedText('fuma_actual'),radioValue('fuma_actual')>0?'Buscar apoyo profesional para dejar de fumar y establecer una fecha de inicio.':'Continuar evitando el consumo de tabaco.',radioValue('fuma_actual')],
+        ['Antecedente reciente de tabaco',selectedText('ex_fumador'),radioValue('ex_fumador')>0?'Reforzar estrategias para prevenir recaídas y mantener seguimiento clínico.':'Mantener un entorno libre de humo.',radioValue('ex_fumador')],
+        ['Consumo de alcohol',selectedText('alcohol_q'),radioValue('alcohol_q')>0?'Reducir la frecuencia y conversar con el profesional de salud sobre un límite individual seguro.':'Mantener un consumo nulo o de baja frecuencia.',radioValue('alcohol_q')],
+        ['Actividad física aeróbica',selectedText('actividad_q'),radioValue('actividad_q')<0?'Mantener al menos 150 minutos semanales de actividad aeróbica.':'Avanzar gradualmente hacia 150 minutos semanales, según tolerancia y orientación profesional.',radioValue('actividad_q')],
+        ['Entrenamiento de fuerza',selectedText('fuerza_q'),radioValue('fuerza_q')<0?'Mantener dos o más sesiones semanales.':'Incorporar dos sesiones semanales adaptadas al nivel funcional.',radioValue('fuerza_q')],
+        ['Sueño',sleepLabel,sleepProfilePenalty()>0?'Regularizar los horarios y consultar si el cansancio al despertar persiste.':'Mantener horarios regulares y hábitos que favorezcan el descanso.',sleepProfilePenalty()],
+        ['Tamizaje alimentario TAB-NUMED',`${food.score}/24 · ${food.classification}`,food.priorities.length?food.priorities.map(item=>item.recommendation).join(' '):'Mantener las prácticas favorables y solicitar orientación nutricional para individualizar cantidades.',food.impact],
+        ['Enfermedad crónica no transmisible',selectedText('cronicas_q'),radioValue('cronicas_q')>0?'Mantener seguimiento médico, controles y adherencia al tratamiento indicado.':'Continuar con controles preventivos periódicos.',radioValue('cronicas_q')],
+        ['Antecedentes familiares',selectedText('familia_q'),radioValue('familia_q')>0?'Priorizar controles preventivos de presión, glucosa y riesgo cardiovascular.':'Mantener los controles preventivos recomendados para la edad.',radioValue('familia_q')],
+        ['Estrés percibido PSS-14',`${pssScore}/56 · ${pssLevel}`,pssScore>25?'Solicitar valoración profesional y establecer medidas estructuradas de manejo del estrés.':pssScore>=20?'Incorporar pausas, respiración o actividad física y vigilar la evolución del estrés.':'Mantener las estrategias actuales de recuperación y autocuidado.',pssAdjustment]
+      ];
+      const protectiveFactors=factorRows.filter(row=>row[3]<0).sort((a,b)=>a[3]-b[3]);
+      const priorityFactors=factorRows.filter(row=>row[3]>0).sort((a,b)=>b[3]-a[3]);
+      const neutralCount=factorRows.filter(row=>row[3]===0).length;
+      const summaryStatus=exactImpact<=-2?'Estado general favorable, con factores protectores predominantes':exactImpact<2?'Estado general estable, con oportunidades específicas de mejora':exactImpact<5?'Estado general mejorable, con prioridades claramente identificadas':'Estado general que requiere atención y seguimiento priorizados';
+      set('r-summary-status',summaryStatus);
+      set('r-summary-overview',`La evaluación de ${fullName} integra ${factorRows.length} factores funcionales, clínicos y de estilo de vida. Se identificaron ${protectiveFactors.length} factores protectores, ${neutralCount} neutrales y ${priorityFactors.length} que requieren atención. Para evitar duplicaciones, se agrupan en seis áreas con impacto limitado; su resultado combinado ajusta ${formatImpact(exactImpact)} la edad cronológica. Esta estimación orienta prioridades y no representa por sí sola un diagnóstico.`);
+      set('r-summary-function',`La fuerza de agarre se clasifica como ${results.strength.label.toLowerCase()} (${number('strength').toFixed(1)} kg). Actividad aeróbica: ${selectedText('actividad_q').toLowerCase()}. Entrenamiento de fuerza: ${selectedText('fuerza_q').toLowerCase()}. Estos resultados reflejan capacidad funcional y hábitos de movimiento actuales.`);
+      set('r-summary-cardio',`El IMC es ${bmi.toFixed(1)} (${results.bmi.label.toLowerCase()}), el perímetro abdominal es ${number('waist').toFixed(1)} cm (${results.waist.label.toLowerCase()}) y la presión registrada fue ${number('systolic')}/${number('diastolic')} mmHg (${results.bp.label.toLowerCase()}). La lectura conjunta permite priorizar composición corporal y prevención cardiovascular.`);
+      set('r-summary-habits',`El sueño habitual fue ${sleepLabel.toLowerCase()}. El TAB-NUMED obtuvo ${food.score}/24 (${food.classification.toLowerCase()}), el consumo de alcohol fue ${selectedText('alcohol_q').toLowerCase()} y el estrés percibido alcanzó ${pssScore}/56 (${pssLevel.toLowerCase()}). Son áreas modificables que pueden favorecer recuperación, energía y bienestar.`);
+      set('r-summary-history',`Enfermedad crónica no transmisible diagnosticada: ${selectedText('cronicas_q').toLowerCase()}. Antecedentes familiares cardiometabólicos: ${selectedText('familia_q').toLowerCase()}. Tabaquismo actual: ${selectedText('fuma_actual').toLowerCase()}. Estos datos ayudan a definir la intensidad del seguimiento preventivo.`);
+      const writeSummaryList=(id,items,emptyMessage)=>{const list=$('#'+id);list.innerHTML='';(items.length?items.slice(0,4):[[emptyMessage,'', '',0]]).forEach(([name,result])=>{const li=document.createElement('li');li.textContent=result?`${name}: ${result}.`:name;list.appendChild(li)});};
+      writeSummaryList('r-summary-strengths',protectiveFactors,'No se identificaron factores protectores con impacto reductor; el primer objetivo será construirlos de forma gradual.');
+      writeSummaryList('r-summary-priorities',priorityFactors,'No se identificaron factores que aumenten la estimación; corresponde mantener los hábitos favorables y el control preventivo.');
+      const foodMessages={Favorable:'La alimentación reportada muestra buena presencia de alimentos protectores, variedad y moderación de productos de menor calidad nutricional.','Adecuado con oportunidades de mejora':'Existen hábitos positivos, pero también componentes concretos que conviene mejorar.','Mejorable':'La combinación de respuestas indica baja frecuencia de alimentos protectores, consumo frecuente de productos de menor calidad o ambas situaciones.','Requiere atención priorizada':'Se identificaron varias oportunidades importantes. Se recomienda evaluación nutricional para crear un plan adaptado a necesidades, preferencias y condiciones médicas.'};
+      set('r-food-score',food.score);set('r-food-class',food.classification);set('r-food-message',foodMessages[food.classification]);set('r-food-impact',formatImpact(food.impact));set('r-food-professional',food.professional);
+      const writeFoodList=(id,items,empty,priority=false)=>{const list=$('#'+id);list.innerHTML='';(items.length?items:[{label:empty,recommendation:empty}]).forEach(item=>{const li=document.createElement('li');li.textContent=priority?item.recommendation:item.label;list.appendChild(li)})};
+      writeFoodList('r-food-strengths',food.strengths,'No se identificaron fortalezas con puntuación máxima.');writeFoodList('r-food-priorities',food.priorities,'Mantener las prácticas favorables actuales.',true);
+      $('#r-domain-cards').innerHTML=domains.map(domain=>{const cardTone=domain.impact<0?'good':domain.impact>=2?'alert':domain.impact>0?'watch':'';return`<article class="domain-card ${cardTone}"><div class="domain-head"><strong>${domain.title}</strong><span class="domain-impact">${formatImpact(domain.impact)}</span></div><span class="domain-status">${domain.status}</span><p>${domain.detail}</p></article>`}).join('');
+      const leadingDomain=[...domains].sort((a,b)=>b.impact-a.impact)[0];
+      const services={function:['Programa de fuerza y acondicionamiento','Valoración funcional, ejercicio adaptado y seguimiento progresivo para mejorar capacidad física y seguridad.'],composition:['Programa de composición corporal','Acompañamiento integrado de nutrición y ejercicio para trabajar medidas corporales con metas individualizadas.'],cardio:['Programa de prevención cardiometabólica','Seguimiento clínico de presión y factores de riesgo, acompañado de nutrición y actividad física adaptada.'],nutrition:['Consulta nutricional personalizada','Evaluación detallada del patrón alimentario para definir porciones, estructura de comidas y objetivos realistas.'],recovery:['Programa de recuperación y bienestar','Acompañamiento para mejorar sueño, manejo del estrés y recuperación cotidiana con seguimiento profesional.'],prevention:['Evaluación médica preventiva','Revisión clínica de antecedentes, controles pendientes y acciones preventivas personalizadas.']};
+      const service=leadingDomain.impact<=0?['Plan de mantenimiento preventivo NUMED','Seguimiento periódico para conservar los factores protectores y detectar cambios antes de que se conviertan en problemas.']:services[leadingDomain.key];
+      set('r-service-title',service[0]);set('r-service-copy',service[1]);set('r-service-reason',leadingDomain.impact<=0?'Tu perfil no presenta un área dominante de riesgo; la recomendación es mantener controles y hábitos protectores.':`Se recomienda porque ${leadingDomain.title.toLowerCase()} es el área con mayor oportunidad de mejora (${formatImpact(leadingDomain.impact)}). La indicación definitiva debe confirmarse durante la valoración profesional.`);
+      $('#r-factor-rows').innerHTML=factorRows.map(([name,result,recommendation,impact])=>`<tr><td><div class="factor-summary"><strong>${name}</strong><span>${result}</span></div></td><td>${recommendation}</td><td>${formatImpact(impact)}</td></tr>`).join('');
+      const planItems=buildFollowPlan(results,pssScore);
+      $('#r-follow-plan').innerHTML=`<div class="follow-plan">${planItems.map((item,index)=>`<article class="follow-step"><div class="follow-number">${index+1}</div><div class="follow-copy"><strong>${item.title}</strong><p>${item.action}</p></div><div class="follow-meta"><div><small>Frecuencia</small><strong>${item.frequency}</strong></div><div><small>Profesional</small><strong>${item.professional}</strong></div></div></article>`).join('')}</div>`;
+      try{const puntajeEV=Math.round(exactImpact);const historyItem={fecha:formatDate(),nombre:fullName,edad:age,genero:value('gender')==='female'?'Femenino':'Masculino',fuerza:number('strength'),perimetro:number('waist'),peso:number('weight'),talla:number('height'),imc:bmi.toFixed(1),bio,puntajeEV,reportCode,timestamp:new Date().toISOString()};let history=[];try{history=JSON.parse(localStorage.getItem('numed-history'))||[];}catch(e){}history.unshift(historyItem);try{localStorage.setItem('numed-history',JSON.stringify(history.slice(0,100)));}catch(e){}loadHistory();}catch(e){}
+      $('#report').classList.add('visible'); $$('.step').forEach((el,i)=>el.classList.toggle('active',i===2)); $('#report').scrollIntoView({behavior:'smooth',block:'start'}); toast('Evaluación generada correctamente');
+    }
+
+    // Cargar datos guardados al iniciar
+    loadFormData();
+
+    // Guardar datos automáticamente cuando cambia cualquier campo
+    $$('input, select', form).forEach(field=>{
+      field.addEventListener('change',saveFormData);
+      field.addEventListener('input',saveFormData);
+    });
+
+    form.addEventListener('submit',e=>{e.preventDefault();if(!questionnaireReviewed){openQuestionnaire(false);toast('Completa y guarda el cuestionario');return}const valid=form.checkValidity()&&ageFromDob(value('dob'))>=18;if(!valid){form.classList.add('submitted');$('#form-error').classList.add('show');form.reportValidity();return}$('#form-error').classList.remove('show');generateReport()});
+    $('#sample-data').addEventListener('click',()=>{const sample={firstName:'María',lastName:'Rodríguez',dob:'1984-05-18',gender:'female',idNumber:'',phone:'(809) 555-0142',weight:'68.4',height:'164',waist:'82',strength:'27.5',systolic:'124',diastolic:'78',sleep_start:'22:30',sleep_end:'06:30'};// Cargar datos de ejemplo en formulario base
+      Object.entries(sample).forEach(([id,val])=>$('#'+id).value=val);
+      // Para los campos TAB-NUMED 2.0, necesitamos asignar valores a los radio buttons después de que el form esté listo
+      setTimeout(()=>{
+        const tabSample={tab_vegetales:'5',tab_frutas:'4',tab_leguminosas:'2',tab_proteinas:'6',tab_basicos:'4',tab_azucaradas:'1',tab_dulces:'2',tab_frituras:'1'};
+        Object.entries(tabSample).forEach(([name,val])=>{
+          const radio=$(`input[name="${name}"][value="${val}"]`);
+          if(radio)radio.checked=true;
+        });
+      },50);
+      updateSleepDuration();updateProgress();saveFormData();toast('Datos de ejemplo cargados')});
+    $('#print-report').addEventListener('click',()=>window.print());
+    $('#edit-report').addEventListener('click',()=>{form.scrollIntoView({behavior:'smooth',block:'start'});toast('Puedes ajustar cualquier dato y regenerar')});
+    $$('[data-open-pdf]').forEach(btn=>btn.addEventListener('click',()=>pdfDialog.showModal()));
+    $('#close-pdf').addEventListener('click',()=>pdfDialog.close());
+    pdfDialog.addEventListener('click',e=>{if(e.target===pdfDialog)pdfDialog.close()});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&pdfDialog.open)pdfDialog.close();if(e.key==='Escape'&&questionnaireModal.classList.contains('open'))closeQuestionnaire()});
+
+    function downloadHistoryPDF(reportCode){const reportEl=$('#report');if(!reportEl.classList.contains('visible')){toast('Genera una evaluación primero');return}const printWindow=window.open('','','height=600,width=800');printWindow.document.write('<html><head><title>Reporte '+reportCode+'</title>');printWindow.document.write('<style>body{font-family:Arial;margin:20px}'+document.querySelector('style').textContent+'</style>');printWindow.document.write('</head><body>');printWindow.document.write(reportEl.innerHTML);printWindow.document.write('</body></html>');printWindow.document.close();setTimeout(()=>{printWindow.print();printWindow.close()},500)}
+
+    function loadHistory(){const tbody=$('#history-table-body');let history=[];try{history=JSON.parse(localStorage.getItem('numed-history'))||[];}catch(e){}if(!history.length){tbody.innerHTML='<tr style="border-top:1px solid #e0e0e0"><td colspan="8" style="padding:24px;text-align:center;color:#999;font-size:11px">Sin evaluaciones registradas aún</td></tr>';return}tbody.innerHTML=history.map((item,idx)=>{const bioChange=item.bio-item.edad;const bioBadge=bioChange<0?`<span style="color:#52781c;font-weight:700">▼ ${Math.abs(bioChange)}a</span>`:bioChange>0?`<span style="color:#e74c3c;font-weight:700">▲ ${bioChange}a</span>`:'—';const evColor=item.puntajeEV<0?'#52781c':item.puntajeEV>2?'#e74c3c':'#f39c12';return`<tr style="border-top:1px solid #e0e0e0"><td style="padding:12px;text-align:center">${item.fuerza.toFixed(1)}</td><td style="padding:12px;text-align:center">${item.perimetro.toFixed(1)}</td><td style="padding:12px;text-align:center">${item.peso.toFixed(1)}</td><td style="padding:12px;text-align:center">${item.talla.toFixed(1)}</td><td style="padding:12px;text-align:center">${item.imc}</td><td style="padding:12px;text-align:center"><strong style="font-size:13px">${item.bio}</strong> <span style="color:#999;font-size:10px">${bioBadge}</span></td><td style="padding:12px;text-align:center"><span style="background:${evColor}15;color:${evColor};padding:4px 8px;border-radius:4px;font-weight:600;font-size:11px">${item.puntajeEV}</span></td><td style="padding:12px;text-align:center"><button onclick="downloadHistoryPDF('${item.reportCode}')" style="background:#2c5282;color:white;border:none;padding:6px 10px;border-radius:6px;font-weight:600;font-size:10px;cursor:pointer">📄 PDF</button></td></tr>`}).join('')}
+
+    function exportCSV(){let history=[];try{history=JSON.parse(localStorage.getItem('numed-history'))||[];}catch(e){}if(!history.length){toast('No hay evaluaciones para exportar');return}const headers=['Fuerza (kg)','Perímetro (cm)','Peso (kg)','Talla (cm)','IMC','Edad Biológica','Puntaje EV','Fecha','Nombre','Edad','Género'];const rows=history.map(item=>[item.fuerza.toFixed(1),item.perimetro.toFixed(1),item.peso.toFixed(1),item.talla.toFixed(1),item.imc,item.bio,item.puntajeEV,item.fecha,item.nombre,item.edad,item.genero]);const csv=[headers,...rows].map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});const link=document.createElement('a');const url=URL.createObjectURL(blob);link.setAttribute('href',url);link.setAttribute('download',`historial-numed-${new Date().toISOString().split('T')[0]}.csv`);link.style.visibility='hidden';document.body.appendChild(link);link.click();document.body.removeChild(link);toast('CSV exportado correctamente')}
+
+    function clearHistory(){if(confirm('¿Estás seguro de que deseas borrar todo el historial de evaluaciones? Esta acción no se puede deshacer.')){try{localStorage.removeItem('numed-history');loadHistory();toast('Historial borrado correctamente');}catch(e){toast('Error al borrar el historial')}}}
+
+    $('#export-csv').addEventListener('click',exportCSV);
+    $('#clear-history').addEventListener('click',clearHistory);
+    loadHistory();
+    updateProgress();
+  </script>
+</body>
+</html>
