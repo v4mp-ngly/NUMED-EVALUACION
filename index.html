@@ -4028,10 +4028,10 @@
             <div
               class="form-actions"
               id="evaluate-actions"
-              style="display: none"
+              style="display: flex"
             >
               <span class="hint">Ya puedes generar el análisis integrado.</span>
-              <button class="btn btn-green" type="submit">
+              <button class="btn btn-green" type="submit" id="generate-evaluation">
                 Generar evaluación
                 <span aria-hidden="true">→</span>
               </button>
@@ -5840,6 +5840,14 @@
             "Programa de prevención cardiometabólica",
             "Seguimiento clínico de presión y factores de riesgo, acompañado de nutrición y actividad física adaptada.",
           ],
+          metabolic: [
+            "Programa de salud metabólica",
+            "Seguimiento integral de composición corporal y factores metabólicos con objetivos individualizados.",
+          ],
+          psychosocial: [
+            "Programa de bienestar psicosocial",
+            "Acompañamiento orientado al manejo del estrés, descanso, autocuidado y bienestar cotidiano.",
+          ],
           nutrition: [
             "Consulta nutricional personalizada",
             "Evaluación detallada del patrón alimentario para definir porciones, estructura de comidas y objetivos realistas.",
@@ -5994,27 +6002,35 @@
         Object.entries(sample).forEach(
           ([id, val]) => ($("#" + id).value = val),
         );
-        // Para los campos TAB-NUMED 2.0, necesitamos asignar valores a los radio buttons después de que el form esté listo
-        setTimeout(() => {
-          const tabSample = {
-            tab_vegetales: "5",
-            tab_frutas: "4",
-            tab_leguminosas: "2",
-            tab_proteinas: "6",
-            tab_basicos: "4",
-            tab_azucaradas: "1",
-            tab_dulces: "2",
-            tab_frituras: "1",
-          };
-          Object.entries(tabSample).forEach(([name, val]) => {
-            const radio = $(`input[name="${name}"][value="${val}"]`);
-            if (radio) radio.checked = true;
-          });
-        }, 50);
+        // Completar automaticamente todos los grupos obligatorios del cuestionario
+        // para que el ejemplo pueda probarse de principio a fin.
+        const requiredRadioNames = [...new Set(
+          $$('input[type="radio"][required]', form).map((radio) => radio.name)
+        )];
+        requiredRadioNames.forEach((name) => {
+          if (!$(`input[name="${name}"]:checked`, form)) {
+            const firstOption = $(`input[name="${name}"]`, form);
+            if (firstOption) firstOption.checked = true;
+          }
+        });
+        // Aplicar valores de ejemplo específicos de alimentación de forma síncrona.
+        const tabSample = {
+          tab_vegetales: "5", tab_frutas: "4", tab_leguminosas: "2", tab_proteinas: "6",
+          tab_basicos: "4", tab_azucaradas: "1", tab_dulces: "2", tab_frituras: "1"
+        };
+        Object.entries(tabSample).forEach(([name, val]) => {
+          const radio = $(`input[name="${name}"][value="${val}"]`, form);
+          if (radio) radio.checked = true;
+        });
+        // Notificar al formulario para actualizar estados visuales y validación.
+        $$('input, select', form).forEach((field) => field.dispatchEvent(new Event('change', { bubbles: true })));
+        questionnaireReviewed = true;
+        $("#questionnaire-complete").classList.add("visible");
+        $("#evaluate-actions").style.display = "flex";
         updateSleepDuration();
         updateProgress();
         saveFormData();
-        toast("Datos de ejemplo cargados");
+        toast("Ejemplo completo cargado. Ya puedes generar la evaluación");
       });
       $("#print-report").addEventListener("click", () => window.print());
       $("#edit-report").addEventListener("click", () => {
