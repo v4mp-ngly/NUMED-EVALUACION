@@ -5602,19 +5602,26 @@
           const interpretation = (() => {
             if (domain.key === "metabolic") {
               const bmiLabel = results.bmi.label;
-              const waistLabel = results.waist.label === "Riesgo menor"
-                ? "perímetro abdominal en rango favorable"
-                : `perímetro abdominal presenta ${results.waist.label.toLowerCase()}`;
-              const connector = results.waist.label === "Riesgo menor" ? "y el" : "ya que el";
-              return `<b>${bmiLabel} ${connector}</b> ${waistLabel}. IMC ${bmi.toFixed(1)} y perímetro abdominal ${number("waist").toFixed(1)} cm. ${level === "favorable" ? "Se encuentran dentro de los parámetros esperados para la condición metabólica." : level === "attention" ? "Presentan alteraciones relevantes que requieren valoración y seguimiento de la condición metabólica." : "Presentan variaciones que requieren seguimiento para identificar posibles cambios en la condición metabólica."}`;
+              const waistAltered = results.waist.label !== "Riesgo menor";
+              if (level === "favorable") {
+                return `<b>El IMC y el perímetro abdominal se encuentran en rangos favorables.</b> Los indicadores evaluados se encuentran dentro de los parámetros esperados para la condición metabólica.`;
+              }
+              if (waistAltered) {
+                return `<b>Está en ${bmiLabel.toLowerCase()} ya que el perímetro abdominal y el IMC presentan riesgo aumentado.</b> Presentan ${level === "attention" ? "alteraciones relevantes que requieren valoración y seguimiento" : "variaciones que requieren seguimiento para identificar posibles cambios"} en la condición metabólica.`;
+              }
+              return `<b>Está en ${bmiLabel.toLowerCase()} ya que el IMC se encuentra fuera del rango favorable.</b> Este indicador presenta ${level === "attention" ? "una alteración relevante que requiere valoración y seguimiento" : "una variación que requiere seguimiento para identificar posibles cambios"} en la condición metabólica.`;
             }
             if (domain.key === "cardio") {
-              const pressure = `Presión arterial ${results.bp.label.toLowerCase()}`;
-              const extras = [];
-              if (radioValue("fuma_actual") > 0) extras.push("tabaquismo actual");
-              if (radioValue("alcohol_q") > 0) extras.push("consumo de alcohol a considerar");
-              const extraText = extras.length ? ` También se identifica ${extras.join(" y ")}.` : "";
-              return `<b>${pressure}.</b> Registro de ${number("systolic")}/${number("diastolic")} mmHg.${extraText} ${level === "favorable" ? "Los indicadores cardiovasculares evaluados se encuentran dentro de los parámetros esperados." : level === "attention" ? "Los hallazgos muestran alteraciones relevantes que requieren valoración cardiovascular." : "Los hallazgos ameritan seguimiento cardiovascular para vigilar su evolución."}`;
+              const findings = [];
+              if (results.bp.delta > 0) findings.push(`la presión arterial se encuentra ${results.bp.label.toLowerCase()} (${number("systolic")}/${number("diastolic")} mmHg)`);
+              if (radioValue("fuma_actual") > 0) findings.push("se identifica tabaquismo actual");
+              else if (radioValue("ex_fumador") > 0) findings.push("se reporta antecedente de tabaquismo en los últimos 5 años");
+              if (radioValue("alcohol_q") > 0) findings.push("la frecuencia de consumo de alcohol amerita seguimiento");
+              if (!findings.length) {
+                return `<b>La condición cardiovascular es favorable.</b> La presión arterial registrada es ${number("systolic")}/${number("diastolic")} mmHg y no se identifican otros hallazgos cardiovasculares que requieran seguimiento.`;
+              }
+              const joined = findings.length === 1 ? findings[0] : `${findings.slice(0, -1).join(", ")} y ${findings[findings.length - 1]}`;
+              return `<b>La condición cardiovascular ${level === "attention" ? "requiere atención" : "está en observación"} ya que ${joined}.</b> ${level === "attention" ? "Estos hallazgos requieren valoración cardiovascular para determinar el seguimiento apropiado." : "Estos hallazgos ameritan seguimiento cardiovascular para vigilar su evolución."}`;
             }
             if (domain.key === "function") {
               const strengthText = `Fuerza ${results.strength.label.toLowerCase()}`;
