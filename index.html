@@ -5546,30 +5546,97 @@
           { key: "nutrition", impact: food.impact },
           { key: "psychosocial", impact: cap(sleepProfilePenalty() + pssAdjustment, -2, 2) },
         ].map((domain) => {
-          const status = domainStatus(domain.impact);
-          const level = status === "Favorable" ? "favorable" : status === "Requiere atención" ? "attention" : "observation";
-          const copy = conditionCopy[domain.key][level];
-          const evidence = (() => {
+          // La clasificación visible del paciente se basa en los hallazgos del área,
+          // no únicamente en el impacto usado para calcular la edad biológica.
+          const statusForDomain = () => {
             if (domain.key === "metabolic") {
-              return `<b>IMC:</b> ${bmi.toFixed(1)} · ${results.bmi.label}. <b>Perímetro abdominal:</b> ${number("waist").toFixed(1)} cm · ${results.waist.label}.`;
+              const worst = Math.max(results.bmi.delta, results.waist.delta);
+              return worst >= 2 ? "Requiere atención" : worst > 0 ? "En observación" : "Favorable";
             }
             if (domain.key === "cardio") {
-              const smoke = radioValue("fuma_actual") > 0 ? "Sí" : "No";
-              const alcoholDays = radioValue("alcohol_q");
-              const alcohol = alcoholDays <= 0 ? "sin consumo reportado" : alcoholDays === 1 ? "1 día/semana" : alcoholDays === 2 ? "2-3 días/semana" : "4 o más días/semana";
-              return `<b>Presión arterial:</b> ${number("systolic")}/${number("diastolic")} mmHg · ${results.bp.label}. <b>Tabaquismo actual:</b> ${smoke}. <b>Alcohol:</b> ${alcohol}.`;
+              if (results.bp.delta >= 2) return "Requiere atención";
+              if (results.bp.delta > 0 || radioValue("fuma_actual") > 0 || radioValue("ex_fumador") > 0 || radioValue("alcohol_q") > 0) return "En observación";
+              return "Favorable";
             }
             if (domain.key === "function") {
-              const aerobic = radioValue("actividad_q") < 0 ? "Sí" : "No";
-              const strengthTraining = radioValue("fuerza_q") < 0 ? "Sí" : "No";
-              return `<b>Fuerza de agarre:</b> ${number("strength").toFixed(1)} kg · ${results.strength.label}. <b>Actividad aeróbica 150 min/sem:</b> ${aerobic}. <b>Entrenamiento de fuerza:</b> ${strengthTraining}.`;
+              if (results.strength.delta >= 2) return "Requiere atención";
+              if (results.strength.delta > 0 || radioValue("actividad_q") >= 0 || radioValue("fuerza_q") >= 0) return "En observación";
+              return "Favorable";
             }
             if (domain.key === "nutrition") {
-              return `<b>Resultado alimentario:</b> ${food.classification}.`;
+              if (food.impact >= 2) return "Requiere atención";
+              if (food.impact >= 0) return "En observación";
+              return "Favorable";
             }
-            return `<b>Estrés percibido:</b> ${pssScore <= 19 ? "Bajo" : pssScore <= 25 ? "Moderado" : "Elevado"}. <b>Sueño:</b> ${sleepHours() === null ? "No indicado" : `${sleepHours().toFixed(1)} h`}.`;
+            // El estrés elevado no debe quedar oculto por un sueño favorable.
+            if (pssScore >= 26) return "Requiere atención";
+            if (pssScore >= 20 || sleepProfilePenalty() > 0) return "En observación";
+            return "Favorable";
+          };
+          const status = statusForDomain();
+          const level = status === "Favorable" ? "favorable" : status === "Requiere atención" ? "attention" : "observation";
+          const copy = conditionCopy[domain.key][level];
+
+          const foodFindingText = () => {
+            const labels = {
+              vegetales: "bajo consumo de vegetales",
+              frutas: "bajo consumo de frutas",
+              leguminosas: "consumo insuficiente de leguminosas",
+              proteinas: "baja frecuencia de proteínas poco procesadas",
+              basicos: "baja frecuencia de alimentos básicos preparados sin freír",
+              azucaradas: "consumo frecuente de bebidas azucaradas",
+              dulces: "consumo frecuente de dulces y alimentos empacados",
+              frituras: "consumo frecuente de frituras y alimentos procesados"
+            };
+            const weak = food.items
+              .filter((item) => item.score <= 1)
+              .sort((a, b) => a.score - b.score)
+              .slice(0, 3)
+              .map((item) => labels[item.code]);
+            if (!weak.length) return "Los hábitos evaluados muestran una alimentación variada y equilibrada.";
+            if (weak.length === 1) return `Se identifica ${weak[0]}.`;
+            const last = weak.pop();
+            return `Se identifican ${weak.join(", ")} y ${last}.`;
+          };
+
+          const interpretation = (() => {
+            if (domain.key === "metabolic") {
+              const bmiLabel = results.bmi.label;
+              const waistLabel = results.waist.label === "Riesgo menor"
+                ? "perímetro abdominal en rango favorable"
+                : `perímetro abdominal presenta ${results.waist.label.toLowerCase()}`;
+              const connector = results.waist.label === "Riesgo menor" ? "y el" : "ya que el";
+              return `<b>${bmiLabel} ${connector}</b> ${waistLabel}. IMC ${bmi.toFixed(1)} y perímetro abdominal ${number("waist").toFixed(1)} cm. ${level === "favorable" ? "Se encuentran dentro de los parámetros esperados para la condición metabólica." : level === "attention" ? "Presentan alteraciones relevantes que requieren valoración y seguimiento de la condición metabólica." : "Presentan variaciones que requieren seguimiento para identificar posibles cambios en la condición metabólica."}`;
+            }
+            if (domain.key === "cardio") {
+              const pressure = `Presión arterial ${results.bp.label.toLowerCase()}`;
+              const extras = [];
+              if (radioValue("fuma_actual") > 0) extras.push("tabaquismo actual");
+              if (radioValue("alcohol_q") > 0) extras.push("consumo de alcohol a considerar");
+              const extraText = extras.length ? ` También se identifica ${extras.join(" y ")}.` : "";
+              return `<b>${pressure}.</b> Registro de ${number("systolic")}/${number("diastolic")} mmHg.${extraText} ${level === "favorable" ? "Los indicadores cardiovasculares evaluados se encuentran dentro de los parámetros esperados." : level === "attention" ? "Los hallazgos muestran alteraciones relevantes que requieren valoración cardiovascular." : "Los hallazgos ameritan seguimiento cardiovascular para vigilar su evolución."}`;
+            }
+            if (domain.key === "function") {
+              const strengthText = `Fuerza ${results.strength.label.toLowerCase()}`;
+              const findings = [];
+              if (radioValue("actividad_q") >= 0) findings.push("actividad aeróbica por debajo del objetivo");
+              else findings.push("actividad aeróbica adecuada");
+              if (radioValue("fuerza_q") >= 0) findings.push("entrenamiento de fuerza insuficiente");
+              const findingText = findings.length ? ` Se identifica ${findings.join(" y ")}.` : "";
+              return `<b>${strengthText}.</b>${findingText} ${level === "favorable" ? "Los resultados reflejan una condición funcional adecuada para las actividades habituales." : level === "attention" ? "Los resultados muestran limitaciones funcionales relevantes que pueden afectar las actividades habituales." : "Los resultados muestran aspectos de movilidad, fuerza o actividad física que conviene fortalecer y seguir."}`;
+            }
+            if (domain.key === "nutrition") {
+              const foodText = foodFindingText();
+              const firstSentenceEnd = foodText.indexOf(".");
+              const lead = firstSentenceEnd >= 0 ? foodText.slice(0, firstSentenceEnd + 1) : foodText;
+              return `<b>${lead}</b> ${level === "favorable" ? "En conjunto, los hábitos evaluados favorecen una alimentación equilibrada." : level === "attention" ? "En conjunto, estos patrones pueden afectar el estado nutricional o la salud." : "En conjunto, estos hábitos representan oportunidades concretas de mejora."}`;
+            }
+            const stressLabel = pssScore <= 19 ? "Estrés percibido bajo" : pssScore <= 25 ? "Estrés percibido moderado" : "Estrés percibido elevado";
+            const sleep = sleepHours();
+            const sleepFinding = sleep === null ? "sueño no indicado" : sleepProfilePenalty() > 0 ? "duración o calidad del sueño fuera del rango favorable" : "sueño en rango favorable";
+            return `<b>${stressLabel}.</b> ${sleepFinding.charAt(0).toUpperCase() + sleepFinding.slice(1)}. ${level === "favorable" ? "En conjunto, los indicadores reflejan un adecuado bienestar emocional y manejo de las demandas cotidianas." : level === "attention" ? "Los resultados indican factores que pueden estar afectando de manera importante el bienestar emocional o el funcionamiento cotidiano." : "Los resultados muestran señales que ameritan seguimiento del bienestar emocional y del manejo del estrés."}`;
           })();
-          return { ...domain, title: conditionCopy[domain.key].title, status, detail: `${evidence}<br>${copy[0]}<br><b>Recomendación:</b> ${copy[1]}` };
+          return { ...domain, title: conditionCopy[domain.key].title, status, detail: `${interpretation}<br><b>Recomendación:</b> ${copy[1]}` };
         });
         const rawDelta = domains.reduce(
           (sum, domain) => sum + domain.impact,
