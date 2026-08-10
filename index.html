@@ -8,15 +8,8 @@
       name="description"
       content="Evaluación funcional integral NUMED de edad biológica, salud y plan de acción personalizado."
     />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,
-  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
-    <rect fill='%232c5282' width='100' height='100'/><circle cx='50' cy='50' r='35' fill='%2352781c'/>
-    <path d='M35,50 L45,60 L65,35' stroke='white' stroke-width='4' fill='none' stroke-linecap='round'/>
-  </svg>"
-      type="image/svg+xml"
-    />
+    <link rel="icon" href="logo-numed.png" type="image/png" />
+    <link rel="apple-touch-icon" href="logo-numed.png" />
     <title>Evaluación Funcional Integral - Edad Biológica | NUMED</title>
     <style>
       :root {
@@ -2313,6 +2306,7 @@
       #history-table-body tr.history-row:hover { background:#f2f7ed; }
       #history-table-body tr.history-row:focus { outline:2px solid #52781c; outline-offset:-2px; }
       @media print {
+        .history-section { display: none !important; }
         @page { size:A4; margin:0 0 7mm 0; }
         .report-cover { padding:18px 30px 14px !important; }
         .report-cover h2 { margin-top:12px !important; font-size:23px !important; }
@@ -2344,6 +2338,28 @@
         .clinical-note { font-size: 7.5pt !important; line-height: 1.35 !important; padding: 8px 10px !important; }
         .notice-section { margin-bottom: 10px !important; }
         .report-footer { break-inside: avoid-page !important; page-break-inside: avoid !important; }
+      }
+
+      /* Correccion final: flujo A4 compacto y recomendaciones alineadas */
+      #r-follow-plan { display:block; width:100%; }
+      #r-follow-plan > .patient-recommendation-grid { width:100%; margin-left:0; margin-right:0; }
+      @media print {
+        .domain-section, .food-report-section, .plan-section, .age-section, .notice-section {
+          break-before:auto !important; page-break-before:auto !important;
+          break-inside:auto !important; page-break-inside:auto !important;
+          padding-top:0 !important;
+        }
+        .domain-grid, .patient-recommendation-grid { break-inside:auto !important; page-break-inside:auto !important; }
+        .domain-card, .patient-recommendation-card, .food-score-card, .food-detail, .age-hero {
+          break-inside:avoid !important; page-break-inside:avoid !important;
+        }
+        #r-follow-plan { display:block !important; width:100% !important; }
+        #r-follow-plan > .patient-recommendation-grid {
+          width:100% !important; margin:7px 0 0 !important; padding:0 !important;
+          grid-template-columns:1fr 1fr !important; box-sizing:border-box !important;
+        }
+        .report-body { padding-top:10px !important; padding-bottom:12px !important; }
+        .report-section { margin-top:0 !important; margin-bottom:9px !important; }
       }
 
       /* Dashboard poblacional NUMED */
