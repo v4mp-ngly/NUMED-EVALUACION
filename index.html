@@ -2234,7 +2234,7 @@
         }
       }
 
-      .patient-deliverable-section, .patient-summary-section, .factor-section { display:none !important; }
+      .patient-deliverable-section, .patient-summary-section, .factor-section, .food-report-section, .plan-section, .service-section { display:none !important; }
       .patient-explainer { margin: -4px 0 16px; padding: 14px 16px; background: #f1f6f8; border-left: 4px solid var(--navy-700); border-radius: 10px; color: #405564; font-size: 11px; line-height: 1.55; }
       .patient-result-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
       .patient-result-card { padding:14px 15px; border:1px solid var(--line); border-radius:14px; background:#fbfdfd; break-inside:avoid; }
@@ -2288,7 +2288,7 @@
         }
       
       .domain-method, .domain-impact { display:none !important; }
-      @media print { .domain-section, .food-report-section { display:block !important; } }
+      @media print { .domain-section { display:block !important; } .food-report-section, .plan-section, .service-section { display:none !important; } }
 
       .patient-recommendation-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-top:18px; }
       .patient-recommendation-card { display:flex; gap:14px; align-items:flex-start; padding:18px; border:1px solid #d9e4ea; border-radius:14px; background:#fff; break-inside:avoid; page-break-inside:avoid; }
@@ -2367,6 +2367,22 @@
       @media(max-width:800px){.pop-metrics,.pop-grid{grid-template-columns:1fr 1fr}.pop-head{align-items:start;flex-direction:column}}
       @media(max-width:520px){.pop-metrics,.pop-grid{grid-template-columns:1fr}.pop-bar-row{grid-template-columns:110px 1fr 45px}}
       @media print{.population-report.print-mode .screen-case-name{display:none!important}.population-report.print-mode .print-case-name{display:inline!important}.population-report.print-mode .pop-case{break-inside:avoid}.population-report:not(.print-mode){display:none!important}.population-report.print-mode{display:block!important;background:white;padding:0}.population-report.print-mode .pop-actions{display:none}.population-report.print-mode .pop-panel,.population-report.print-mode .pop-metric{break-inside:avoid;box-shadow:none}.population-report.print-mode .pop-fill{transition:none!important}.population-report.print-mode .pop-print{display:block}.population-report.print-mode~*{display:none!important}}
+
+      /* Entregable paciente: 5 condiciones + edad biologica */
+      .food-report-section, .plan-section, .service-section { display:none !important; }
+      .domain-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+      .domain-card p { margin-top:7px; }
+      @media print {
+        .food-report-section, .plan-section, .service-section, .patient-deliverable-section, .patient-summary-section, .factor-section { display:none !important; }
+        .report-body { padding-top:10px !important; }
+        .domain-section { margin:0 0 9px !important; }
+        .domain-grid { grid-template-columns:1fr 1fr !important; gap:6px !important; }
+        .domain-card { padding:8px 9px !important; border-radius:9px !important; }
+        .domain-card p { font-size:7.6pt !important; line-height:1.32 !important; margin-top:5px !important; }
+        .domain-status { margin-top:4px !important; }
+        .age-section { margin-top:4px !important; }
+        .notice-section { margin-top:4px !important; }
+      }
 </style>
   </head>
   <body>
@@ -5449,62 +5465,50 @@
             : impact < 2
               ? "En observación"
               : "Requiere atención";
+        const conditionCopy = {
+          metabolic: {
+            title: "Condición metabólica",
+            favorable: ["Los indicadores evaluados reflejan una condición metabólica dentro de los parámetros esperados.", "Mantener hábitos saludables, incluyendo alimentación equilibrada, actividad física regular, hidratación adecuada y buen descanso. Continuar con controles preventivos periódicos."],
+            observation: ["Algunos indicadores presentan variaciones que requieren seguimiento para identificar posibles cambios en la condición metabólica.", "Revisar hábitos de alimentación y actividad física, priorizar un peso saludable y realizar seguimiento de los indicadores que estén fuera o próximos a los rangos de referencia. Considerar una evaluación profesional si las alteraciones persisten."],
+            attention: ["Se observan alteraciones relevantes en los indicadores metabólicos.", "Consultar con un profesional de salud para una evaluación integral y determinar las posibles causas de las alteraciones. Seguir las indicaciones médicas y realizar los controles o estudios complementarios recomendados."]
+          },
+          cardio: {
+            title: "Condición cardiovascular",
+            favorable: ["Los indicadores cardiovasculares evaluados se encuentran dentro de los parámetros esperados.", "Mantén actividad física regular, alimentación balanceada, buena hidratación y descanso adecuado. Continúa con tus controles preventivos."],
+            observation: ["Se identifican variaciones leves o factores que ameritan seguimiento cardiovascular.", "Refuerza hábitos saludables, reduce el consumo excesivo de sal y alimentos ultraprocesados, mantente activo y realiza seguimiento periódico de tus indicadores cardiovasculares."],
+            attention: ["Se observan alteraciones relevantes en uno o más indicadores cardiovasculares.", "Consulta con un profesional de salud para una evaluación cardiovascular y sigue las recomendaciones y controles indicados según tus resultados."]
+          },
+          function: {
+            title: "Condición funcional",
+            favorable: ["Presenta una condición funcional adecuada para las actividades habituales.", "Mantener actividad física regular, combinando movilidad, fuerza, equilibrio y flexibilidad."],
+            observation: ["Se identifican variaciones leves en movilidad, fuerza, equilibrio o capacidad para realizar determinadas actividades.", "Incorporar ejercicios adaptados para fortalecer las áreas identificadas y realizar seguimiento de la evolución."],
+            attention: ["Se observan limitaciones funcionales relevantes que pueden afectar las actividades habituales.", "Realizar una valoración con un profesional de salud para identificar las causas y establecer un plan de intervención individualizado."]
+          },
+          nutrition: {
+            title: "Condición alimentaria",
+            favorable: ["Los hábitos alimentarios evaluados son adecuados y favorecen una alimentación equilibrada.", "Mantener variedad de alimentos, hidratación adecuada, consumo regular de frutas, vegetales, proteínas y alimentos integrales."],
+            observation: ["Se identifican hábitos alimentarios que podrían mejorarse para favorecer una nutrición más equilibrada.", "Mejorar la calidad y variedad de los alimentos, moderar ultraprocesados, azúcares y exceso de sal, y mantener horarios de alimentación regulares."],
+            attention: ["Se identifican patrones alimentarios que podrían afectar el estado nutricional o la salud.", "Se recomienda una valoración nutricional profesional para establecer objetivos y un plan de alimentación individualizado."]
+          },
+          psychosocial: {
+            title: "Condición psicosocial",
+            favorable: ["Los indicadores evaluados reflejan un adecuado bienestar emocional, social y manejo de las demandas cotidianas.", "Mantener hábitos de autocuidado, descanso adecuado, actividades recreativas y relaciones de apoyo."],
+            observation: ["Se identifican señales de tensión, estrés o dificultades en el bienestar emocional o social que ameritan seguimiento.", "Fortalecer espacios de descanso, organización del tiempo, actividad física y apoyo social. Dar seguimiento a cualquier cambio que afecte el bienestar cotidiano."],
+            attention: ["Se identifican indicadores que podrían estar afectando de manera importante el bienestar emocional, social o el funcionamiento cotidiano.", "Buscar orientación de un profesional de salud mental o del área correspondiente para una evaluación más completa y determinar el apoyo necesario."]
+          }
+        };
         const domains = [
-          {
-            key: "function",
-            title: "Función física",
-            impact: cap(
-              results.strength.delta +
-                radioValue("actividad_q") +
-                radioValue("fuerza_q"),
-              -3,
-              2,
-            ),
-            detail:
-              "Fuerza de agarre, actividad aeróbica y entrenamiento de fuerza.",
-          },
-          {
-            key: "composition",
-            title: "Composición corporal",
-            impact: cap(results.bmi.delta + results.waist.delta, -2, 4),
-            detail: "Índice de masa corporal y perímetro abdominal.",
-          },
-          {
-            key: "cardio",
-            title: "Salud cardiovascular",
-            impact: cap(
-              results.bp.delta +
-                radioValue("fuma_actual") +
-                radioValue("ex_fumador") +
-                radioValue("alcohol_q"),
-              -1,
-              5,
-            ),
-            detail: "Presión arterial, tabaco y frecuencia de alcohol.",
-          },
-          {
-            key: "nutrition",
-            title: "Alimentación",
-            impact: food.impact,
-            detail: `TAB-NUMED ${food.score}/24 · ${food.classification}.`,
-          },
-          {
-            key: "recovery",
-            title: "Sueño y estrés",
-            impact: cap(sleepProfilePenalty() + pssAdjustment, -2, 2),
-            detail: "Duración y calidad del sueño junto con PSS-14.",
-          },
-          {
-            key: "prevention",
-            title: "Antecedentes y prevención",
-            impact: cap(
-              radioValue("cronicas_q") + radioValue("familia_q"),
-              0,
-              3,
-            ),
-            detail: "Diagnósticos crónicos y antecedentes familiares.",
-          },
-        ].map((domain) => ({ ...domain, status: domainStatus(domain.impact) }));
+          { key: "metabolic", impact: cap(results.bmi.delta + results.waist.delta, -2, 4) },
+          { key: "cardio", impact: cap(results.bp.delta + radioValue("fuma_actual") + radioValue("ex_fumador") + radioValue("alcohol_q"), -1, 5) },
+          { key: "function", impact: cap(results.strength.delta + radioValue("actividad_q") + radioValue("fuerza_q"), -3, 2) },
+          { key: "nutrition", impact: food.impact },
+          { key: "psychosocial", impact: cap(sleepProfilePenalty() + pssAdjustment, -2, 2) },
+        ].map((domain) => {
+          const status = domainStatus(domain.impact);
+          const level = status === "Favorable" ? "favorable" : status === "Requiere atención" ? "attention" : "observation";
+          const copy = conditionCopy[domain.key][level];
+          return { ...domain, title: conditionCopy[domain.key].title, status, detail: `${copy[0]}<br><b>Recomendación:</b> ${copy[1]}` };
+        });
         const rawDelta = domains.reduce(
           (sum, domain) => sum + domain.impact,
           0,
@@ -5592,35 +5596,6 @@
         set("r-patient-food-rec", food.priorities.length ? food.priorities.map((item) => item.recommendation).join(" ") : "Mantener las prácticas alimentarias favorables y continuar el seguimiento preventivo.");
         set("r-patient-psych", pssLevel);
         set("r-patient-psych-rec", pssScore > 25 ? "El nivel de estrés percibido es elevado. Se sugiere valoración profesional y medidas estructuradas de manejo del estrés." : pssScore >= 20 ? "El nivel de estrés percibido es moderado. Conviene reforzar estrategias de recuperación y vigilar su evolución." : "El nivel de estrés percibido es bajo. Mantener las estrategias actuales de autocuidado y recuperación.");
-        const bmiWhy = results.bmi.delta < 0
-          ? "Tu IMC se encuentra dentro del rango considerado saludable."
-          : "Tu IMC se encuentra por encima o fuera del rango considerado saludable.";
-        const waistWhy = results.waist.delta < 0
-          ? "El perímetro abdominal se encuentra dentro del rango de menor riesgo cardiometabólico."
-          : "El perímetro abdominal se encuentra en un rango asociado con mayor riesgo cardiometabólico.";
-        const bpWhy = results.bp.delta <= 0
-          ? "La presión arterial registrada se encuentra dentro del rango esperado."
-          : "La presión arterial registrada se encuentra fuera del rango esperado y requiere seguimiento.";
-        const strengthWhy = results.strength.delta <= 0
-          ? "La fuerza registrada se encuentra dentro del rango esperado para tu edad y sexo."
-          : "La fuerza registrada se encuentra por debajo del rango esperado para tu edad y sexo.";
-        const foodWhy = food.impact < 0
-          ? "El patrón alimentario reportado muestra características favorables."
-          : food.impact < 2
-            ? "Se identifican hábitos alimentarios positivos, junto con algunos aspectos que pueden mejorarse."
-            : "El patrón alimentario reportado presenta varios aspectos que requieren atención.";
-        const psychWhy = pssScore <= 19
-          ? "El nivel de estrés percibido se encuentra en un rango favorable."
-          : pssScore <= 25
-            ? "El nivel de estrés percibido se encuentra en un rango que conviene observar."
-            : "El nivel de estrés percibido se encuentra elevado y merece atención.";
-        const domainByKey = Object.fromEntries(domains.map(d => [d.key, d]));
-        domainByKey.function.detail = `<b>Fuerza de agarre: ${number("strength").toFixed(1)} kg · ${results.strength.label}.</b> ${strengthWhy}`;
-        domainByKey.composition.detail = `<b>IMC: ${bmi.toFixed(1)} · ${results.bmi.label}.</b> ${bmiWhy}<br><b>Perímetro abdominal: ${number("waist").toFixed(1)} cm · ${results.waist.label}.</b> ${waistWhy}`;
-        domainByKey.cardio.detail = `<b>Presión arterial: ${number("systolic")}/${number("diastolic")} mmHg · ${results.bp.label}.</b> ${bpWhy}`;
-        domainByKey.nutrition.detail = `<b>${food.classification}.</b> ${foodWhy}`;
-        domainByKey.recovery.detail = `<b>Área psicosocial: ${pssLevel}.</b> ${psychWhy}`;
-        domainByKey.prevention.detail = "Esta área integra antecedentes personales y familiares relevantes para el seguimiento preventivo.";
         const factorRows = [
           [
             "Fuerza de agarre",
