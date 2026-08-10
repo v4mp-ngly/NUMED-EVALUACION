@@ -383,7 +383,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 16px;
+        gap: 10px 14px;
       }
       .questionnaire-head strong {
         display: block;
@@ -2307,6 +2307,26 @@
       .patient-rec-follow strong { color:#07355a; }
       @media (max-width:760px) { .patient-recommendation-grid { grid-template-columns:1fr; } }
       @media print { .patient-recommendation-grid { grid-template-columns:1fr 1fr !important; gap:10px !important; margin-top:10px !important; } .patient-recommendation-card { padding:12px !important; border-radius:10px !important; } .patient-rec-number { flex-basis:30px !important; height:30px !important; font-size:11px !important; } .patient-rec-content h4 { font-size:12.5px !important; margin-bottom:5px !important; } .patient-rec-content p,.patient-rec-follow { font-size:10px !important; } }
+
+      /* Historial interactivo y PDF compacto */
+      #history-table-body tr.history-row { cursor:pointer; transition:background .16s ease; }
+      #history-table-body tr.history-row:hover { background:#f2f7ed; }
+      #history-table-body tr.history-row:focus { outline:2px solid #52781c; outline-offset:-2px; }
+      @media print {
+        @page { size:A4; margin:0 0 7mm 0; }
+        .report-cover { padding:18px 30px 14px !important; }
+        .report-cover h2 { margin-top:12px !important; font-size:23px !important; }
+        .report-cover h2 span { font-size:16px !important; }
+        .report-cover > p { margin:6px 0 0 !important; line-height:1.35 !important; }
+        .patient-strip { margin-top:10px !important; padding-top:9px !important; }
+        .report-body { padding:14px 30px 16px !important; }
+        .report-section { margin-bottom:11px !important; }
+        .report-title { margin-bottom:7px !important; }
+        .domain-grid, .patient-recommendation-grid { gap:7px !important; }
+        .domain-card { padding:9px 10px !important; }
+        .food-report-section, .domain-section, .plan-section, .age-section { margin-top:0 !important; padding-top:0 !important; }
+        .report-footer { padding:8px 30px !important; }
+      }
 
       /* Ajustes finales del entregable del paciente para impresion A4 */
       .clinical-note { font-size: 10px; line-height: 1.45; padding: 11px 13px; }
@@ -4245,8 +4265,8 @@
               style="
                 color: #52781c;
                 font-size: 18px;
-                margin-bottom: 18px;
-                margin-top: 32px;
+                margin-bottom: 10px;
+                margin-top: 18px;
               "
             >
               HISTORIAL DE EVALUACIONES
@@ -4255,8 +4275,8 @@
               style="
                 background: #f6faf7;
                 border-radius: 15px;
-                padding: 20px;
-                margin-bottom: 20px;
+                padding: 14px 16px;
+                margin-bottom: 12px;
               "
             >
               <h4 style="color: #333; font-size: 13px; margin: 0 0 16px 0">
@@ -4317,21 +4337,6 @@
                     está por encima o por debajo de la edad real.
                   </p>
                 </div>
-                <div style="padding-left: 16px; border-left: 4px solid #52781c">
-                  <strong style="color: #1a1a1a; font-size: 12px"
-                    >Puntaje EV</strong
-                  >
-                  <p style="margin: 4px 0 0 0; color: #666; font-size: 11px">
-                    Puntaje del cuestionario de estilo de vida. Valores bajos o
-                    negativos indican mejores hábitos.
-                  </p>
-                </div>
-                <div style="padding-left: 16px; border-left: 4px solid #52781c">
-                  <strong style="color: #1a1a1a; font-size: 12px">PDF</strong>
-                  <p style="margin: 4px 0 0 0; color: #666; font-size: 11px">
-                    Descarga el reporte completo de esa evaluación.
-                  </p>
-                </div>
               </div>
             </div>
             <div style="overflow-x: auto">
@@ -4340,92 +4345,19 @@
               >
                 <thead>
                   <tr style="background: #2c5282; color: white">
-                    <th
-                      style="
-                        padding: 12px;
-                        text-align: center;
-                        font-weight: 600;
-                        min-width: 70px;
-                      "
-                    >
-                      Fuerza (kg)
-                    </th>
-                    <th
-                      style="
-                        padding: 12px;
-                        text-align: center;
-                        font-weight: 600;
-                        min-width: 100px;
-                      "
-                    >
-                      Perímetro (cm)
-                    </th>
-                    <th
-                      style="
-                        padding: 12px;
-                        text-align: center;
-                        font-weight: 600;
-                        min-width: 70px;
-                      "
-                    >
-                      Peso (kg)
-                    </th>
-                    <th
-                      style="
-                        padding: 12px;
-                        text-align: center;
-                        font-weight: 600;
-                        min-width: 70px;
-                      "
-                    >
-                      Talla (cm)
-                    </th>
-                    <th
-                      style="
-                        padding: 12px;
-                        text-align: center;
-                        font-weight: 600;
-                        min-width: 50px;
-                      "
-                    >
-                      IMC
-                    </th>
-                    <th
-                      style="
-                        padding: 12px;
-                        text-align: center;
-                        font-weight: 600;
-                        min-width: 100px;
-                      "
-                    >
-                      Edad biológica
-                    </th>
-                    <th
-                      style="
-                        padding: 12px;
-                        text-align: center;
-                        font-weight: 600;
-                        min-width: 80px;
-                      "
-                    >
-                      Puntaje EV
-                    </th>
-                    <th
-                      style="
-                        padding: 12px;
-                        text-align: center;
-                        font-weight: 600;
-                        min-width: 60px;
-                      "
-                    >
-                      PDF
-                    </th>
+                    <th style="padding:10px;text-align:left;font-weight:600;min-width:150px">Paciente</th>
+                    <th style="padding:10px;text-align:center;font-weight:600;min-width:70px">Fuerza (kg)</th>
+                    <th style="padding:10px;text-align:center;font-weight:600;min-width:100px">Perímetro (cm)</th>
+                    <th style="padding:10px;text-align:center;font-weight:600;min-width:70px">Peso (kg)</th>
+                    <th style="padding:10px;text-align:center;font-weight:600;min-width:70px">Talla (cm)</th>
+                    <th style="padding:10px;text-align:center;font-weight:600;min-width:50px">IMC</th>
+                    <th style="padding:10px;text-align:center;font-weight:600;min-width:100px">Edad biológica</th>
                   </tr>
                 </thead>
                 <tbody id="history-table-body" style="background: white">
                   <tr style="border-top: 1px solid #e0e0e0">
                     <td
-                      colspan="8"
+                      colspan="7"
                       style="
                         padding: 24px;
                         text-align: center;
@@ -5981,6 +5913,7 @@
             cinturaClasificacion: results.waist.label,
             reportCode,
             timestamp: new Date().toISOString(),
+            reportHtml: $("#report-page").outerHTML,
           };
           let history = [];
           try {
@@ -6110,60 +6043,50 @@
           closeQuestionnaire();
       });
 
-      function downloadHistoryPDF(reportCode) {
-        const reportEl = $("#report");
-        if (!reportEl.classList.contains("visible")) {
-          toast("Genera una evaluación primero");
+      function downloadHistoryPDF(index) {
+        let history = [];
+        try { history = JSON.parse(localStorage.getItem("numed-history")) || []; } catch (e) {}
+        const item = history[index];
+        if (!item) { toast("No se encontró esta evaluación"); return; }
+        if (!item.reportHtml) {
+          toast("Esta evaluación es anterior a la función de reimpresión. Regénérala una vez para guardarla completa.");
           return;
         }
-        const printWindow = window.open("", "", "height=600,width=800");
-        printWindow.document.write(
-          "<html><head><title>Reporte " + reportCode + "</title>",
-        );
-        printWindow.document.write(
-          "<style>body{font-family:Arial;margin:20px}" +
-            document.querySelector("style").textContent +
-            "</style>",
-        );
-        printWindow.document.write("</head><body>");
-        printWindow.document.write(reportEl.innerHTML);
-        printWindow.document.write("</body></html>");
+        const printWindow = window.open("", "", "height=760,width=900");
+        if (!printWindow) { toast("Permite ventanas emergentes para descargar el PDF"); return; }
+        const styles = document.querySelector("style").textContent;
+        printWindow.document.write("<html><head><title>Evaluación NUMED - " + (item.nombre || item.reportCode || "Paciente") + "</title>");
+        printWindow.document.write("<style>" + styles + " body{margin:0;background:#fff}.report-page{display:block!important}</style>");
+        printWindow.document.write("</head><body>" + item.reportHtml + "</body></html>");
         printWindow.document.close();
-        setTimeout(() => {
-          printWindow.print();
-          printWindow.close();
-        }, 500);
+        printWindow.focus();
+        setTimeout(() => { printWindow.print(); printWindow.close(); }, 650);
       }
 
       function loadHistory() {
         const tbody = $("#history-table-body");
         let history = [];
-        try {
-          history = JSON.parse(localStorage.getItem("numed-history")) || [];
-        } catch (e) {}
+        try { history = JSON.parse(localStorage.getItem("numed-history")) || []; } catch (e) {}
         if (!history.length) {
-          tbody.innerHTML =
-            '<tr style="border-top:1px solid #e0e0e0"><td colspan="9" style="padding:24px;text-align:center;color:#999;font-size:11px">Sin evaluaciones registradas aún</td></tr>';
+          tbody.innerHTML = '<tr style="border-top:1px solid #e0e0e0"><td colspan="7" style="padding:18px;text-align:center;color:#999;font-size:11px">Sin evaluaciones registradas aún</td></tr>';
           return;
         }
-        tbody.innerHTML = history
-          .map((item, idx) => {
-            const bioChange = item.bio - item.edad;
-            const bioBadge =
-              bioChange < 0
-                ? `<span style="color:#52781c;font-weight:700">▼ ${Math.abs(bioChange)}a</span>`
-                : bioChange > 0
-                  ? `<span style="color:#e74c3c;font-weight:700">▲ ${bioChange}a</span>`
-                  : "—";
-            const evColor =
-              item.puntajeEV < 0
-                ? "#52781c"
-                : item.puntajeEV > 2
-                  ? "#e74c3c"
-                  : "#f39c12";
-            return `<tr style="border-top:1px solid #e0e0e0"><td style="padding:12px;text-align:left"><strong>${item.nombre}</strong><br><span style="font-size:10px;color:#666">${item.celular || "—"}</span></td><td style="padding:12px;text-align:center">${item.fuerza.toFixed(1)}</td><td style="padding:12px;text-align:center">${item.perimetro.toFixed(1)}</td><td style="padding:12px;text-align:center">${item.peso.toFixed(1)}</td><td style="padding:12px;text-align:center">${item.talla.toFixed(1)}</td><td style="padding:12px;text-align:center">${item.imc}</td><td style="padding:12px;text-align:center"><strong style="font-size:13px">${item.bio}</strong> <span style="color:#999;font-size:10px">${bioBadge}</span></td><td style="padding:12px;text-align:center"><span style="background:${evColor}15;color:${evColor};padding:4px 8px;border-radius:4px;font-weight:600;font-size:11px">${item.puntajeEV}</span></td><td style="padding:12px;text-align:center"><button onclick="downloadHistoryPDF('${item.reportCode}')" style="background:#2c5282;color:white;border:none;padding:6px 10px;border-radius:6px;font-weight:600;font-size:10px;cursor:pointer">📄 PDF</button></td></tr>`;
-          })
-          .join("");
+        tbody.innerHTML = history.map((item, idx) => {
+          const bioChange = Number(item.bio) - Number(item.edad);
+          const bioBadge = bioChange < 0
+            ? `<span style="color:#52781c;font-weight:700">▼ ${Math.abs(bioChange)}a</span>`
+            : bioChange > 0
+              ? `<span style="color:#e74c3c;font-weight:700">▲ ${bioChange}a</span>`
+              : "—";
+          const num = (v) => Number.isFinite(Number(v)) ? Number(v).toFixed(1) : "—";
+          const title = item.reportHtml ? "Abrir esta evaluación para imprimir o guardar nuevamente en PDF" : "Evaluación antigua: debe regenerarse una vez para habilitar la reimpresión";
+          return `<tr class="history-row" data-history-index="${idx}" tabindex="0" title="${title}" style="border-top:1px solid #e0e0e0"><td style="padding:7px 10px;text-align:left"><strong>${item.nombre || "Paciente"}</strong><br><span style="font-size:9px;color:#777">${item.fecha || ""}</span></td><td style="padding:7px 10px;text-align:center">${num(item.fuerza)}</td><td style="padding:7px 10px;text-align:center">${num(item.perimetro)}</td><td style="padding:7px 10px;text-align:center">${num(item.peso)}</td><td style="padding:7px 10px;text-align:center">${num(item.talla)}</td><td style="padding:7px 10px;text-align:center">${item.imc || "—"}</td><td style="padding:7px 10px;text-align:center"><strong style="font-size:12px">${item.bio ?? "—"}</strong> <span style="color:#999;font-size:9px">${bioBadge}</span></td></tr>`;
+        }).join("");
+        tbody.querySelectorAll(".history-row").forEach(row => {
+          const open = () => downloadHistoryPDF(Number(row.dataset.historyIndex));
+          row.addEventListener("click", open);
+          row.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+        });
       }
 
       function exportCSV() {
