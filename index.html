@@ -2386,41 +2386,41 @@
 
       /* PDF paciente - una sola hoja A4 */
       @media print {
-        @page { size: A4 portrait; margin: 5mm; }
+        @page { size: A4 portrait; margin: 7mm; }
         html, body { margin:0 !important; padding:0 !important; background:#fff !important; }
         .report-page { width:auto !important; min-height:0 !important; margin:0 !important; box-shadow:none !important; border:0 !important; }
-        .report-cover { padding:7px 18px 6px !important; min-height:0 !important; }
+        .report-cover { padding:12px 20px 10px !important; min-height:0 !important; }
         .report-cover:before, .report-cover:after { display:none !important; }
         .report-brand { margin:0 !important; gap:7px !important; }
-        .report-brand img { width:auto !important; height:25px !important; max-height:25px !important; }
-        .report-kicker { font-size:6.5pt !important; }
-        .report-cover h2 { margin:4px 0 0 !important; font-size:14pt !important; line-height:1.05 !important; }
-        .report-cover h2 span { display:inline !important; margin-left:6px !important; font-size:9pt !important; }
+        .report-brand img { width:auto !important; height:31px !important; max-height:31px !important; }
+        .report-kicker { font-size:7.5pt !important; }
+        .report-cover h2 { margin:5px 0 0 !important; font-size:16pt !important; line-height:1.08 !important; }
+        .report-cover h2 span { display:inline !important; margin-left:7px !important; font-size:10pt !important; }
         .report-cover > p, .cover-purpose { display:none !important; }
-        .patient-strip { margin-top:5px !important; padding:5px 7px !important; gap:5px !important; }
+        .patient-strip { margin-top:7px !important; padding:8px 10px !important; gap:8px !important; }
         .patient-strip div { min-height:0 !important; padding:0 !important; }
-        .patient-strip small { font-size:5.8pt !important; line-height:1 !important; }
-        .patient-strip strong { font-size:7.4pt !important; line-height:1.1 !important; margin-top:1px !important; }
-        .report-body { padding:6px 18px 5px !important; }
-        .report-section { margin:0 0 5px !important; padding:0 !important; }
-        .report-title { font-size:10.5pt !important; line-height:1.05 !important; margin:0 0 4px !important; padding:0 0 3px !important; }
+        .patient-strip small { font-size:6.8pt !important; line-height:1.05 !important; }
+        .patient-strip strong { font-size:8.6pt !important; line-height:1.15 !important; margin-top:2px !important; }
+        .report-body { padding:10px 20px 8px !important; }
+        .report-section { margin:0 0 8px !important; padding:0 !important; }
+        .report-title { font-size:12.5pt !important; line-height:1.1 !important; margin:0 0 6px !important; padding:0 0 4px !important; }
         .report-title:after { height:1px !important; }
         .domain-method { display:none !important; }
-        .domain-grid { display:grid !important; grid-template-columns:1fr 1fr !important; gap:4px !important; margin:0 !important; }
-        .domain-card { padding:6px 7px !important; border-radius:7px !important; min-height:0 !important; break-inside:avoid !important; page-break-inside:avoid !important; }
-        .domain-card h4, .domain-card strong { font-size:7.8pt !important; line-height:1.08 !important; margin:0 !important; }
-        .domain-card p { font-size:6.25pt !important; line-height:1.18 !important; margin:3px 0 0 !important; }
-        .domain-status { font-size:5.8pt !important; line-height:1 !important; margin-top:2px !important; padding:2px 5px !important; }
-        .age-section { margin:3px 0 4px !important; }
-        .age-section .explanation-intro { font-size:6.3pt !important; line-height:1.18 !important; margin:0 0 4px !important; }
-        .age-hero { padding:5px 8px !important; margin:0 0 3px !important; min-height:0 !important; }
-        .age-block small { font-size:5.8pt !important; }
-        .age-block strong { font-size:14pt !important; line-height:1 !important; }
-        .age-arrow { font-size:11pt !important; }
-        .age-status { font-size:6.3pt !important; line-height:1.15 !important; padding:4px 7px !important; margin:2px 0 0 !important; }
+        .domain-grid { display:grid !important; grid-template-columns:1fr 1fr !important; gap:7px !important; margin:0 !important; }
+        .domain-card { padding:10px 11px !important; border-radius:9px !important; min-height:0 !important; break-inside:avoid !important; page-break-inside:avoid !important; }
+        .domain-card h4, .domain-card strong { font-size:9.2pt !important; line-height:1.12 !important; margin:0 !important; }
+        .domain-card p { font-size:7.45pt !important; line-height:1.3 !important; margin:5px 0 0 !important; }
+        .domain-status { font-size:6.6pt !important; line-height:1 !important; margin-top:4px !important; padding:3px 6px !important; }
+        .age-section { margin:7px 0 7px !important; }
+        .age-section .explanation-intro { font-size:7.5pt !important; line-height:1.28 !important; margin:0 0 6px !important; }
+        .age-hero { padding:8px 10px !important; margin:0 0 5px !important; min-height:0 !important; }
+        .age-block small { font-size:6.8pt !important; }
+        .age-block strong { font-size:18pt !important; line-height:1 !important; }
+        .age-arrow { font-size:14pt !important; }
+        .age-status { font-size:7.5pt !important; line-height:1.25 !important; padding:7px 9px !important; margin:4px 0 0 !important; }
         .age-equation, .age-interpretation-grid, .age-section #r-explanation { display:none !important; }
-        .notice-section { margin:2px 0 0 !important; }
-        .clinical-note { font-size:5.8pt !important; line-height:1.15 !important; padding:4px 7px !important; margin:0 !important; }
+        .notice-section { margin:5px 0 0 !important; }
+        .clinical-note { font-size:6.7pt !important; line-height:1.25 !important; padding:6px 8px !important; margin:0 !important; }
         .report-credentials, .report-footer { display:none !important; }
         .domain-section, .age-section, .notice-section { break-before:auto !important; page-break-before:auto !important; break-inside:auto !important; page-break-inside:auto !important; }
       }
@@ -5549,7 +5549,27 @@
           const status = domainStatus(domain.impact);
           const level = status === "Favorable" ? "favorable" : status === "Requiere atención" ? "attention" : "observation";
           const copy = conditionCopy[domain.key][level];
-          return { ...domain, title: conditionCopy[domain.key].title, status, detail: `${copy[0]}<br><b>Recomendación:</b> ${copy[1]}` };
+          const evidence = (() => {
+            if (domain.key === "metabolic") {
+              return `<b>IMC:</b> ${bmi.toFixed(1)} · ${results.bmi.label}. <b>Perímetro abdominal:</b> ${number("waist").toFixed(1)} cm · ${results.waist.label}.`;
+            }
+            if (domain.key === "cardio") {
+              const smoke = radioValue("fuma_actual") > 0 ? "Sí" : "No";
+              const alcoholDays = radioValue("alcohol_q");
+              const alcohol = alcoholDays <= 0 ? "sin consumo reportado" : alcoholDays === 1 ? "1 día/semana" : alcoholDays === 2 ? "2-3 días/semana" : "4 o más días/semana";
+              return `<b>Presión arterial:</b> ${number("systolic")}/${number("diastolic")} mmHg · ${results.bp.label}. <b>Tabaquismo actual:</b> ${smoke}. <b>Alcohol:</b> ${alcohol}.`;
+            }
+            if (domain.key === "function") {
+              const aerobic = radioValue("actividad_q") < 0 ? "Sí" : "No";
+              const strengthTraining = radioValue("fuerza_q") < 0 ? "Sí" : "No";
+              return `<b>Fuerza de agarre:</b> ${number("strength").toFixed(1)} kg · ${results.strength.label}. <b>Actividad aeróbica 150 min/sem:</b> ${aerobic}. <b>Entrenamiento de fuerza:</b> ${strengthTraining}.`;
+            }
+            if (domain.key === "nutrition") {
+              return `<b>Resultado alimentario:</b> ${food.classification}.`;
+            }
+            return `<b>Estrés percibido:</b> ${pssScore <= 19 ? "Bajo" : pssScore <= 25 ? "Moderado" : "Elevado"}. <b>Sueño:</b> ${sleepHours() === null ? "No indicado" : `${sleepHours().toFixed(1)} h`}.`;
+          })();
+          return { ...domain, title: conditionCopy[domain.key].title, status, detail: `${evidence}<br>${copy[0]}<br><b>Recomendación:</b> ${copy[1]}` };
         });
         const rawDelta = domains.reduce(
           (sum, domain) => sum + domain.impact,
