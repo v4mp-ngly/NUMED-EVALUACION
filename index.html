@@ -1193,6 +1193,9 @@
         text-transform: uppercase;
         letter-spacing: 0.05em;
       }
+      .domain-badges { display:flex; flex-wrap:wrap; gap:5px; align-items:center; margin:8px 0 6px; }
+      .domain-badges .domain-status { margin:0; }
+      .domain-finding { background:#eef3f6 !important; color:var(--navy-900) !important; border:1px solid #dbe4e9; }
       .domain-card.good .domain-status {
         background: var(--green-100);
         color: var(--green-700);
@@ -2700,8 +2703,7 @@
                     <strong id="questionnaire-title"
                       >Cuestionario Integral NUMED</strong
                     ><span
-                      >Hábitos, TAB-NUMED, antecedentes y Escala de Estrés
-                      Percibido PSS-14</span
+                      >Hábitos, TAB-NUMED y antecedentes de salud</span
                     >
                   </div>
                   <button
@@ -2723,7 +2725,7 @@
                   </div>
                   <div class="section-head">
                     <div>
-                      <div class="section-index">Cuestionario · 01 de 04</div>
+                      <div class="section-index">Cuestionario · 01 de 03</div>
                       <h2>Hábitos cotidianos</h2>
                     </div>
                     <p>
@@ -2938,7 +2940,7 @@
                   </div>
                   <div class="section-head">
                     <div>
-                      <div class="section-index">Cuestionario · 02 de 04</div>
+                      <div class="section-index">Cuestionario · 02 de 03</div>
                       <h2>Tamizaje Alimentario Breve NUMED 2.0</h2>
                     </div>
                     <p>TAB-NUMED · 8 preguntas · Últimas 4 semanas</p>
@@ -3493,7 +3495,7 @@
                   </div>
                   <div class="section-head">
                     <div>
-                      <div class="section-index">Cuestionario · 03 de 04</div>
+                      <div class="section-index">Cuestionario · 03 de 03</div>
                       <h2>Antecedentes y prevención</h2>
                     </div>
                     <p>
@@ -3557,14 +3559,14 @@
                     <button class="btn btn-ghost" type="button" data-q-prev>
                       ← Anterior</button
                     ><button class="btn btn-green" type="button" data-q-next>
-                      Continuar a PSS-14 <span aria-hidden="true">→</span>
+                      Guardar cuestionario <span aria-hidden="true">→</span>
                     </button>
                   </div>
                 </section>
 
                 <section
                   class="section questionnaire-step"
-                  data-question-step="3"
+                  data-question-step="3" style="display:none!important"
                 >
                   <div class="question-progress" aria-hidden="true">
                     <span class="on"></span><span class="on"></span
@@ -4166,14 +4168,14 @@
             <div class="report-body">
               <section class="report-section patient-deliverable-section">
                 <h3 class="report-title">Evaluación</h3>
-                <p class="patient-explainer">Esta evaluación integra tus hábitos cotidianos, alimentación, antecedentes de salud, actividad física y percepción de estrés. Sus resultados son orientativos y no sustituyen una valoración médica o psicológica.</p>
+                <p class="patient-explainer">Esta evaluación integra tus hábitos cotidianos, alimentación, antecedentes de salud y actividad física. El resultado de Estrés Percibido se incorpora desde el cuestionario previo completado por el paciente. Sus resultados son orientativos y no sustituyen una valoración médica o psicológica.</p>
                 <div class="patient-result-grid" id="r-patient-results">
-                  <article class="patient-result-card"><small>IMC</small><strong id="r-patient-bmi">—</strong><span class="patient-status" id="r-patient-bmi-status">—</span></article>
-                  <article class="patient-result-card"><small>Perímetro abdominal</small><strong id="r-patient-waist">—</strong><span class="patient-status" id="r-patient-waist-status">—</span></article>
-                  <article class="patient-result-card"><small>Presión arterial</small><strong id="r-patient-bp">—</strong><span class="patient-status" id="r-patient-bp-status">—</span></article>
-                  <article class="patient-result-card"><small>Fuerza de agarre</small><strong id="r-patient-strength">—</strong><span class="patient-status" id="r-patient-strength-status">—</span></article>
-                  <article class="patient-result-card"><small>Cuestionario alimenticio</small><strong id="r-patient-food">—</strong><span class="patient-status" id="r-patient-food-status">—</span></article>
-                  <article class="patient-result-card"><small>Área psicosocial</small><strong id="r-patient-psych">—</strong><span class="patient-status" id="r-patient-psych-status">—</span></article>
+                  <article class="patient-result-card"><small>IMC</small><strong id="r-patient-bmi">—</strong><span class="patient-status" id="r-patient-bmi-status">—</span><p id="r-patient-bmi-rec" class="patient-result-explanation">—</p></article>
+                  <article class="patient-result-card"><small>Perímetro abdominal</small><strong id="r-patient-waist">—</strong><span class="patient-status" id="r-patient-waist-status">—</span><p id="r-patient-waist-rec" class="patient-result-explanation">—</p></article>
+                  <article class="patient-result-card"><small>Presión arterial</small><strong id="r-patient-bp">—</strong><span class="patient-status" id="r-patient-bp-status">—</span><p id="r-patient-bp-rec" class="patient-result-explanation">—</p></article>
+                  <article class="patient-result-card"><small>Fuerza de agarre</small><strong id="r-patient-strength">—</strong><span class="patient-status" id="r-patient-strength-status">—</span><p id="r-patient-strength-rec" class="patient-result-explanation">—</p></article>
+                  <article class="patient-result-card"><small>Cuestionario alimenticio</small><strong id="r-patient-food">—</strong><span class="patient-status" id="r-patient-food-status">—</span><p id="r-patient-food-rec" class="patient-result-explanation">—</p></article>
+                  <article class="patient-result-card"><small>Área psicosocial</small><strong id="r-patient-psych">—</strong><span class="patient-status" id="r-patient-psych-status">—</span><p id="r-patient-psych-rec" class="patient-result-explanation">—</p></article>
                 </div>
               </section>
               <section class="report-section patient-summary-section">
@@ -4189,13 +4191,7 @@
               </section>
               <section class="report-section domain-section">
                 <h3 class="report-title">Perfil de salud por áreas</h3>
-                <div class="domain-method">
-                  <strong>Cómo se calcula:</strong> cada respuesta aporta a un
-                  área relacionada. El impacto de cada área tiene un límite para
-                  impedir que varias preguntas similares se contabilicen
-                  repetidamente. La edad biológica se obtiene sumando una sola
-                  vez los resultados de las seis áreas.
-                </div>
+
                 <div class="domain-grid" id="r-domain-cards"></div>
               </section>
               <section class="report-section food-report-section">
@@ -4768,9 +4764,9 @@
       }
       function pssScoreAdjustment(total) {
         // Según tabla NUMED: valores únicos por rango de puntaje total
-        if (total <= 19) return -0.2; // 0-19: Bajo
-        if (total <= 25) return 0.1; // 20-25: Moderado
-        return 0.35; // 26-56: Elevado
+        if (total <= 13) return -0.2; // PSS-10: 0-13 Bajo
+        if (total <= 26) return 0.1; // PSS-10: 14-26 Moderado
+        return 0.35; // PSS-10: 27-40 Alto
       }
       function proteinDiversityScore() {
         const selected = $$('input[name="food_protein"]:checked', form)
@@ -5112,14 +5108,14 @@
       $("#cancel-questionnaire").addEventListener("click", closeQuestionnaire);
       $$("[data-q-next]", questionnaireModal).forEach((btn) =>
         btn.addEventListener("click", () => {
-          if (validateQuestionStep()) showQuestionStep(questionStep + 1);
+          if (!validateQuestionStep()) return; if (questionStep >= 2) { $("#save-questionnaire").click(); } else { showQuestionStep(questionStep + 1); }
         }),
       );
       $$("[data-q-prev]", questionnaireModal).forEach((btn) =>
         btn.addEventListener("click", () => showQuestionStep(questionStep - 1)),
       );
       $("#save-questionnaire").addEventListener("click", () => {
-        for (let index = 0; index < 4; index++) {
+        for (let index = 0; index < 3; index++) {
           if (!validateQuestionStep(index, false)) {
             showQuestionStep(index);
             setTimeout(() => validateQuestionStep(index), 0);
@@ -5383,9 +5379,9 @@
             "Días sin fumar y recaídas",
             "Medicina / psicología",
           );
-        if (pssScore > 19)
+        if (pssScore >= 14)
           add(
-            32 + (pssScore > 25 ? 4 : 0),
+            32 + (pssScore >= 27 ? 4 : 0),
             "Reducir la carga de estrés",
             "Reservar 10 minutos sin pantalla para respiración lenta, relajación o caminata. Si el malestar interfiere con el sueño o la vida diaria, solicitar valoración profesional.",
             "10 minutos todos los días",
@@ -5491,10 +5487,7 @@
           "pss_8",
           "pss_9",
           "pss_10",
-          "pss_11",
-          "pss_12",
-          "pss_13",
-          "pss_14",
+          
         ];
         const pssScore = pssNames.reduce(
           (sum, name) => sum + radioValue(name),
@@ -5517,33 +5510,33 @@
         const conditionCopy = {
           metabolic: {
             title: "Condición metabólica",
-            favorable: ["Los indicadores evaluados reflejan una condición metabólica dentro de los parámetros esperados.", "Mantener hábitos saludables, incluyendo alimentación equilibrada, actividad física regular, hidratación adecuada y buen descanso. Continuar con controles preventivos periódicos."],
-            observation: ["Algunos indicadores presentan variaciones que requieren seguimiento para identificar posibles cambios en la condición metabólica.", "Revisar hábitos de alimentación y actividad física, priorizar un peso saludable y realizar seguimiento de los indicadores que estén fuera o próximos a los rangos de referencia. Considerar una evaluación profesional si las alteraciones persisten."],
-            attention: ["Se observan alteraciones relevantes en los indicadores metabólicos.", "Consultar con un profesional de salud para una evaluación integral y determinar las posibles causas de las alteraciones. Seguir las indicaciones médicas y realizar los controles o estudios complementarios recomendados."]
+            favorable: "Su función metabólica se encuentra en un nivel óptimo, lo que indica un adecuado equilibrio de los factores evaluados relacionados con el metabolismo. Mantenga una alimentación balanceada, actividad física regular y buenos hábitos de descanso para conservar este resultado.",
+            observation: "Usted presenta algunas alteraciones en los indicadores relacionados con su función metabólica, lo que puede aumentar progresivamente su riesgo de desarrollar trastornos metabólicos. Se recomienda mejorar la alimentación, aumentar la actividad física y dar seguimiento a sus indicadores.",
+            attention: "Usted presenta un riesgo metabólico muy elevado según los indicadores evaluados. Se recomienda valoración profesional para identificar los factores que requieren atención y establecer un plan de intervención y seguimiento."
           },
           cardio: {
             title: "Condición cardiovascular",
-            favorable: ["Los indicadores cardiovasculares evaluados se encuentran dentro de los parámetros esperados.", "Mantén actividad física regular, alimentación balanceada, buena hidratación y descanso adecuado. Continúa con tus controles preventivos."],
-            observation: ["Se identifican variaciones leves o factores que ameritan seguimiento cardiovascular.", "Refuerza hábitos saludables, reduce el consumo excesivo de sal y alimentos ultraprocesados, mantente activo y realiza seguimiento periódico de tus indicadores cardiovasculares."],
-            attention: ["Se observan alteraciones relevantes en uno o más indicadores cardiovasculares.", "Consulta con un profesional de salud para una evaluación cardiovascular y sigue las recomendaciones y controles indicados según tus resultados."]
+            favorable: "Su función cardiovascular se encuentra en un nivel óptimo, lo que indica un adecuado comportamiento de los factores evaluados relacionados con la salud del corazón y la circulación. Mantenga una alimentación balanceada, actividad física regular y buenos hábitos de descanso para conservar este resultado.",
+            observation: "Usted presenta algunas alteraciones en los indicadores relacionados con su función cardiovascular, lo que puede aumentar progresivamente su riesgo cardiovascular. Se recomienda reforzar una alimentación saludable, mantener actividad física regular y dar seguimiento a sus indicadores.",
+            attention: "Usted presenta un riesgo cardiovascular muy elevado según los indicadores evaluados. Se recomienda valoración profesional para identificar los factores que requieren atención y establecer un plan de intervención y seguimiento."
           },
           function: {
             title: "Condición funcional",
-            favorable: ["Presenta una condición funcional adecuada para las actividades habituales.", "Mantener actividad física regular, combinando movilidad, fuerza, equilibrio y flexibilidad."],
-            observation: ["Se identifican variaciones leves en movilidad, fuerza, equilibrio o capacidad para realizar determinadas actividades.", "Incorporar ejercicios adaptados para fortalecer las áreas identificadas y realizar seguimiento de la evolución."],
-            attention: ["Se observan limitaciones funcionales relevantes que pueden afectar las actividades habituales.", "Realizar una valoración con un profesional de salud para identificar las causas y establecer un plan de intervención individualizado."]
+            favorable: "Su función funcional se encuentra en un nivel óptimo, lo que refleja una excelente capacidad para realizar movimientos y actividades físicas de manera eficiente. Mantenga una actividad física regular y ejercicios de fuerza, movilidad y flexibilidad para conservar este resultado.",
+            observation: "Usted presenta algunas variaciones en los indicadores relacionados con su función funcional, que pueden limitar progresivamente su desempeño físico y movilidad. Se recomienda reforzar la actividad física y trabajar la fuerza, movilidad, equilibrio y flexibilidad.",
+            attention: "Usted presenta alteraciones significativas en su función funcional según los indicadores evaluados. Se recomienda valoración profesional para identificar las capacidades que requieren atención y establecer un plan personalizado para mejorar la movilidad, fuerza y desempeño físico."
           },
           nutrition: {
             title: "Condición alimentaria",
-            favorable: ["Los hábitos alimentarios evaluados son adecuados y favorecen una alimentación equilibrada.", "Mantener variedad de alimentos, hidratación adecuada, consumo regular de frutas, vegetales, proteínas y alimentos integrales."],
-            observation: ["Se identifican hábitos alimentarios que podrían mejorarse para favorecer una nutrición más equilibrada.", "Mejorar la calidad y variedad de los alimentos, moderar ultraprocesados, azúcares y exceso de sal, y mantener horarios de alimentación regulares."],
-            attention: ["Se identifican patrones alimentarios que podrían afectar el estado nutricional o la salud.", "Se recomienda una valoración nutricional profesional para establecer objetivos y un plan de alimentación individualizado."]
+            favorable: "Su función alimentaria se encuentra en un nivel óptimo, lo que refleja hábitos de alimentación adecuados y favorables para su salud. Mantenga una alimentación variada, equilibrada y acorde con sus necesidades para conservar este resultado.",
+            observation: "Usted presenta algunos hábitos alimentarios que pueden mejorarse y que, mantenidos en el tiempo, podrían afectar su estado de salud. Se recomienda realizar ajustes en la calidad, variedad y equilibrio de su alimentación y dar seguimiento a sus hábitos.",
+            attention: "Sus hábitos alimentarios presentan aspectos importantes que requieren atención según los indicadores evaluados. Se recomienda valoración nutricional para identificar las áreas que necesitan intervención y establecer un plan de alimentación personalizado y de seguimiento."
           },
           psychosocial: {
             title: "Condición psicosocial",
-            favorable: ["Los indicadores evaluados reflejan un adecuado bienestar emocional, social y manejo de las demandas cotidianas.", "Mantener hábitos de autocuidado, descanso adecuado, actividades recreativas y relaciones de apoyo."],
-            observation: ["Se identifican señales de tensión, estrés o dificultades en el bienestar emocional o social que ameritan seguimiento.", "Fortalecer espacios de descanso, organización del tiempo, actividad física y apoyo social. Dar seguimiento a cualquier cambio que afecte el bienestar cotidiano."],
-            attention: ["Se identifican indicadores que podrían estar afectando de manera importante el bienestar emocional, social o el funcionamiento cotidiano.", "Buscar orientación de un profesional de salud mental o del área correspondiente para una evaluación más completa y determinar el apoyo necesario."]
+            favorable: "Su función psicosocial se encuentra en un nivel óptimo, lo que refleja un adecuado equilibrio en los factores emocionales, sociales y de bienestar evaluados. Mantenga hábitos que favorezcan el descanso, el manejo saludable del estrés y relaciones sociales positivas para conservar este resultado.",
+            observation: "Usted presenta algunas variaciones en los indicadores relacionados con su función psicosocial, que pueden influir progresivamente en su bienestar emocional y calidad de vida. Se recomienda prestar atención al manejo del estrés, descanso, estado emocional y apoyo social, y dar seguimiento a estos indicadores.",
+            attention: "Sus indicadores reflejan una afectación significativa de los factores psicosociales evaluados. Se recomienda valoración profesional para identificar las áreas que requieren atención y establecer un plan de apoyo, intervención y seguimiento acorde con sus necesidades."
           }
         };
         const domains = [
@@ -5576,8 +5569,8 @@
               return "Favorable";
             }
             // El estrés elevado no debe quedar oculto por un sueño favorable.
-            if (pssScore >= 26) return "Requiere atención";
-            if (pssScore >= 20 || sleepProfilePenalty() > 0) return "En observación";
+            if (pssScore >= 27) return "Requiere atención";
+            if (pssScore >= 14 || sleepProfilePenalty() > 0) return "En observación";
             return "Favorable";
           };
           const status = statusForDomain();
@@ -5645,12 +5638,35 @@
               const lead = firstSentenceEnd >= 0 ? foodText.slice(0, firstSentenceEnd + 1) : foodText;
               return `<b>${lead}</b> ${level === "favorable" ? "En conjunto, los hábitos evaluados favorecen una alimentación equilibrada." : level === "attention" ? "En conjunto, estos patrones pueden afectar el estado nutricional o la salud." : "En conjunto, estos hábitos representan oportunidades concretas de mejora."}`;
             }
-            const stressLabel = pssScore <= 19 ? "Estrés percibido bajo" : pssScore <= 25 ? "Estrés percibido moderado" : "Estrés percibido elevado";
+            const stressLabel = pssScore <= 13 ? "Estrés percibido bajo" : pssScore <= 26 ? "Estrés percibido moderado" : "Estrés percibido elevado";
             const sleep = sleepHours();
             const sleepFinding = sleep === null ? "sueño no indicado" : sleepProfilePenalty() > 0 ? "duración o calidad del sueño fuera del rango favorable" : "sueño en rango favorable";
             return `<b>${stressLabel}.</b> ${sleepFinding.charAt(0).toUpperCase() + sleepFinding.slice(1)}. ${level === "favorable" ? "En conjunto, los indicadores reflejan un adecuado bienestar emocional y manejo de las demandas cotidianas." : level === "attention" ? "Los resultados indican factores que pueden estar afectando de manera importante el bienestar emocional o el funcionamiento cotidiano." : "Los resultados muestran señales que ameritan seguimiento del bienestar emocional y del manejo del estrés."}`;
           })();
-          return { ...domain, title: conditionCopy[domain.key].title, status, detail: `${interpretation}<br><b>Recomendación:</b> ${copy[1]}` };
+          const finding = (() => {
+            if (domain.key === "metabolic") {
+              if (/obes/i.test(results.bmi.label)) return results.bmi.label;
+              if (/sobrepeso/i.test(results.bmi.label)) return "Sobrepeso";
+              if (results.waist.label !== "Riesgo menor") return results.waist.label;
+              return "Peso adecuado";
+            }
+            if (domain.key === "cardio") {
+              if (results.bp.delta > 0) return `Presión ${results.bp.label}`;
+              if (radioValue("fuma_actual") > 0) return "Tabaquismo actual";
+              if (radioValue("ex_fumador") > 0) return "Antecedente de tabaquismo";
+              if (radioValue("alcohol_q") > 0) return "Alcohol en seguimiento";
+              return `Presión ${results.bp.label}`;
+            }
+            if (domain.key === "function") {
+              if (results.strength.delta > 0) return `Fuerza ${results.strength.label}`;
+              if (radioValue("actividad_q") >= 0) return "Actividad insuficiente";
+              if (radioValue("fuerza_q") >= 0) return "Fuerza por mejorar";
+              return `Fuerza ${results.strength.label}`;
+            }
+            if (domain.key === "nutrition") return level === "favorable" ? "Hábitos adecuados" : level === "attention" ? "Hábitos requieren atención" : "Hábitos por mejorar";
+            return pssScore <= 13 ? "Estrés bajo" : pssScore <= 26 ? "Estrés moderado" : "Estrés alto";
+          })();
+          return { ...domain, title: conditionCopy[domain.key].title, status, finding, detail: copy };
         });
         const rawDelta = domains.reduce(
           (sum, domain) => sum + domain.impact,
@@ -5701,7 +5717,7 @@
               ? "Horario no indicado"
               : `${Math.floor(sleep)} h${Math.round((sleep % 1) * 60) ? ` ${Math.round((sleep % 1) * 60)} min` : ""} · ${selectedText("sueno_reparador")}`;
         const pssLevel =
-          pssScore <= 19 ? "Bajo" : pssScore <= 25 ? "Moderado" : "Elevado";
+          pssScore <= 13 ? "Bajo" : pssScore <= 26 ? "Moderado" : "Alto";
         const patientStatus = (delta) =>
           delta < 0
             ? { label: "Favorable", css: "favorable" }
@@ -5721,9 +5737,9 @@
         setPatientStatus("r-patient-food-status", patientStatus(food.impact));
         setPatientStatus(
           "r-patient-psych-status",
-          pssScore <= 19
+          pssScore <= 13
             ? { label: "Favorable", css: "favorable" }
-            : pssScore <= 25
+            : pssScore <= 26
               ? { label: "En observación", css: "observation" }
               : { label: "Requiere atención", css: "attention" },
         );
@@ -5738,7 +5754,7 @@
         set("r-patient-food", food.classification);
         set("r-patient-food-rec", food.priorities.length ? food.priorities.map((item) => item.recommendation).join(" ") : "Mantener las prácticas alimentarias favorables y continuar el seguimiento preventivo.");
         set("r-patient-psych", pssLevel);
-        set("r-patient-psych-rec", pssScore > 25 ? "El nivel de estrés percibido es elevado. Se sugiere valoración profesional y medidas estructuradas de manejo del estrés." : pssScore >= 20 ? "El nivel de estrés percibido es moderado. Conviene reforzar estrategias de recuperación y vigilar su evolución." : "El nivel de estrés percibido es bajo. Mantener las estrategias actuales de autocuidado y recuperación.");
+        set("r-patient-psych-rec", pssScore >= 27 ? "El nivel de estrés percibido es elevado. Se sugiere valoración profesional y medidas estructuradas de manejo del estrés." : pssScore >= 14 ? "El nivel de estrés percibido es moderado. Conviene reforzar estrategias de recuperación y vigilar su evolución." : "El nivel de estrés percibido es bajo. Mantener las estrategias actuales de autocuidado y recuperación.");
         const factorRows = [
           [
             "Fuerza de agarre",
@@ -5844,10 +5860,10 @@
           ],
           [
             "Estrés percibido PSS-14",
-            `${pssScore}/56 · ${pssLevel}`,
-            pssScore > 25
+            `${pssScore}/40 · ${pssLevel}`,
+            pssScore >= 27
               ? "Solicitar valoración profesional y establecer medidas estructuradas de manejo del estrés."
-              : pssScore >= 20
+              : pssScore >= 14
                 ? "Incorporar pausas, respiración o actividad física y vigilar la evolución del estrés."
                 : "Mantener las estrategias actuales de recuperación y autocuidado.",
             pssAdjustment,
@@ -5889,7 +5905,7 @@
         );
         set(
           "r-summary-habits",
-          `El sueño habitual fue ${sleepLabel.toLowerCase()}. El TAB-NUMED obtuvo ${food.score}/24 (${food.classification.toLowerCase()}), el consumo de alcohol fue ${selectedText("alcohol_q").toLowerCase()} y el estrés percibido alcanzó ${pssScore}/56 (${pssLevel.toLowerCase()}). Son áreas modificables que pueden favorecer recuperación, energía y bienestar.`,
+          `El sueño habitual fue ${sleepLabel.toLowerCase()}. El TAB-NUMED obtuvo ${food.score}/24 (${food.classification.toLowerCase()}), el consumo de alcohol fue ${selectedText("alcohol_q").toLowerCase()} y el estrés percibido alcanzó ${pssScore}/40 (${pssLevel.toLowerCase()}). Son áreas modificables que pueden favorecer recuperación, energía y bienestar.`,
         );
         set(
           "r-summary-history",
@@ -5964,7 +5980,7 @@
                 : domain.status === "Requiere atención"
                   ? "alert"
                   : "watch";
-            return `<article class="domain-card ${cardTone}"><div class="domain-head"><strong>${domain.title}</strong></div><span class="domain-status">${domain.status}</span><p>${domain.detail}</p></article>`;
+            return `<article class="domain-card ${cardTone}"><div class="domain-head"><strong>${domain.title}</strong></div><div class="domain-badges"><span class="domain-status">${domain.status}</span><span class="domain-status domain-finding">${domain.finding}</span></div><p>${domain.detail}</p></article>`;
           })
           .join("");
         const leadingDomain = [...domains].sort(
@@ -6082,12 +6098,12 @@
       function validNum(v){return v!==null&&v!==undefined&&v!==""&&Number.isFinite(Number(v))}
       function renderBars(target, rows){const el=$(target);if(!el)return;el.innerHTML=rows.map(r=>{const suffix=r.available===false?"Sin datos":`${r.count} · ${r.value}%`;const width=r.available===false?0:r.value;return `<div class="pop-bar-row"><span>${r.label}</span><div class="pop-track"><div class="pop-fill" data-width="${width}%"></div></div><strong style="font-size:12px">${suffix}</strong></div>`}).join("");requestAnimationFrame(()=>requestAnimationFrame(()=>el.querySelectorAll('.pop-fill').forEach(x=>x.style.width=x.dataset.width)))}
       function bmiGroup(v){v=Number(v);if(!Number.isFinite(v))return null;if(v<18.5)return"Bajo peso";if(v<25)return"Normal";if(v<30)return"Sobrepeso";if(v<35)return"Obesidad I";if(v<40)return"Obesidad II";return"Obesidad III"}
-      function priorityReasons(x){const reasons=[];const bmi=Number(x.imc);if(Number.isFinite(bmi)&&bmi>=40)reasons.push("Obesidad III");else if(Number.isFinite(bmi)&&bmi>=35)reasons.push("Obesidad II");else if(Number.isFinite(bmi)&&bmi>=30)reasons.push("Obesidad");if(x.cinturaClasificacion==="Riesgo alto")reasons.push("Riesgo abdominal alto");if(x.presion==="Crisis hipertensiva")reasons.push("Crisis hipertensiva");else if(x.presion==="Hipertensión Grado 2")reasons.push("Hipertensión Grado 2");if(x.estres==="Elevado")reasons.push("Estrés elevado");if(x.alimentacion&&/mejorable|desfavorable|muy desfavorable/i.test(x.alimentacion))reasons.push("Alimentación a mejorar");return reasons}
+      function priorityReasons(x){const reasons=[];const bmi=Number(x.imc);if(Number.isFinite(bmi)&&bmi>=40)reasons.push("Obesidad III");else if(Number.isFinite(bmi)&&bmi>=35)reasons.push("Obesidad II");else if(Number.isFinite(bmi)&&bmi>=30)reasons.push("Obesidad");if(x.cinturaClasificacion==="Riesgo alto")reasons.push("Riesgo abdominal alto");if(x.presion==="Crisis hipertensiva")reasons.push("Crisis hipertensiva");else if(x.presion==="Hipertensión Grado 2")reasons.push("Hipertensión Grado 2");if(x.estres==="Alto")reasons.push("Estrés elevado");if(x.alimentacion&&/mejorable|desfavorable|muy desfavorable/i.test(x.alimentacion))reasons.push("Alimentación a mejorar");return reasons}
       function priorityLevel(x){const r=priorityReasons(x);if(r.some(v=>/Crisis|Grado 2/.test(v)))return"Alta";const major=r.filter(v=>/Obesidad II|Obesidad III|Riesgo abdominal alto/.test(v)).length;if(major>=2||r.length>=3)return"Alta";if(r.length>=1)return"Media";return"Sin alerta"}
       function renderPriorityCases(h){const el=$("#pop-priority-cases");if(!el)return;const cases=h.map((x,i)=>({x,i,level:priorityLevel(x),reasons:priorityReasons(x)})).filter(c=>c.level!=="Sin alerta").sort((a,b)=>(a.level==="Alta"?0:1)-(b.level==="Alta"?0:1)).slice(0,8);if(!cases.length){el.innerHTML='<div class="pop-empty">No se identificaron casos que activen los criterios de prioridad con los datos disponibles.</div>';return}el.innerHTML=`<div style="display:grid;gap:10px">${cases.map((c,j)=>`<div class="pop-case" style="display:grid;grid-template-columns:1.1fr 90px 2fr;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:12px"><strong><span class="screen-case-name">${c.x.nombre||`Paciente ${c.i+1}`}</span><span class="print-case-name" style="display:none">Caso prioritario ${String(j+1).padStart(2,"0")}</span><small style="display:block;color:var(--muted);font-weight:500">${c.x.edad?`${c.x.edad} años · `:""}${c.x.genero||""}</small></strong><span class="patient-status ${c.level==="Alta"?"attention":"observation"}" style="justify-self:start">Prioridad ${c.level.toLowerCase()}</span><span style="font-size:13px">${c.reasons.join(" · ")}</span></div>`).join("")}</div>`}
       function renderPopulationReport(){const h=populationData(),n=h.length;set("pop-total",n);const empty=$("#pop-empty"),content=$("#pop-content");if(!n){empty.style.display="block";content.style.display="none";return}empty.style.display="none";content.style.display="block";
         const withBmi=h.filter(x=>validNum(x.imc)),withWaist=h.filter(x=>x.cinturaClasificacion||validNum(x.perimetro)),withBp=h.filter(x=>x.presion),withFood=h.filter(x=>x.alimentacion),withStress=h.filter(x=>x.estres),withBio=h.filter(x=>validNum(x.bio)&&validNum(x.edad));
-        const overweight=withBmi.filter(x=>Number(x.imc)>=25).length, obesity=withBmi.filter(x=>Number(x.imc)>=30).length, waist=withWaist.filter(x=>x.cinturaClasificacion==="Riesgo alto"||(!x.cinturaClasificacion&&Number(x.perimetro)>=(x.genero==="Femenino"?88:102))).length,bio=withBio.filter(x=>Number(x.bio)>Number(x.edad)).length,food=withFood.filter(x=>!/^(favorable|patrón favorable)$/i.test(x.alimentacion)).length,stress=withStress.filter(x=>x.estres==="Elevado").length;
+        const overweight=withBmi.filter(x=>Number(x.imc)>=25).length, obesity=withBmi.filter(x=>Number(x.imc)>=30).length, waist=withWaist.filter(x=>x.cinturaClasificacion==="Riesgo alto"||(!x.cinturaClasificacion&&Number(x.perimetro)>=(x.genero==="Femenino"?88:102))).length,bio=withBio.filter(x=>Number(x.bio)>Number(x.edad)).length,food=withFood.filter(x=>!/^(favorable|patrón favorable)$/i.test(x.alimentacion)).length,stress=withStress.filter(x=>x.estres==="Alto").length;
         const priority=h.filter(x=>priorityLevel(x)!=="Sin alerta").length,high=h.filter(x=>priorityLevel(x)==="Alta").length;set("pop-critical",pct(priority,n)+"%");set("pop-weight",withBmi.length?pct(overweight,withBmi.length)+"%":"—");set("pop-bio",withBio.length?pct(bio,withBio.length)+"%":"—");set("pop-opportunity",`${priority} de ${n} personas (${pct(priority,n)}%)`);
         const cats=["Bajo peso","Normal","Sobrepeso","Obesidad I","Obesidad II","Obesidad III"];renderBars("#pop-bmi-bars",cats.map(label=>{const count=withBmi.filter(x=>bmiGroup(x.imc)===label).length;return{label,count,value:pct(count,withBmi.length),available:!!withBmi.length}}));
         renderBars("#pop-risk-bars",[{label:"Riesgo abdominal alto",count:waist,value:pct(waist,withWaist.length),available:!!withWaist.length},{label:"Alimentación a mejorar",count:food,value:pct(food,withFood.length),available:!!withFood.length},{label:"Estrés elevado",count:stress,value:pct(stress,withStress.length),available:!!withStress.length},{label:"Edad biológica mayor",count:bio,value:pct(bio,withBio.length),available:!!withBio.length}]);
@@ -6106,17 +6122,17 @@
       function renderStressQR(){ const url=stressPublicURL(); set("stress-public-url",url); const img=$("#stress-qr-img"); if(img) img.src="https://api.qrserver.com/v1/create-qr-code/?size=420x420&data="+encodeURIComponent(url); }
       function stressInboxData(){ try{return JSON.parse(localStorage.getItem("numed-stress-inbox"))||[]}catch(e){return[]} }
       function saveStressInbox(rows){ localStorage.setItem("numed-stress-inbox",JSON.stringify(rows)); }
-      function stressLevel(score){ return score<=19?"Bajo":score<=25?"Moderado":"Elevado"; }
+      function stressLevel(score){ return score<=13?"Bajo":score<=26?"Moderado":"Alto"; }
       function renderStressInbox(){ const el=$("#stress-inbox"); if(!el)return; const rows=stressInboxData(); if(!rows.length){el.innerHTML='<div class="stress-empty">Todavía no hay cuestionarios recibidos.</div>';return} el.innerHTML=`<table class="stress-table"><thead><tr><th>Paciente</th><th>Recibido</th><th>Estado</th><th></th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td><strong>${r.first} ${r.last}</strong><br><small>${r.phone||"Sin teléfono"}</small></td><td>${new Date(r.createdAt).toLocaleString("es-DO")}</td><td><span class="stress-status">Completado</span></td><td><button class="btn btn-primary stress-use" type="button" data-i="${i}">Realizar evaluación</button></td></tr>`).join("")}</tbody></table>`; $$(".stress-use",el).forEach(b=>b.addEventListener("click",()=>useStressPatient(Number(b.dataset.i)))); }
-      function useStressPatient(i){ const r=stressInboxData()[i]; if(!r)return; $("#firstName").value=r.first; $("#lastName").value=r.last; $("#phone").value=r.phone||""; Object.entries(r.answers||{}).forEach(([name,val])=>{const radio=$(`input[name="${name}"][value="${val}"]`,form);if(radio)radio.checked=true}); saveFormData(); stressHub.classList.remove("visible"); $("#evaluacion").style.display=""; $("#inicio").style.display=""; $("#profile-section").scrollIntoView({behavior:"smooth"}); toast("Paciente y Estrés Percibido cargados en la evaluación"); }
+      function useStressPatient(i){ const r=stressInboxData()[i]; if(!r)return; $("#firstName").value=r.first; $("#lastName").value=r.last; $("#phone").value=r.phone||""; Object.entries(r.answers||{}).forEach(([name,val])=>{ let radio=$(`input[name="${name}"][value="${val}"]`,form); if(!radio){ radio=document.createElement("input"); radio.type="radio"; radio.name=name; radio.value=val; radio.style.display="none"; form.appendChild(radio); } radio.checked=true; }); saveFormData(); stressHub.classList.remove("visible"); $("#evaluacion").style.display=""; $("#inicio").style.display=""; $("#profile-section").scrollIntoView({behavior:"smooth"}); toast("Paciente y Estrés Percibido cargados en la evaluación"); }
       function openStressHub(){ renderStressQR(); renderStressInbox(); stressHub.classList.add("visible"); $("#evaluacion").style.display="none"; $("#inicio").style.display="none"; const pop=$("#reportes"); if(pop)pop.classList.remove("visible"); stressHub.scrollIntoView({behavior:"smooth"}); }
-      function showStressPublic(){ $("header").style.display="none"; $("#inicio").style.display="none"; $("#evaluacion").style.display="none"; $("#reportes").style.display="none"; stressHub.style.display="none"; stressMobile.classList.add("visible"); const source=$('[data-question-step="3"]'); const target=$("#stress-question-container"); if(source&&target&&!target.children.length){const clone=source.cloneNode(true); clone.removeAttribute("id"); target.appendChild(clone);} }
+      function showStressPublic(){ $("header").style.display="none"; $("#inicio").style.display="none"; $("#evaluacion").style.display="none"; $("#reportes").style.display="none"; stressHub.style.display="none"; stressMobile.classList.add("visible"); const target=$("#stress-question-container"); if(target&&!target.children.length){ const qs=["¿Con qué frecuencia ha estado afectado por alguna situación que ocurrió inesperadamente?","¿Con qué frecuencia se ha sentido incapaz de controlar las cosas importantes de su vida?","¿Con qué frecuencia se ha sentido nervioso o estresado?","¿Con qué frecuencia ha estado seguro sobre su capacidad para manejar sus problemas personales?","¿Con qué frecuencia ha sentido que las cosas le van bien?","¿Con qué frecuencia ha sentido no poder afrontar todas las cosas que debía realizar?","¿Con qué frecuencia ha podido controlar las dificultades de su vida?","¿Con qué frecuencia se ha sentido que tenía todo bajo control?","¿Con qué frecuencia ha estado enfadado porque las cosas que le han ocurrido estaban fuera de su control?","¿Con qué frecuencia ha sentido que las dificultades se acumulan tanto que no puede superarlas?"]; const positive=new Set([4,5,7,8]); const opts=["Nunca","Casi nunca","De vez en cuando","A menudo","Muy a menudo"]; target.innerHTML='<div class="section-note"><strong>PSS-10 · 10 preguntas.</strong> Responda pensando en sus sentimientos y pensamientos durante el último mes.</div><div class="question-list">'+qs.map((q,idx)=>{const n=idx+1;return '<div class="question"><div class="question-top"><span class="q-number">P'+n+'</span><div class="q-copy">Durante el último mes, '+q.charAt(1).toLowerCase()+q.slice(2)+'</div></div><div class="radio-options">'+opts.map((o,v)=>'<label class="radio-card"><input type="radio" name="pss_'+n+'" value="'+(positive.has(n)?4-v:v)+'" required><span>'+o+'</span></label>').join('')+'</div></div>'}).join('')+'</div>'; } }
       const openStress=$("#open-stress-hub"); if(openStress)openStress.addEventListener("click",openStressHub);
       const closeStress=$("#close-stress-hub"); if(closeStress)closeStress.addEventListener("click",()=>{stressHub.classList.remove("visible");$("#evaluacion").style.display="";$("#inicio").style.display="";});
       const refreshStress=$("#refresh-stress"); if(refreshStress)refreshStress.addEventListener("click",()=>{renderStressInbox();toast("Bandeja actualizada")});
       const copyStress=$("#copy-stress-link"); if(copyStress)copyStress.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(stressPublicURL());toast("Enlace copiado")}catch(e){toast("Copia el enlace mostrado debajo del QR")}});
       const previewStress=$("#open-stress-preview"); if(previewStress)previewStress.addEventListener("click",()=>window.open(stressPublicURL(),"_blank"));
-      const publicForm=$("#stress-public-form"); if(publicForm)publicForm.addEventListener("submit",e=>{e.preventDefault(); const answers={}; let complete=true; for(let i=1;i<=14;i++){const x=$(`input[name="pss_${i}"]:checked`,publicForm);if(!x){complete=false;break}answers[`pss_${i}`]=x.value} if(!complete){alert("Responde las 14 preguntas antes de enviar.");return} const score=Object.values(answers).reduce((a,v)=>a+Number(v),0); const rows=stressInboxData(); rows.unshift({id:(crypto.randomUUID?crypto.randomUUID():Date.now().toString()),first:$("#stress-first").value.trim(),last:$("#stress-last").value.trim(),phone:$("#stress-phone").value.trim(),answers,score,level:stressLevel(score),createdAt:new Date().toISOString(),status:"completed"}); saveStressInbox(rows); publicForm.style.display="none"; $("#stress-thanks").style.display="block"; });
+      const publicForm=$("#stress-public-form"); if(publicForm)publicForm.addEventListener("submit",e=>{e.preventDefault(); const answers={}; let complete=true; for(let i=1;i<=10;i++){const x=$(`input[name="pss_${i}"]:checked`,publicForm);if(!x){complete=false;break}answers[`pss_${i}`]=x.value} if(!complete){alert("Responde las 10 preguntas antes de enviar.");return} const score=Object.values(answers).reduce((a,v)=>a+Number(v),0); const rows=stressInboxData(); rows.unshift({id:(crypto.randomUUID?crypto.randomUUID():Date.now().toString()),first:$("#stress-first").value.trim(),last:$("#stress-last").value.trim(),phone:$("#stress-phone").value.trim(),answers,score,level:stressLevel(score),createdAt:new Date().toISOString(),status:"completed"}); saveStressInbox(rows); publicForm.style.display="none"; $("#stress-thanks").style.display="block"; });
       if(new URLSearchParams(location.search).get("stress")==="1") showStressPublic();
 
       // Cargar datos guardados al iniciar
